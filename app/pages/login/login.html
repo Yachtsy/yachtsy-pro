@@ -1,0 +1,19 @@
+<ion-header class="login">
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="login">
+  <img width="50%" style="margin-left:auto;margin-right: auto;display:block" src="img/Yachtsy_Icon_White_72ppi.png">
+  <ion-list no-lines>
+    <ion-item>
+      <ion-input [(ngModel)]="username" type="text" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input [(ngModel)]="password" type="password" placeholder="Password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button light full (click)="login()">LOG IN</button>
+  </div>
+</ion-content>

@@ -1,0 +1,17 @@
+  <ion-content padding>
+    <h2>Send Quote</h2>
+    <button (click)="close()">Close</button>
+
+    <ion-item>
+        <ion-label>Price</ion-label>
+        <ion-input [(ngModel)]="price"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Message</ion-label>
+        <ion-textarea [(ngModel)]="message"></ion-textarea>
+    </ion-item>
+
+    <button block (click)="sendQuote()">Send</button>
+
+  </ion-content>

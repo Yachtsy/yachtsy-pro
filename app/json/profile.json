@@ -1,0 +1,338 @@
+{
+    "pages": [
+        {
+            "type": "progress",
+            "required": true,
+            "enabled": true,
+            "title": "Let's create a profile that customers will love.",
+            "body": {
+                "items": [
+                    {
+                        "label": "List your qualifications",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "label": "Describe you service",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "label": "Enter your information",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "label": "Add a profile photo",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "label": "Ask for a review",
+                        "type": "checkbox",
+                        "checked": false
+                    }
+                ]
+            }
+        },
+        {
+            "name": "qualifications",
+            "type": "select",
+            "required": false,
+            "requiredDeterminedBy": "supplierCategoryQualifications",
+            "enabled": true,
+            "title": "Which of the following qualifications do you have?",
+            "body": {
+                "items": [
+                    {
+                        "name": "rya_mca_yachtmaster",    
+                        "label": "RYA/MCA Yachtmaster Coastal Certificate of Competence (or equivalent)",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "name": "rya_mca_yachtmaster_commercial",
+                        "label": "RYA/MCA Yachtmaster Coastal Certificate of Competence  with commercial endorsement (or equaivalent)",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "name": "rya_mca_yachtmaster_offshore",
+                        "label": "RYA/MCA Yachtmaster Offshore Certificate of Competence (or equivalent)",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "name": "rya_mca_yachtmaster_offshore_commercial",
+                        "label": "RYA/MCA Yachtmaster Offshore Certificate of Competence with commercial endorsement (or equivalent)",
+                        "type": "checkbox",
+                        "checked": false
+                    },
+                    {
+                        "name": "rya_mca_yachtmaster_ocean",
+                        "label": "RYA/MCA Yachtmaster Ocean Certificate of Competence (or equivalent)",
+                        "type": "checkbox",
+                        "checked": false
+                    }
+                ]
+            }
+        },
+        {
+            "type": "progress",
+            "required": true,
+            "enabled": true,
+            "title": "Ok so - keep it up  4 steps to go.",
+            "body": {
+                "items": [
+                    {
+                        "label": "List your qualifications",
+                        "checked": true
+                    },
+                    {
+                        "label": "Describe you service",
+                        "checked": false
+                    },
+                    {
+                        "label": "Enter your information",
+                        "checked": false
+                    },
+                    {
+                        "label": "Add a profile photo",
+                        "checked": false
+                    },
+                    {
+                        "label": "Ask for a review",
+                        "checked": false
+                    }
+                ]
+            }
+        },
+        {
+            "name": "business_description",
+            "type": "input",
+            "required": true,
+            "enabled": true,
+            "title": "Describe your service",
+            "body": {
+                "items": [
+                    {
+                        "name": "business_name",
+                        "label": "Business Name",
+                        "type": "text",
+                        "placeholder": "Enter busineses name"
+                    },
+                    {
+                        "name": "business_stand_out",
+                        "label": "How does your service stand out?",
+                        "type": "textarea",
+                        "placeholder": "Tell customers what parts of teh job make you excited or satisfied",
+                        "example": "This is the example for the service stand out - CHANGE"
+                    },
+                    {
+                        "name": "business_enjoy",
+                        "label": "What do you enjoy about the work you do?",
+                        "type": "textarea",
+                        "placeholder": "Describe what makes your service great. If you have experience working with a particular type of customer or proejct, share this here.",
+                        "example": "This is the example for the service stand out - CHANGE"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "progress",
+            "required": true,
+            "enabled": true,
+            "title": "Great work! Three steps to go.",
+            "body": {
+                "items": [
+                    {
+                        "label": "List your qualifications",
+                        "checked": true
+                    },
+                    {
+                        "label": "Describe you service",
+                        "checked": true
+                    },
+                    {
+                        "label": "Enter your information",
+                        "checked": false
+                    },
+                    {
+                        "label": "Add a profile photo",
+                        "checked": false
+                    },
+                    {
+                        "label": "Ask for a review",
+                        "checked": false
+                    }
+                ]
+            }
+        },
+        {
+            "name": "id_details",
+            "type": "input",
+            "required": true,
+            "enabled": true,
+            "title": "Please enter the following as it appears on your ID.",
+            "body": {
+                "items": [
+                    {
+                        "name": "first_name",
+                        "label": "First Name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "last_name",
+                        "label": "Last Name",
+                        "type": "text"
+                    },
+                    {
+                        "name": "dob",
+                        "label": "DOB",
+                        "type": "text"
+                    },
+                    {
+                        "name": "country",
+                        "label": "Country",
+                        "type": "text"
+                    },
+                    {
+                        "name": "address",
+                        "label": "Address",
+                        "type": "text"
+                    },
+                    {
+                        "name": "post_code",
+                        "label": "Post Code",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "progress",
+            "required": true,
+            "enabled": true,
+            "title": "Great work! Just two steps to go.",
+            "body": {
+                "items": [
+                    {
+                        "label": "List your qualifications",
+                        "checked": true
+                    },
+                    {
+                        "label": "Describe you service",
+                        "checked": true
+                    },
+                    {
+                        "label": "Enter your information",
+                        "checked": true
+                    },
+                    {
+                        "label": "Add a profile photo",
+                        "checked": false
+                    },
+                    {
+                        "label": "Ask for a review",
+                        "checked": false
+                    }
+                ]
+            }
+        },
+        {
+            "name": "photo",
+            "type": "photo",
+            "required": true,
+            "enabled": true,
+            "title": "Upload a picture of you or your business logo.",
+            "body": {
+                "items": [
+                    {
+                        "label": "Select or take a new photo",
+                        "type": "photo"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "progress",
+            "required": true,
+            "enabled": true,
+            "title": "Great work! Only 1 step to go.",
+            "body": {
+                "items": [
+                    {
+                        "label": "List your qualifications",
+                        "checked": true
+                    },
+                    {
+                        "label": "Describe you service",
+                        "checked": true
+                    },
+                    {
+                        "label": "Enter your information",
+                        "checked": true
+                    },
+                    {
+                        "label": "Add a profile photo",
+                        "checked": true
+                    },
+                    {
+                        "label": "Ask for a review",
+                        "checked": false
+                    }
+                ]
+            }
+        },
+        {
+            "name": "reviews",
+            "type": "input",
+            "required": true,
+            "enabled": true,
+            "title": "Get some reviews. Reviews = business",
+            "body": {
+                "items": [
+                    {
+                        "name": "review_emails",
+                        "label": "Let us ask your past customers to review you",
+                        "type": "textarea",
+                        "placeholder": "Enter customer emails separated by commas",
+                        "example": "This is the example for the service stand out - CHANGE",
+                        "smalltext": "We'll send 1 email and up to 2 reminder emails on your behalf"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "progress",
+            "lastPage": true,
+            "required": true,
+            "enabled": true,
+            "title": "Your profile is set up and looking good.",
+            "body": {
+                "items": [
+                    {
+                        "label": "List your qualifications",
+                        "checked": true
+                    },
+                    {
+                        "label": "Describe you service",
+                        "checked": true
+                    },
+                    {
+                        "label": "Enter your information",
+                        "checked": true
+                    },
+                    {
+                        "label": "Add a profile photo",
+                        "checked": true
+                    },
+                    {
+                        "label": "Ask for a review",
+                        "checked": true
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>REQUESTS</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content fullscreen padding class="requests">
+  <ion-card tappable *ngFor="let item of requests" (click)="click(item)">
+    <ion-card-header>
+      {{item.categoryName}}
+      <p>{{item.date | date: 'dd/MM/yy HH:mm'}}</p>
+    </ion-card-header>
+    <ion-card-content>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>

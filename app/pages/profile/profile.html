@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="profile">
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>{{user.email}}</ion-label>
+    </ion-item>
+
+    <button ion-item block (click)="logout()">Logout</button>
+
+    <!--<button ion-item block (click)="delete()">Delete</button>-->
+
+    <button ion-item block (click)="goToPreferences()">Category Preferences</button>
+
+
+    <!--<ion-item *ngFor="let item of categories">
+    {{item}}
+  </ion-item>-->
+
+  </ion-list>
+</ion-content>

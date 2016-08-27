@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>QUOTES</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="quotes">
+  <ion-card tappable *ngFor="let item of requests" (click)="click(item)">
+    <ion-item>
+      <h2>{{item.categoryName}}</h2>
+      <button *ngIf="item.cancelled" item-right (click)="clearRequest($event, item)">CLEAR</button>
+    </ion-item>
+
+    <ion-card-content *ngIf="!item.cancelled">
+      <p>Requested: {{item.date | date: 'dd/MM/yy HH:mm'}}</p>
+      <p>Quoted: {{item.quote.price}}</p>
+    </ion-card-content>
+    <ion-card-content *ngIf="item.cancelled">
+      <p>This request was cancelled on {{item.cancelled | date: 'dd/MM/yy HH:mm'}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,76 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the imports which make up the design of this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+
+
+@import "../pages/login/login";
+
+@import "../components/chat-bubble/chat-bubble";
+
+@import "../pages/signup-or-login/signup-or-login";
+
+@import "../pages/signup/signup";
+
+@import "../pages/create-profile/create-profile";
+
+@import "../pages/messages/messages";
+
+
+
+.content-center-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-center-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;;
+}
+
+.content-center-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+ion-item{
+  .text-input {
+    font-size: large;
+  }
+}
+
+//makes the paragraph properly wrap the text inside it in multiple lines
+p {
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+ion-menu{
+  ion-content{
+    ion-list{
+      ion-icon{
+        margin-right: 20px;
+        color: #595959;
+      }
+    }
+  }
+}
+
+.Aligner {
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+    // min-height: 24em;
+    justify-content: center;
+}
+
+.Aligner-item {
+    flex: 1;
+}

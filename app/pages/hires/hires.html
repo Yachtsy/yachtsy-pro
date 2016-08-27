@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>HIRES</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="hires">
+
+  <div *ngFor="let item of hires">
+    <ion-card *ngIf="!item.cleared" tappable (click)="click(item)">
+
+      <ion-item>
+        <h2>{{item.categoryName}}</h2>
+        <button *ngIf="item.cancelled" item-right (click)="clearRequest($event, item)">CLEAR</button>
+      </ion-item>
+
+      <ion-card-content *ngIf="!item.cancelled">
+         <p>Hired: {{item.hiring.suppliers[user.uid].hiredDate | date: 'dd/MM/yy HH:mm' }}</p>
+      </ion-card-content>
+      <ion-card-content *ngIf="item.cancelled">
+        <p>This request was cancelled on {{item.cancelled | date: 'dd/MM/yy HH:mm'}}</p>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+</ion-content>

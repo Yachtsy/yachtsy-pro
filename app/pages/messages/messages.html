@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title></ion-title>
+    <ion-buttons end *ngIf="!request.hiring.completion">
+      <button (click)="markComplete()">Mark Complete</button>
+    </ion-buttons>
+
+    <ion-buttons end *ngIf="request.hiring.completion">
+      <button (click)="markComplete()" [disabled]="request.hiring.completion.requested">Mark Complete</button>
+    </ion-buttons>
+
+  </ion-navbar>
+  <ion-toolbar no-border-top>
+    Details about the job and the pro
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content class="messages">
+
+  <ion-card>
+
+    <ion-card-header wrap>
+
+    </ion-card-header>
+
+
+  </ion-card>
+
+  <ion-list no-lines>
+    <ion-item *ngFor="let msg of messages">
+      <chat-bubble [message]="msg"></chat-bubble>
+    </ion-item>
+  </ion-list>
+  <!--
+  <div *ngFor="let item of messages">
+
+
+    <div *ngIf="item.uid === userId">
+      <div class="chat-bubble right">
+        <div class="message">
+          {{item.body}}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!(item.uid === userId)">
+
+      <div class="chat-bubble left">
+        <div class="message">
+          {{item.body}}
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+
+
+
+
+  <!--<ion-item>{{item.body}}</ion-item>-->
+
+
+
+
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input [(ngModel)]="message"></ion-input>
+    <ion-buttons end>
+      <button royal (click)="sendMessage()">
+      <ion-icon name="send"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

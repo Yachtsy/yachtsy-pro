@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="create-profile">
+
+  <h4>{{currentPage.title}}</h4>
+
+  <ion-list no-lines>
+
+    <div *ngIf="currentPage.type === 'progress' ">
+      <ion-item *ngFor="let item of currentPage.body.items">
+        <ion-label>{{item.label}}</ion-label>
+
+        <ion-icon *ngIf="item.checked" name='ios-checkbox-outline' item-right></ion-icon>
+        <ion-icon *ngIf="!item.checked" name='square-outline' item-right></ion-icon>
+
+      </ion-item>
+
+
+    </div>
+
+    <div *ngIf="currentPage.type === 'select' ">
+      <button ion-item text-wrap detail-none *ngFor="let item of currentPage.body.items" (click)="clicked(item)">
+      
+      <ion-icon *ngIf="answers[currentPage.name] && answers[currentPage.name][item.name]" name='ios-checkbox-outline' item-right></ion-icon>
+      <ion-icon *ngIf="!answers[currentPage.name] || !answers[currentPage.name][item.name]" name='square-outline' item-right></ion-icon>
+      
+      <ion-label>{{item.label}}</ion-label>
+      
+    </button>
+
+   </div>
+
+    <div *ngIf="currentPage.type === 'input'">
+
+      <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
+
+      <form [formGroup]="profileForm" (ngSubmit)="submitForm()">
+
+        <!--<p> {{form.controls[item.name].valid}} </p>-->
+        <!--<ion-item text-wrap *ngIf="!form.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)"  >-->
+        <!--<p class="hint">Please enter a valid {{item.label}}.</p>-->
+        <!--</ion-item>-->
+
+        <ion-item *ngFor="let item of currentPage.body.items" text-wrap>
+
+          <ion-label [class.err]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)" floating>{{item.label}}</ion-label>
+
+          <!-- input text box -->
+          <!-- [(ngModel)]="answers[currentPage.name][item.label]" -->
+          <ion-input *ngIf="item.type === 'text'" formControlName="{{item.name}}" type="text" (change)="elementChanged(item.name)"
+            [class.invalid]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)">
+          </ion-input>
+
+          <!-- input text area -->
+          <!--[(ngModel)]="answers[currentPage.name][item.label]"-->
+          <ion-textarea *ngIf="item.type === 'textarea'" formControlName="{{item.name}}" type="text" (change)="elementChanged(item.name)"
+            [class.invalid]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)">
+          </ion-textarea>
+
+          <!--<ion-item>
+            <p *ngIf="item.smalltext">{{item.smalltext}}</p>
+          </ion-item>-->
+        </ion-item>
+
+      </form>
+    </div>
+
+
+  </ion-list>
+
+  <div *ngIf="currentPage.type === 'photo'">
+
+    <button ion-item (click)="takePicture()">Take a Picture
+    <ion-label>Please take a photo or upload an existing one from the library</ion-label>
+    </button>
+
+    <img [src]="base64Image" *ngIf="base64Image" />
+    <!--<button block *ngIf="true" (click)="next()">
+           Next
+      </button>-->
+  </div>
+
+
+</ion-content>
+
+<ion-footer>
+
+  <button *ngIf="currentPage.type === 'input'" block (click)="submitForm()" >Next</button>
+  <button *ngIf="currentPage.type !== 'input' && !currentPage.lastPage" block (click)="next()">Next</button>
+  <button *ngIf="currentPage.lastPage" block (click)="save()">Save</button>
+
+</ion-footer>

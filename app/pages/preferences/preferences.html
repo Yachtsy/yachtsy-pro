@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Preferences</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="preferences">
+
+  <ion-list>
+    <ion-item *ngFor="let item of categories; let i = index">
+      <ion-label>{{item.name}}</ion-label>
+      <ion-toggle [(ngModel)]="categoryValues[i].enabled" (ionChange)="updateItem(item)"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

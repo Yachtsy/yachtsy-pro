@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ionic</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="img-src &apos;self&apos; data: maps.gstatic.com csi.gstatic.com maps.google.com maps.googleapis.com;default-src *; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *; style-src  &apos;self&apos; &apos;unsafe-inline&apos; *">
+  <link ios-href="build/css/app.ios.css" rel="stylesheet">
+  <link md-href="build/css/app.md.css" rel="stylesheet">
+  <link wp-href="build/css/app.wp.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <ion-app></ion-app>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBVVagrrr3FbVNZBIEfEkZWoXXKiaBlwyo",
+    authDomain: "yachtsy-test.firebaseapp.com",
+    databaseURL: "https://yachtsy-test.firebaseio.com",
+    storageBucket: "yachtsy-test.appspot.com",
+  };
+  firebase.initializeApp(config);
+</script>
+  <script src="http://maps.google.com/maps/api/js?libraries=places&amp;key=AIzaSyB2-pd_C9vShNuBpWzTBHzTtY6cinsYWM0"></script>
+  <!--<script src='https://maps.googleapis.com/maps/api/js?libraries=places'> </script> -->
+  <!-- cordova.js required for cordova apps -->
+  <script src="cordova.js"></script>
+  <!-- Polyfill needed for platforms without Promise and Collection support -->
+  <script src="build/js/es6-shim.min.js"></script>
+
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+
+  <!--<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
+  <script>
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB2-pd_C9vShNuBpWzTBHzTtY6cinsYWM0",
+    authDomain: "yachtsy.firebaseapp.com",
+    databaseURL: "https://yachtsy.firebaseio.com",
+    storageBucket: "project-1051109791616102915.appspot.com",
+  };
+  firebase.initializeApp(config);
+  </script>-->
+
+  <!-- Zone.js and Reflect-metadata  -->
+  <script src="build/js/Reflect.js"></script>
+  <script src="build/js/zone.js"></script>
+  <!-- the bundle which is built from the app's source code -->
+  <script src="build/js/app.bundle.js"></script>
+</body>
+
+</html>
