@@ -49,6 +49,7 @@ export class MyApp {
           if (snapshot.exists()) {
 
             var userData = snapshot.val();
+            console.log('user', userData);
 
             if (userData.emailVerified && userData.profile) {
               console.log('going to tabs page now');
@@ -56,6 +57,7 @@ export class MyApp {
                 this.nav.setRoot(TabsPage, {}, { animate: true, direction: 'forward' })
               });
             } else if (!userData.emailVerified) {
+              console.log('user email not verified');
               this.nav.setRoot(SignupPage, {
                 stepIndex: 6
               });

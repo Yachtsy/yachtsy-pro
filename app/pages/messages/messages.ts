@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, NgZone} from '@angular/core';
 import {NavController, NavParams, LoadingController} from 'ionic-angular';
 import {ChatBubble} from '../../components/chat-bubble/chat-bubble'
 import {ElasticTextarea} from '../../components/elastic-textarea'
@@ -19,10 +19,11 @@ export class MessagesPage {
 
   @ViewChild('content') content: any;
 
-  constructor(public nav: NavController, 
-    public navParams: NavParams, 
+  constructor(public nav: NavController,
+    public navParams: NavParams,
     public fbserv: FirebaseService,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    private ngZone: NgZone) {
 
 
   }
@@ -76,16 +77,19 @@ export class MessagesPage {
 
           console.log('message data is', msgData);
 
-          this.messages = Object.keys(msgData)
-            .map((key) => {
+          this.ngZone.run(() => {
+            this.messages = Object.keys(msgData)
+              .map((key) => {
 
-              msgData[key].position = 'right';
-              if (user.uid === msgData[key].uid) {
-                msgData[key].position = 'left';
-              }
+                msgData[key].position = 'right';
+                if (user.uid === msgData[key].uid) {
+                  msgData[key].position = 'left';
+                }
 
-              return msgData[key];
-            });
+                return msgData[key];
+              });
+          });
+
 
           setTimeout(() => {
             this.content.scrollToBottom(300);
