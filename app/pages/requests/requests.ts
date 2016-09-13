@@ -7,7 +7,7 @@ import {RequestDetailPage} from '../request-detail/request-detail'
 })
 export class RequestsPage {
 
-  
+
   public requests;
 
   constructor(public nav: NavController, private ngZone: NgZone) {
@@ -32,23 +32,22 @@ export class RequestsPage {
       if (snapshot.exists()) {
         var requestData = snapshot.val();
 
-        console.log(requestData);
+        //console.log(requestData);
+        var newRequests = [];
         Object.keys(requestData).map((key) => {
 
           var currentRequest = requestData[key];
-
           if (!(currentRequest.quote || currentRequest.hired || currentRequest.cancelled)) {
             currentRequest['id'] = key;
-
-            this.ngZone.run(() => {
-              this.requests.push(requestData[key]);
-            });
-
-            
+            newRequests.push(currentRequest);
           }
-
         });
+        this.ngZone.run(() => {
+          this.requests = newRequests;
+        });
+
       }
+
 
     }
     );
@@ -56,7 +55,7 @@ export class RequestsPage {
 
 
   click(item) {
-     console.log('click');
+    console.log('click');
     this.nav.push(RequestDetailPage, {
       requestId: item.id
     });

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
+import {Device} from 'ionic-native';
 
 
 //import * as firebase from "firebase";
@@ -46,6 +47,41 @@ export class FirebaseService {
         return firebase.auth().signOut()
     }
 
+    getCreditsRequiredForCategory(){
+        return firebase.database().ref().child('config').child('creditsRequiredForCategory').once('value');
+    }
+
+    validateReceipt(receipt) {
+
+        let platform = "google";
+        if (Device.device.platform === 'iOS') {
+            platform = 'apple';
+        }
+
+        var payload = {
+            receipt: receipt,
+            platform: platform
+        };
+
+        return this.doOperation('validateReceipt', payload);
+    }
+
+     getCreditBalance() {
+
+        var user = firebase.auth().currentUser;
+        // check the credits 
+        let ref = firebase.database().ref().child('users').child(user.uid).child('credits').child('balance');
+
+        return new Observable(observer => {
+            ref.on('value',
+                (snapshot) => {
+                    if (snapshot.exists()) {
+                        ref.off();
+                        observer.next(snapshot.val())
+                    }
+                });
+        });
+    }
 
     doOperation(operation, payload) {
 
@@ -76,7 +112,7 @@ export class FirebaseService {
                             //console.log('GOT NOTIFICATION: ', notification);
                             if (!notification.error) {
                                 data['clientId'] = clientId;
-                                resolve(data);
+                                resolve(notification);
                             } else {
                                 console.log(notification.message);
                                 reject(new Error(notification.stack));
@@ -98,8 +134,26 @@ export class FirebaseService {
         return this.doOperation('supplierRequestComplete', { requestId: requestId });
     }
 
-    clearRequest(requestId){
-        return this.doOperation('clearRequest',  { requestId: requestId })
+    clearRequest(requestId) {
+        return this.doOperation('clearRequest', { requestId: requestId })
+    }
+
+    sendQuote(requestId, price, message) {
+
+        let user = firebase.auth().currentUser;
+
+        var op = {
+            requestId: requestId,
+            supplierId: user.uid,
+            quote: {
+                price: price,
+                initialMessage: message
+            },
+            supplierNickName: user.email
+        };
+
+        return this.doOperation('newBid', op)
+
     }
 
     passRequest(requestId, userId) {
@@ -176,22 +230,6 @@ export class FirebaseService {
                 });
 
             });
-        });
-    }
-
-    getUserProfile(userId) {
-        var ref = firebase.database().ref().child('users').child(userId);
-
-        return new Observable(observer => {
-            ref.once('value').then(
-                (snapshot) => {
-
-                    observer.next(snapshot.val())
-                },
-                (error) => {
-                    console.log("ERROR:", error)
-                    observer.error(error)
-                });
         });
     }
 

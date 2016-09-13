@@ -1,24 +1,49 @@
 import {NavController} from 'ionic-angular';
-import {Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {PreferencesPage} from '../preferences/preferences'
+import {FirebaseService} from '../../components/firebaseService';
 
 @Component({
   templateUrl: 'build/pages/profile/profile.html',
 })
 export class ProfilePage {
 
-  user = firebase.auth().currentUser
+  user
+  profile
+  name
+  image = { url: "img/default-avatar.jpg" }
+  credits
+  email
 
-  constructor(public nav: NavController) {
+  constructor(public nav: NavController, public FBService: FirebaseService, private ngZone: NgZone) {
+
+
+
 
   }
 
-  profile
+
+
 
   ngOnInit() {
+    this.user = firebase.auth().currentUser;
+    this.email = this.user.email;
+    var ref = firebase.database().ref().child('users').child(this.user.uid);
 
-   
+    ref.on('value', (snapshot) => {
+      this.ngZone.run(() => {
+        this.profile = snapshot.val();
+        this.name = this.profile.firstName + ' ' + this.profile.lastName;
+        this.credits = this.profile.credits.balance;
+      });
+    })
+
+
+
+
   }
+
+
 
   logout() {
     firebase.auth().signOut().then(function () {

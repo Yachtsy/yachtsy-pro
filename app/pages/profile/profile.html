@@ -5,19 +5,26 @@
 </ion-header>
 <ion-content padding class="profile">
 
-  <ion-list>
+
+ <div class="profile-wrapper">
+        <div class="profile-image" [ngStyle]="{'background-image': 'url(' + image.url + ')'}"></div>
+        <div class="profile-name">{{name}}</div>
+    </div>
+
+  <ion-list text-wrap>
 
     <ion-item>
-      <ion-label>{{user.email}}</ion-label>
+      <ion-label>{{email}}</ion-label>
     </ion-item>
 
+ 
     <button ion-item block (click)="logout()">Logout</button>
 
     <!--<button ion-item block (click)="delete()">Delete</button>-->
 
     <button ion-item block (click)="goToPreferences()">Category Preferences</button>
 
-
+    <ion-item >Credits: {{credits}}</ion-item>
     <!--<ion-item *ngFor="let item of categories">
     {{item}}
   </ion-item>-->

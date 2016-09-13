@@ -38,26 +38,26 @@ export class QuotesPage {
     this.db.on('value', (snapshot) => {
 
       if (snapshot.exists()) {
+
         var requestData = snapshot.val();
-        this.requests = [];
+        let requests = [];
 
         console.log('quotes data ', requestData);
 
         Object.keys(requestData).map((key) => {
-          
+
           let req = requestData[key];
           let requestHiredByThisSupplier = req.hiring.isHired && req.hiring.suppliers[user.uid]
 
           if (req.quote && !requestHiredByThisSupplier && !req.cleared) {
             req['id'] = key;
-
-            this.ngZone.run(() => {
-
-              this.requests.push(req);
-              console.log('quotes adding ', req);
-            });
-
+            requests.push(req);
           }
+
+        });
+
+        this.ngZone.run(() => {
+          this.requests = requests;
         });
 
       }

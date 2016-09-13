@@ -4,7 +4,7 @@ import {FirebaseService} from '../../components/firebaseService';
 
 @Component({
   templateUrl: 'build/pages/preferences/preferences.html',
-  providers: [FirebaseService]
+  //providers: [FirebaseService]
 })
 export class PreferencesPage {
 
@@ -45,9 +45,6 @@ export class PreferencesPage {
           console.log(error);
         })
     }
-
-
-
   }
 
   update() {
@@ -56,11 +53,11 @@ export class PreferencesPage {
 
     this.categoryValues = [];
     this.categories = [];
-    
+
     firebase.database().ref('users/' + user.uid)
       .once('value', (snapshot) => {
 
-        
+
         console.log('categories def is', this.categoriesDef);
 
         this.profile = snapshot.val();
@@ -103,17 +100,22 @@ export class PreferencesPage {
 
   ngOnInit() {
 
+    let ref = firebase.database().ref().child('categories');
 
-    firebase.database().ref('categories')
-      .once('value', (categorySnapshot) => {
+    ref.on('value', (categorySnapshot) => {
 
+      if (categorySnapshot.exists()) {
+
+        ref.off();
         this.categoriesDef = categorySnapshot.val();
+        console.log('categoriesDef:', this.categoriesDef);
+        this.update();
 
 
-      });
+      }
+    });
 
 
-    this.update();
   }
 
   categoryValues = [];
