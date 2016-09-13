@@ -25,9 +25,8 @@ export class QuoteDetailPage {
     var user = firebase.auth().currentUser;
 
     this.db = firebase.database().ref('users/' + user.uid + '/matchedRequests/' + this.requestId);
-
+    
     this.db.on('value', (snapshot) => {
-
       if (snapshot.exists()) {
         this.request = snapshot.val();
         this.request['id'] = snapshot.key;
@@ -36,8 +35,7 @@ export class QuoteDetailPage {
         console.log("the request body is", this.requestBody);
       }
     });
-
-
+    
 
   }
 }

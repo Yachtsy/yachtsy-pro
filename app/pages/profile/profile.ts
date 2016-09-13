@@ -2,9 +2,11 @@ import {NavController} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {PreferencesPage} from '../preferences/preferences'
 import {FirebaseService} from '../../components/firebaseService';
+import {RatingComponentUpdateable} from '../../components/ratingsComponent';
 
 @Component({
   templateUrl: 'build/pages/profile/profile.html',
+  directives: [RatingComponentUpdateable]
 })
 export class ProfilePage {
 
@@ -14,6 +16,8 @@ export class ProfilePage {
   image = { url: "img/default-avatar.jpg" }
   credits
   email
+  totalNumberOfReviews = 0
+  score = 0
 
   constructor(public nav: NavController, public FBService: FirebaseService, private ngZone: NgZone) {
 
@@ -21,9 +25,6 @@ export class ProfilePage {
 
 
   }
-
-
-
 
   ngOnInit() {
     this.user = firebase.auth().currentUser;
@@ -33,17 +34,36 @@ export class ProfilePage {
     ref.on('value', (snapshot) => {
       this.ngZone.run(() => {
         this.profile = snapshot.val();
+        
         this.name = this.profile.firstName + ' ' + this.profile.lastName;
         this.credits = this.profile.credits.balance;
+
+        this.calcReviews(this.profile.reviews);
+
       });
     })
-
-
-
-
   }
 
+  calcReviews(reviews){
 
+    console.log('revies are:', reviews);
+    if(reviews){
+      this.totalNumberOfReviews = Object.keys(reviews).length;
+
+      let total = 0;
+
+      Object.keys(reviews).map((reviewId)=>{
+        var review = reviews[reviewId];
+        var rating = review.rating;
+        total += rating;
+      });
+
+      this.score = total / this.totalNumberOfReviews
+      console.log('the score is', this.score);
+
+    }
+
+  }
 
   logout() {
     firebase.auth().signOut().then(function () {

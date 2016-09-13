@@ -9,6 +9,9 @@
  <div class="profile-wrapper">
         <div class="profile-image" [ngStyle]="{'background-image': 'url(' + image.url + ')'}"></div>
         <div class="profile-name">{{name}}</div>
+        <div *ngIf="totalNumberOfReviews === 1" class="profile-name">{{totalNumberOfReviews}} review</div>
+        <div *ngIf="totalNumberOfReviews > 1" class="profile-name">{{totalNumberOfReviews}} reviews</div>
+         <rating score="{{score}}" max="5"></rating>
     </div>
 
   <ion-list text-wrap>
