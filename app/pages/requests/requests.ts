@@ -61,7 +61,10 @@ export class RequestsPage {
 
   click(item) {
     
-    this.fbserv.supplierMarkRequestRead(item.id);
+    if (!item.read){
+      console.log('marking request read');
+      this.fbserv.supplierMarkRequestRead(item.id);
+    }
 
     this.nav.push(RequestDetailPage, {
       requestId: item.id
