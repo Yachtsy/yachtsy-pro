@@ -1,20 +1,11 @@
 .requests {
 
-    background-image: url('img/Yachtsy_Icon_Blue_300ppi.jpg');
-
-    .opaque {
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    // backdrop-filter: saturate(180%) blur(20px);
-    }
-
-    .opaque .toolbar-background {
-    background-color: rgba(#f8f8f8, 0.55);
-    }
+    
 
 
     .circle {
-        width: 5px;
-        height: 5px;
+        width: 10px;
+        height: 10px;
         background-color: lightblue;
         background-size: cover;
         display: block;
@@ -48,8 +39,8 @@
   }
 
   ion-avatar{
-      min-height: 10px;
-      min-width: 10px;
+      min-height: 15px;
+      min-width: 15px;
   }
 
     ion-avatar[item-left]{

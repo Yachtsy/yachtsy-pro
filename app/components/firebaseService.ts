@@ -39,6 +39,16 @@ export class FirebaseService {
     //     })
     // }
 
+    supplierMarkRequestRead(requestId){
+
+        var payload = {
+            requestId: requestId
+        }
+
+        return this.doOperation('supplierMarkRequestRead', payload);
+
+    }
+
     currentUser() {
         return firebase.auth().currentUser
     }
