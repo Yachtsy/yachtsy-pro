@@ -11,4 +11,49 @@
     background-color: rgba(#f8f8f8, 0.55);
     }
 
+
+    .circle {
+        width: 5px;
+        height: 5px;
+        background-color: lightblue;
+        background-size: cover;
+        display: block;
+        border-radius: 100px;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
+        }
+
+    .item {
+       // padding-left: 0px;
+            border-bottom: 1px solid #c8c7cc;
+    }
+
+    ion-list .item .item-inner {
+        padding-left: 10px;
+    }
+    
+    scroll-content {
+        padding-top: 44px;
+        padding: 0px;
+    }
+    
+    ion-list .item .item-inner {
+        border: 0;
+    }
+
+      ion-note {
+    font-size: 12px;
+    align-self: flex-start;
+    margin-top: 14px;
+  }
+
+  ion-avatar{
+      min-height: 10px;
+      min-width: 10px;
+  }
+
+    ion-avatar[item-left]{
+
+            margin:0px;
+    }
 }

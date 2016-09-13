@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>PURCHASE CREDITS</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="purchase-credits">
+
+    <div class="profile-wrapper">
+
+        <ion-badge item-right>{{credits}} credits</ion-badge>
+
+    </div>
+
+    <ion-list text-wrap>
+
+        <button ion-item *ngFor="let prod of products" (click)="buyCredits(prod.productId)">
+            <div item-left></div>
+            Buy {{prod.title}}
+            <ion-badge item-right>{{prod.price}}</ion-badge>
+        </button>
+
+<!-- <ion-item *ngIf="!cordova">
+            <div class="credit-circle" item-left></div>
+            1 Credit
+            <ion-badge item-right>3.99</ion-badge>
+        </ion-item>-->
+
+    </ion-list>
+
+
+</ion-content>

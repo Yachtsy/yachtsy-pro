@@ -124,6 +124,7 @@ export class MyApp {
 var config = {
   prodMode: false,
   backButtonText: '',
+  statusbarPadding: true, 
 };
 
 ionicBootstrap(MyApp, [disableDeprecatedForms(), provideForms(), FirebaseService], config);

@@ -47,6 +47,10 @@ export class FirebaseService {
         return firebase.auth().signOut()
     }
 
+    getProducts(){
+        return firebase.database().ref().child('products').child('pro').once('value');
+    }
+
     getCreditsRequiredForCategory(){
         return firebase.database().ref().child('config').child('creditsRequiredForCategory').once('value');
     }

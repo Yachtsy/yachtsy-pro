@@ -6,13 +6,24 @@
 </ion-header>
 
 <ion-content fullscreen padding class="requests">
-  <ion-card tappable *ngFor="let item of requests" (click)="click(item)">
-    <ion-card-header>
-      {{item.categoryName}}
-      <p>{{item.date | date: 'dd/MM/yy HH:mm'}}</p>
-    </ion-card-header>
-    <ion-card-content>
-      
-    </ion-card-content>
-  </ion-card>
+
+  <ion-list tappable>
+
+    <ion-item *ngFor="let item of requests" (click)="click(item)">
+      <!--<div class="circle" ></div>
+     
+      <p>{{item.date | date: 'dd/MM/yy HH:mm'}}</p>-->
+
+      <ion-avatar item-left>
+        <div class="circle"></div>
+      </ion-avatar>
+      <h2> {{item.categoryName}}</h2>
+      <!--<h3>{{item.date | date: 'dd/MM/yy HH:mm'}}</h3>-->
+      <p>Listen, I've had a pretty messed up day...</p>
+       <ion-note item-right>{{item.date | date: 'HH:mm'}}</ion-note>
+    </ion-item>
+
+  </ion-list>
+
+
 </ion-content>

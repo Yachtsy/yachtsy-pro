@@ -1,6 +1,7 @@
 import {NavController} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {PreferencesPage} from '../preferences/preferences'
+import {PurchaseCreditsPage} from '../purchase-credits/purchase-credits'
 import {FirebaseService} from '../../components/firebaseService';
 import {RatingComponentUpdateable} from '../../components/ratingsComponent';
 
@@ -80,6 +81,10 @@ export class ProfilePage {
 
     this.nav.push(PreferencesPage)
 
+  }
+
+  goToPurchaseCredits(){
+    this.nav.push(PurchaseCreditsPage)
   }
 
   delete() {

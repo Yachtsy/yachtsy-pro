@@ -1,33 +1,35 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Profile</ion-title>
+    <ion-title>YOU</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding class="profile">
 
 
- <div class="profile-wrapper">
-        <div class="profile-image" [ngStyle]="{'background-image': 'url(' + image.url + ')'}"></div>
-        <div class="profile-name">{{name}}</div>
-        <div *ngIf="totalNumberOfReviews === 1" class="profile-name">{{totalNumberOfReviews}} review</div>
-        <div *ngIf="totalNumberOfReviews > 1" class="profile-name">{{totalNumberOfReviews}} reviews</div>
-         <rating score="{{score}}" max="5"></rating>
-    </div>
+  <div class="profile-wrapper">
+    <div class="profile-image" [ngStyle]="{'background-image': 'url(' + image.url + ')'}"></div>
+    <div class="profile-name">{{name}}</div>
+    <div *ngIf="totalNumberOfReviews === 1" class="profile-name">{{totalNumberOfReviews}} review</div>
+    <div *ngIf="totalNumberOfReviews > 1" class="profile-name">{{totalNumberOfReviews}} reviews</div>
+    <rating score="{{score}}" max="5"></rating>
+
+      <ion-badge item-right>{{credits}} credits</ion-badge>
+  </div>
 
   <ion-list text-wrap>
 
-    <ion-item>
+    <!--<ion-item>
       <ion-label>{{email}}</ion-label>
-    </ion-item>
+    </ion-item>-->
 
- 
     <button ion-item block (click)="logout()">Logout</button>
 
     <!--<button ion-item block (click)="delete()">Delete</button>-->
 
     <button ion-item block (click)="goToPreferences()">Category Preferences</button>
 
-    <ion-item >Credits: {{credits}}</ion-item>
+    <button ion-item block (click)="goToPurchaseCredits()">Purchase Credits</button>
+
     <!--<ion-item *ngFor="let item of categories">
     {{item}}
   </ion-item>-->

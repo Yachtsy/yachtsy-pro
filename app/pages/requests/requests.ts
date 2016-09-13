@@ -18,6 +18,10 @@ export class RequestsPage {
     console.log('ngOnDestroy - requests');
   }
 
+  ionViewLoaded(){
+    
+  }
+
   ngOnInit() {
     console.log('ngOnInit - requests');
 
