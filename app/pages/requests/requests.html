@@ -17,8 +17,8 @@
       <ion-avatar  item-left>
         <div [hidden]="item.read" class="circle"></div>
       </ion-avatar>
-      <h2> {{item.categoryName}}</h2>
-      <!--<h3>{{item.date | date: 'dd/MM/yy HH:mm'}}</h3>-->
+      <h2> <b>{{item.categoryName}}</b></h2>
+      <h3>{{item.categoryName}}</h3>  
       <p>Listen, I've had a pretty messed up day...</p>
        <ion-note item-right>{{item.date | date: 'HH:mm'}}</ion-note>
     </ion-item>

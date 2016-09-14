@@ -61,6 +61,7 @@ export class RequestsPage {
 
   click(item) {
     
+    console.log('item clicked', item);
     if (!item.read){
       console.log('marking request read');
       this.fbserv.supplierMarkRequestRead(item.id);
