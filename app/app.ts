@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Platform, Loading} from 'ionic-angular';
 import {MenuController, Nav} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {StatusBar, Keyboard} from 'ionic-native';
 import {IntroPage} from './pages/intro/intro';
 import {TabsPage} from './pages/tabs/tabs';
 import {SignupOrLoginPage} from './pages/signup-or-login/signup-or-login';
@@ -112,7 +112,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      
+      Keyboard.hideKeyboardAccessoryBar(true);
       this.listenForAuthChanges();
       this.start();
     });
