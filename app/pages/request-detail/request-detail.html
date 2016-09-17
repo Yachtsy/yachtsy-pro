@@ -1,26 +1,55 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>{{request.categoryName}}</ion-title>
-      <ion-buttons end>
-        <button (click)="pass()">Pass</button>
-      </ion-buttons>
-  </ion-navbar>
-</ion-header>
 
 <ion-content padding class="request-detail">
 
-  <button (click)="quote()" [disabled]="request.quote">Quote</button>
-  <!--<button (click)="pass()" [disabled]="request.quote || request.passed">Pass</button>-->
-
   <ion-item *ngIf="request.quote"> You quoted on this request </ion-item>
 
-  <h3> Request Details </h3>
-  <ion-item-group *ngFor="let item of requestBody">
+  <div #map class="map-wrapper"></div>
 
-    <ion-item-divider light>{{item.qu}}</ion-item-divider>
-    <ion-item *ngFor="let ans of item.ans">{{ans}}</ion-item>
+  <div class="header-wrapper">
+    <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
+    <button class="pass-button" (click)="pass()">Pass</button>
+  </div>
 
-  </ion-item-group>
+  <div class="profile-wrapper">
 
+    <div class="profile-image"></div>
+    <div class="profile-main-wrapper">
+      <div class="profile-name">{{userName}}</div>
+      <div class="profile-desc">Carpet Cleaning - Philadelphia, PA 19106</div>
+
+      <div class="profile-details-wrapper">
+        <div class="details-set">
+          <div class="details-value">3/5</div>
+          <div class="details-desc">Quotes Sent</div>
+        </div>
+
+        <div class="details-set">
+          <div class="details-value">23h 3m</div>
+          <div class="details-desc">Until Request Expires</div>
+        </div>
+
+        <div class="details-set">
+          <div class="details-value">4</div>
+          <div class="details-desc">Credits</div>
+        </div>
+      </div>
+
+      <div class="request-title">Request Details</div>
+    </div>
+
+  </div>
+
+  <ion-item class="request-item" *ngFor="let item of requestBody">
+
+    <div class="request-question">{{item.qu}}</div>
+    <div class="request-answer" *ngFor="let ans of item.ans">{{ans}}</div>
+
+  </ion-item>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar no-border-bottom>
+    <button class="button" block (click)="quote()" [disabled]="request.quote">Send a Quote</button>
+  </ion-toolbar>
+</ion-footer>

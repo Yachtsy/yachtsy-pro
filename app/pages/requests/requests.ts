@@ -1,4 +1,4 @@
-import {NavController} from 'ionic-angular';
+import {NavController, ModalController, Modal} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {RequestDetailPage} from '../request-detail/request-detail'
 import {FirebaseService} from '../../components/firebaseService';
@@ -11,7 +11,11 @@ export class RequestsPage {
 
   public requests;
 
-  constructor(public nav: NavController, private ngZone: NgZone, public fbserv: FirebaseService ) {
+  constructor(
+    public nav: NavController,
+    private ngZone: NgZone,
+    public modalCtrl: ModalController,
+    public fbserv: FirebaseService ) {
     console.log('tabs requests page');
   }
 
@@ -105,9 +109,12 @@ export class RequestsPage {
       this.fbserv.supplierMarkRequestRead(item.id);
     }
 
-    this.nav.push(RequestDetailPage, {
-      requestId: item.id
-    });
+    let modal = this.modalCtrl.create(RequestDetailPage, { requestId: item.id });
+    modal.present();
+
+    // this.nav.push(RequestDetailPage, {
+    //   requestId: item.id
+    // });
   }
 
 }
