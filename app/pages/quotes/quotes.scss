@@ -1,3 +1,36 @@
 .quotes {
+	
+	background: #eaeae5;
+
+	scroll-content {
+		padding: 0px;
+	}
+
+	ion-list {
+		margin: 0px;
+
+		.item-inner {
+			border: none;
+		}
+
+		p {
+			color: black;
+		}
+
+		ion-note {
+			text-align: center;
+		}
+	}
+
+	.quote-time {
+		font-size: 1.2rem;
+		color: grey;
+		margin-bottom: 3px;
+	}
+
+	.quote-price {
+		font-size: 2rem;
+		color: black;
+	}
 
 }

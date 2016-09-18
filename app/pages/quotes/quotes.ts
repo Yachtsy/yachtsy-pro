@@ -2,6 +2,8 @@ import {NavController} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {QuoteDetailPage} from '../quote-detail/quote-detail';
 import {FirebaseService} from '../../components/firebaseService';
+import GlobalService = require('../../components/globalService');
+
 
 @Component({
   templateUrl: 'build/pages/quotes/quotes.html',
@@ -58,10 +60,22 @@ export class QuotesPage {
 
         this.ngZone.run(() => {
           this.requests = requests;
+          this.updateTime();
         });
 
       }
     });
+  }
+
+  ionViewWillEnter() {
+    this.updateTime();
+  }
+
+  updateTime() {
+    var curTime = new Date().getTime();
+    for (var i = 0; i < this.requests.length; i++) {
+      this.requests[i].pasttime = GlobalService.getPastTimeString(curTime - this.requests[i].date) + ' ago';
+    }
   }
 
   click(item) {
