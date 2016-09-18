@@ -13,6 +13,8 @@ export class QuoteModal {
   price
   request
   message
+  contentsBottom
+  footerBottom
 
   creditsRequiredForCategory
 
@@ -33,7 +35,7 @@ export class QuoteModal {
       });
   }
 
-  close() {
+  back() {
     this.viewCtrl.dismiss();
   }
 
@@ -46,6 +48,35 @@ export class QuoteModal {
           this.freeCreditsMode = snap.val();
         }
       });
+
+    this.contentsBottom = 44;
+    this.footerBottom = 0;
+
+    window.addEventListener('native.keyboardshow', (e) => {
+
+      console.log('keyboard show')
+      this.ngZone.run(() => {
+        let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+        scrollContent.style.marginBottom = (e['keyboardHeight'] + 44) + 'px';
+        this.contentsBottom = e['keyboardHeight'] + 44;
+        this.footerBottom = e['keyboardHeight'];
+      });
+
+    });
+
+    window.addEventListener('native.keyboardhide', (e) => {
+
+        console.log('keyboard hide')
+        this.ngZone.run(() => {
+          console.log('initialising postions')
+          let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+          scrollContent.style.marginBottom = 44 + 'px';
+          this.contentsBottom = 44;
+          this.footerBottom = 0;
+        });
+
+    });
+
   }
 
   confirm = this.alertCtrl.create({
@@ -153,7 +184,7 @@ export class QuoteModal {
 
         console.log('result from sending quote:', data)
         this.ngZone.run(() => {
-          this.close();
+          this.back();
           this.nav.setRoot(TabsPage, {
             tabIndex: 1,
             request: this.request

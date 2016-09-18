@@ -1,17 +1,33 @@
-  <ion-content padding>
-    <h2>Send Quote</h2>
-    <button (click)="close()">Close</button>
 
-    <ion-item>
-        <ion-label>Price</ion-label>
-        <ion-input [(ngModel)]="price"></ion-input>
-    </ion-item>
+<ion-header>
 
-    <ion-item>
-        <ion-label>Message</ion-label>
-        <ion-textarea [(ngModel)]="message"></ion-textarea>
-    </ion-item>
+    <ion-navbar no-border-bottom hideBackButton>
+        <ion-buttons start>
+            <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
+        </ion-buttons>
+        <ion-title>QUOTE TO KATE</ion-title>
+    </ion-navbar>
 
-    <button block (click)="beforeSendQuote()">Send</button>
+</ion-header>
 
-  </ion-content>
+<ion-content class="quote-modal-content">
+
+    <div class="price-wrapper">
+        <ion-item class="price-value">
+            <ion-label>$</ion-label>
+            <ion-input [(ngModel)]="price" type="tel"></ion-input>
+        </ion-item>
+        <div class="price-desc">total price</div>
+        <div class="price-button">Fixed Price</div>
+    </div>
+
+    <ion-textarea [(ngModel)]="message" placeholder="Write a message to Kate...">
+    </ion-textarea>
+
+</ion-content>
+
+<ion-footer [ngStyle]="{bottom: footerBottom + 'px'}">
+  <ion-toolbar no-border-bottom>
+    <button class="button" block (click)="beforeSendQuote()" [disabled]="request.quote">Send Quote</button>
+  </ion-toolbar>
+</ion-footer>
