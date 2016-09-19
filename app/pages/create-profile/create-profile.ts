@@ -1,4 +1,4 @@
-import {NavController, NavParams} from 'ionic-angular';
+import {NavController, ActionSheetController, NavParams} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {Camera} from 'ionic-native';
 import {TabsPage} from '../tabs/tabs';
@@ -20,7 +20,12 @@ export class CreateProfilePage {
 
   public profileForm: FormGroup;
 
-  constructor(public nav: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private ngZone: NgZone) {
+  constructor(
+    public nav: NavController,
+    public navParams: NavParams,
+    private formBuilder: FormBuilder,
+    public actionSheetCtrl: ActionSheetController,
+    private ngZone: NgZone) {
 
     this.pages = this.navParams.get("pages");
     this.formPageIndex = this.navParams.get("formPageIndex");
@@ -32,7 +37,6 @@ export class CreateProfilePage {
         this.answers[this.currentPage.name] = {};
       }
     }
-
 
   }
 
@@ -95,19 +99,46 @@ export class CreateProfilePage {
   }
 
   takePicture() {
+    if (typeof Camera === 'undefined') {
+      console.log('Camera plugin is not available.');
+      return;
+    }
+
+    let actionSheet = this.actionSheetCtrl.create({
+        buttons: [
+            {
+                text: 'Take a Photo',
+                role: 'destructive',
+                handler: () => {
+                  this.getPicture(Camera.PictureSourceType.CAMERA);
+                }
+            }, {
+                text: 'Choose from Library',
+                role: 'cancel',
+                handler: () => {
+                  this.getPicture(Camera.PictureSourceType.PHOTOLIBRARY);
+                }
+            }
+        ]
+    });
+    actionSheet.present();
+  }
+
+  getPicture(sourceType) {
     Camera.getPicture({
+      quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000
+      sourceType: sourceType,
+      targetWidth: 256,
+      targetHeight: 256,
+      correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
       console.log('image taken');
       this.base64Image = "data:image/jpeg;base64," + imageData;
 
-      console.log('writing image to answers:', this.base64Image);
-
-      this.answers[this.currentPage.name]['photo'] = this.base64Image;
-
+      this.answers[this.currentPage.name] = this.base64Image;
+      console.log(JSON.stringify(this.answers));
 
     }, (err) => {
       console.log(err);
@@ -116,7 +147,7 @@ export class CreateProfilePage {
 
   save() {
 
-    console.log(' trying to save profile data: ', this.answers);
+    console.log(' trying to save profile data: ', JSON.stringify(this.answers));
 
     firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/profile').set(this.answers)
       .then(() => {

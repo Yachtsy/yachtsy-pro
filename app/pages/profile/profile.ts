@@ -39,6 +39,9 @@ export class ProfilePage {
         this.name = this.profile.firstName + ' ' + this.profile.lastName;
         this.credits = this.profile.credits.balance;
 
+        if (typeof this.profile.profile.photo !== 'undefined')
+          this.image.url = this.profile.profile.photo;
+
         this.calcReviews(this.profile.reviews);
 
       });
