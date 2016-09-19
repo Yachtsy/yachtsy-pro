@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
-import {ionicBootstrap, Platform, Loading} from 'ionic-angular';
+import {ionicBootstrap, Platform, Loading, ModalController, AlertController} from 'ionic-angular';
 import {MenuController, Nav} from 'ionic-angular';
-import {StatusBar, Keyboard} from 'ionic-native';
+import {StatusBar, Keyboard, Network} from 'ionic-native';
 import {IntroPage} from './pages/intro/intro';
 import {TabsPage} from './pages/tabs/tabs';
 import {SignupOrLoginPage} from './pages/signup-or-login/signup-or-login';
@@ -10,6 +10,13 @@ import {SignupPage} from './pages/signup/signup';
 import {NgZone} from '@angular/core';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {FirebaseService} from './components/firebaseService'
+import {OfflinePage} from './pages/offline/offline'
+import {QuoteDetailPage} from './pages/quote-detail/quote-detail';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import GlobalService = require('./components/globalService');
+
+declare var FirebasePlugin;
 
 @Component({
   templateUrl: 'build/app.html',
@@ -22,10 +29,13 @@ export class MyApp {
   rootPage: any
   pages: Array<{ title: string, component: any }>;
   goneToProfileCreate = false;
+  isInitFB = false;
 
   constructor(
     private platform: Platform,
     private menu: MenuController,
+    public modalCtrl: ModalController,
+    private alertCtrl: AlertController,
     private ngZone: NgZone
   ) {
 
@@ -107,6 +117,24 @@ export class MyApp {
   }
 
 
+  pushTokenCallCount = 0;
+  getPushToken() {
+    let self = this;
+    FirebasePlugin.getInstanceId(function (token) {
+      // save this server-side and use it to push notifications to this device
+      console.log('THE PUSH TOKEN IS', token);
+      GlobalService.pushToken = token;
+    }, function (error) {
+      console.log((self.pushTokenCallCount + 1) + 'th trying error: ' + error);
+      setTimeout(() => {
+        self.pushTokenCallCount++;
+        if (self.pushTokenCallCount < 30)
+          self.getPushToken();
+      }, 2000);
+    });
+  }
+
+
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -114,8 +142,96 @@ export class MyApp {
       StatusBar.styleDefault();
       Keyboard.hideKeyboardAccessoryBar(true);
       Keyboard.disableScroll(true);
-      this.listenForAuthChanges();
-      this.start();
+
+      var offline = Observable.fromEvent(document, "offline");
+      var online = Observable.fromEvent(document, "online");
+      var networkState = Network.connection;
+
+      // console.log('network state: ', networkState);
+      if (networkState === 'none') {
+        this.ngZone.run(() => {
+          this.rootPage = OfflinePage;
+        });
+      }
+      else {
+        console.log('online and ready')
+        this.isInitFB = true;
+        this.listenForAuthChanges();
+        this.start();
+      }
+
+      offline.subscribe(() => {
+        console.log('offline update');
+        // this.online = false;
+
+        this.ngZone.run(() => {
+          this.rootPage = OfflinePage;
+        });
+      });
+
+      online.subscribe(() => {
+        console.log('online update')
+        if (!this.isInitFB) {
+          this.isInitFB = true;
+          console.log('doing init FB');
+          this.listenForAuthChanges();
+          this.start();
+          var element = document.createElement("script");
+          element.src = "http://maps.google.com/maps/api/js?libraries=places&key=AIzaSyB2-pd_C9vShNuBpWzTBHzTtY6cinsYWM0";
+          document.body.appendChild(element);
+        }
+        this.ngZone.run(() => {
+          if (firebase.auth().currentUser)
+            this.rootPage = TabsPage;
+          else
+            this.rootPage = SignupOrLoginPage;
+        });
+
+      });
+
+      if (typeof FirebasePlugin !== 'undefined') {
+        FirebasePlugin.grantPermission();
+
+        this.pushTokenCallCount = 0;
+        this.getPushToken();
+
+        FirebasePlugin.onNotificationOpen((notification) => {
+          console.log(notification);
+          var requestId = '';
+          var supplierId = '';
+          if (notification.aps) {
+            requestId = notification.aps.requestId;
+          }
+
+          let alert = this.alertCtrl.create({
+            title: 'Yachtsy',
+            message: '',
+            buttons: [
+              {
+                text: 'Ignore',
+                role: 'cancel',
+                handler: () => {
+                }
+              },
+              {
+                text: 'View Quote',
+                handler: () => {
+                  let modal = this.modalCtrl.create(QuoteDetailPage, { requestId: requestId });
+                  modal.present();
+                  // nav.push(Messages, { requestId: requestId });
+                }
+              }
+            ]
+          });
+          alert.present();
+
+        }, function (error) {
+          console.log(error);
+        });
+      } else {
+        console.log('FIREBASE PLUGIN NOT DEFINED');
+      }
+
     });
   }
 
