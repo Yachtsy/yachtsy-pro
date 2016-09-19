@@ -11,7 +11,7 @@ import {Component} from '@angular/core';
       <div class="message">{{msg.body}}</div>
       <div class="message-detail">
           <!--<span style="font-weight:bold;">{{msg.uid}} </span>,-->
-          <span>{{msg.timestamp}}</span>
+          <span>{{msg.pasttime}}</span>
       </div>
     </div>
   </div>

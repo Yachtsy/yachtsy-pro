@@ -1,51 +1,70 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Quote Details</ion-title>
-  </ion-navbar>
-</ion-header>
 
 <ion-content padding class="quote-detail">
 
-  <ion-segment [(ngModel)]="section">
-    <ion-segment-button value="quote">
-      Quote
-    </ion-segment-button>
-    <ion-segment-button value="request">
-      Request
-    </ion-segment-button>
-  </ion-segment>
+  <div #map class="map-wrapper"></div>
 
+  <div class="header-wrapper">
+    <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
+    <button class="more-button" (click)="more()"><ion-icon name="ios-more"></ion-icon></button>
+  </div>
 
-  <div *ngIf="section === 'quote'">
+  <div class="profile-wrapper">
 
-    <ion-item>
-      Quote for {{request.categoryName}}
-    </ion-item>
+    <div class="profile-image"></div>
+    <div class="profile-main-wrapper">
+      <div class="profile-name">{{userName}}</div>
+      <div class="profile-desc">{{request.categoryName}} - {{placeInfo.place}}</div>
 
-    <ion-item>
-      Price: ${{request.quote.price}}
-    </ion-item>
+      <div class="togglebutton-wrapper">
+          <div tappable [ngClass]="(curTab == 0) ? 'toggle-button selected':'toggle-button'" (click)="clickToggle(0);">Quote</div>
+          <div tappable [ngClass]="(curTab == 1) ? 'toggle-button selected':'toggle-button'" (click)="clickToggle(1);">Request</div>
+      </div>
 
+      <div class="profile-details-wrapper">
+        <div *ngIf="curTab == 0">
+          <div class="details-set price">${{request.quote.price}}</div>
+          <div class="details-set">total price</div>
+          <div class="details-set edit">Edit</div>
+        </div>
+        <div *ngIf="curTab == 1">
+          <div class="request-title">Request Details</div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
-  <div *ngIf="section === 'request'">
-
-
-    <ion-item *ngIf="request.quote"> You quoted on this request </ion-item>
-
-    <h3> Request Details </h3>
-    <ion-item-group *ngFor="let item of requestBody">
-
-      <ion-item-divider light>{{item.qu}}</ion-item-divider>
-      <ion-item *ngFor="let ans of item.ans">{{ans}}</ion-item>
-
-    </ion-item-group>
-
+  <div *ngIf="curTab == 0">
+    <ion-list no-lines>
+        <ion-item *ngFor="let msg of messages">
+            <chat-bubble [message]="msg"></chat-bubble>
+        </ion-item>
+    </ion-list>
   </div>
 
+  <div *ngIf="curTab == 1">
+    <ion-item class="request-item" *ngFor="let item of requestBody">
 
+      <div class="request-question">{{item.qu}}</div>
+      <div class="request-answer" *ngFor="let ans of item.ans">{{ans}}</div>
 
-
+    </ion-item>
+  </div>
 
 </ion-content>
+
+
+<!--[ngStyle]="{bottom: footerBottom + 'px'}"-->
+<ion-footer no-border-top [ngStyle]="{bottom: footerBottom + 'px'}" *ngIf="curTab == 0">
+    <ion-toolbar class="message-bar">
+        <ion-input class="message-input" #chat_input *ngIf="request" [(ngModel)]="message" class="chatbox" placeholder="Write a message..."></ion-input>
+        <div class="button-wrapper">
+            <button class="left-button" royal *ngIf="request" (click)="attachMessage($event)">
+                Attach
+            </button>
+            <button class="right-button" royal *ngIf="request" (click)="sendMessage($event)">
+                Send
+            </button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

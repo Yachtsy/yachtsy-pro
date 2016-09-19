@@ -1,4 +1,4 @@
-import {NavController} from 'ionic-angular';
+import {NavController, ModalController, Modal} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {QuoteDetailPage} from '../quote-detail/quote-detail';
 import {FirebaseService} from '../../components/firebaseService';
@@ -12,6 +12,7 @@ import GlobalService = require('../../components/globalService');
 export class QuotesPage {
   constructor(
     public nav: NavController,
+    public modalCtrl: ModalController,
     private ngZone: NgZone,
     public fbserv: FirebaseService
   ) {
@@ -80,9 +81,12 @@ export class QuotesPage {
 
   click(item) {
 
-    this.nav.push(QuoteDetailPage, {
-      requestId: item.id
-    });
+    let modal = this.modalCtrl.create(QuoteDetailPage, { requestId: item.id });
+    modal.present();
+
+    // this.nav.push(QuoteDetailPage, {
+    //   requestId: item.id
+    // });
 
   }
 

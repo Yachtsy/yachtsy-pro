@@ -1,3 +1,271 @@
-.quote-detail {
+.quote-detail-page {
+
+	background-color: white;
+
+	ion-navbar {
+		background: none;
+	}
+
+	ion-navbar .toolbar-background {
+		background: none;
+	    border: none;
+	}
+
+	.chatbox {
+		width: 100%;
+		height: 44px;
+		border: none;
+		background: white;
+		padding: 0px 10px;
+		border-top: 1px solid #005677;
+	}
+
+	ion-footer {
+		height: 88px;
+	}
+
+	.message-bar {
+		position: absolute;
+		bottom: 0px;
+		height: 88px;
+		padding: 0px;
+	}
+
+	.message-input {
+		width: 100%;
+		height: 44px;
+		background: white;
+	}
+
+	.button-wrapper {
+		position: relative;
+		width: 100%;
+		height: 44px;
+		background: #005677;
+	}
+
+	.button-wrapper .left-button {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		margin: 0px;
+	}
+
+	.button-wrapper .right-button {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		margin: 0px;
+	}
+
+
+	.quote-detail {
+		
+		padding: 0px;
+
+		scroll-content {
+			padding: 0px;
+		}
+
+		.header-wrapper {
+			position: absolute;
+			top: 40px;
+			left: 0px;
+			width: 100%;
+			height: 40px;
+		    z-index: 99999;
+		}
+
+		.prev-button {
+			position: absolute;
+			top: 0px;
+			left: 10px;
+		    background: white;
+		    border-radius: 30px;
+		    width: 30px;
+		    height: 30px;
+		    border: 2px solid #005677;
+		    font-size: 1.4rem;
+		    text-align: center;
+		    color: #005677;
+		    background: white;
+	    }
+
+	    .prev-button ion-icon {
+	    	padding: 0px;
+	    }
+
+	    .more-button {
+			position: absolute;
+			top: 0px;
+			right: 10px;
+		    border-radius: 30px;
+		    width: 30px;
+		    height: 30px;
+		    border: 2px solid #005677;
+		    font-size: 1.4rem;
+		    text-align: center;
+		    color: #005677;
+		    background: white;
+   	    }
+
+	    .more-button ion-icon {
+	    	padding: 0px;
+	    }
+
+		.map-wrapper {
+			position: relative;
+			width: 100% !important;
+			height: 200px;
+			margin: 0px !important;
+			background: #aaa;
+		}
+
+		.profile-wrapper {
+			position: relative;
+			width: 100%;
+			text-align: center;
+			padding: 0px 10px;
+			background: #eaeae5;
+		}
+
+		.profile-image {
+			position: relative;
+			top: -30px;
+		    width: 80px;
+		    height: 80px;
+			background-image: url("../../img/default-avatar.jpg");
+		    background-repeat: no-repeat;
+		    background-size: contain;
+		    background-position: center center;
+		    border-radius: 80px;
+		    margin-bottom: 5px;
+		}
+
+		.profile-main-wrapper {
+			position: relative;
+			top: -30px;
+		}
+
+		.profile-name {
+			font-size: 1.8rem;
+			color: black;
+			margin-bottom: 5px;
+			font-weight: bold;
+			font-style: italic;
+		}
+
+		.profile-desc {
+			font-size: 1.2rem;
+			color: grey;
+			margin-bottom: 20px;
+		}
+
+		ion-segment {
+		    width: 50%;
+    		margin-left: 25%;
+    		background: white;
+		}
+
+		.profile-details-wrapper {
+			width: 100%;
+			top: 15px;
+		    font-size: 1.4rem;
+		    position: relative;
+		}
+
+		.details-set {
+			display: inline-block;
+			width: auto;
+		    margin: 0px 5px;
+		    color: #005677;
+		}
+		.details-set.price {
+		    font-size: 3rem;
+		    color: black;
+		}
+		.details-set.edit {
+			position: absolute;
+		    right: 0px;
+		    top: 12px;
+		    padding: 5px;
+		}
+
+		.togglebutton-wrapper {
+			display: inline-block;
+			width: 168px;
+			height: 32px;
+			background: #0a5b7a;
+		    border: 2px solid #0a5b7a;
+		    border-radius: 3px;
+   		}
+
+		.toggle-button {
+			display: inline-block;
+			width: 80px;
+			height: 28px;
+			line-height: 28px;
+			color: white;
+			background: none;
+			border-radius: 3px;
+		}
+
+		.toggle-button.selected {
+			color: black;
+			background: white;
+		}
+
+		.request-title {
+		    position: relative;
+		    top: 5px;
+   			width: 100%;
+			text-align: left;
+			color: #005677;
+			font-size: 1.4rem;
+			font-style: italic;
+		}
+
+		.request-item {
+			padding: 0px 10px;
+			border-bottom: 1px solid #eaeae5;
+		}
+
+		.request-item .item-inner {
+		    padding: 0px;
+		    border: none;
+		}
+
+		.request-item .item-inner ion-label {
+			margin: 8px 0px;
+		}
+
+		.request-question {
+			color: grey;
+			font-size: 1.4rem;
+			margin-bottom: 2px;
+			word-wrap: break-word;
+    		white-space: normal;
+   		}
+
+		.request-answer {
+			color: black;
+			font-size: 1.6rem;
+			word-wrap: break-word;
+		    white-space: normal;			
+		}
+	}
+
+	ion-toolbar {
+		padding: 0px 10px;
+	}
+
+	ion-toolbar .button {
+		margin: 0px;
+	}
+
+	.toolbar-background {
+		border: none;
+    	background: none;
+	}
 
 }
