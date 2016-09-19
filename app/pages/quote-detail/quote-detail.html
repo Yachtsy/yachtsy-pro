@@ -5,9 +5,7 @@
 
   <div class="header-wrapper">
     <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
-    <!--
-    <button class="more-button" (click)="more()"><ion-icon name="ios-more"></ion-icon></button>
-    -->
+    <button *ngIf="isHired" class="more-button" (click)="mark()"><ion-icon name="checkmark"></ion-icon></button>
   </div>
 
   <div class="profile-wrapper">
@@ -59,7 +57,7 @@
 <!--[ngStyle]="{bottom: footerBottom + 'px'}"-->
 <ion-footer no-border-top [ngStyle]="{bottom: footerBottom + 'px'}" *ngIf="curTab == 0">
     <ion-toolbar class="message-bar">
-        <ion-input class="message-input" #chat_input *ngIf="request" [(ngModel)]="message" class="chatbox" placeholder="Write a message..."></ion-input>
+        <ion-input class="message-input chatbox" #chat_input *ngIf="request" [(ngModel)]="message" [disabled]="!isHired" placeholder="Write a message..."></ion-input>
         <div class="button-wrapper">
             <button class="left-button" royal *ngIf="request" (click)="attachMessage($event)">
                 Attach

@@ -1,7 +1,8 @@
-import {NavController} from 'ionic-angular';
+import {NavController, ModalController, Modal} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
-import {MessagesPage} from '../messages/messages';
+import {QuoteDetailPage} from '../quote-detail/quote-detail';
 import {FirebaseService} from '../../components/firebaseService';
+
 
 @Component({
   templateUrl: 'build/pages/hires/hires.html',
@@ -10,7 +11,11 @@ import {FirebaseService} from '../../components/firebaseService';
 })
 export class HiresPage {
 
-  constructor(public nav: NavController, public fbserv: FirebaseService, private ngZone: NgZone) {
+  constructor(
+    public nav: NavController,
+    public modalCtrl: ModalController,
+    public fbserv: FirebaseService,
+    private ngZone: NgZone) {
 
   }
 
@@ -36,7 +41,7 @@ export class HiresPage {
     firebase.database().ref('users/' + this.user.uid + '/matchedRequests')
       .on('value', (snapshot) => {
 
-        this.hires = [];
+        let hires = [];
 
         if (snapshot.exists()) {
           var requestData = snapshot.val();
@@ -49,14 +54,16 @@ export class HiresPage {
             var hiring = requestData[key].hiring;
 
             if (hiring.isHired && !requestData[key].cleared && hiring.suppliers[this.user.uid]) {
-              this.ngZone.run(() => {
-                this.hires.push(requestData[key]);
-              });
+              hires.push(requestData[key]);
             }
 
           });
         }
-        console.log('hires are:', this.hires);
+        
+        this.ngZone.run(() => {
+          this.hires = hires;
+          console.log('hires are:', this.hires);
+        });
 
       });
   }
@@ -64,10 +71,13 @@ export class HiresPage {
   click(item) {
     console.log('hire clicked', item);
 
-    this.nav.push(MessagesPage, {
-      requestId: item.id,
-      userId: item.uid
-    });
+    let modal = this.modalCtrl.create(QuoteDetailPage, { requestId: item.id, isHired: true });
+    modal.present();
+
+    // this.nav.push(MessagesPage, {
+    //   requestId: item.id,
+    //   userId: item.uid
+    // });
 
   }
 

@@ -1,3 +1,86 @@
 .hires {
+	
+	background: #eaeae5;
+
+	scroll-content {
+		padding: 0px;
+	}
+    
+    .noquote-wrapper {
+	    position: absolute;
+	    top: 42%;
+	    width: 100%;
+	    text-align: center;
+	    padding: 0px 10%;
+
+	    ion-icon {
+		    font-size: 3.6rem;
+		    font-weight: bold;
+		    color: #005677;
+	    }
+
+	    p {
+		    font-style: italic;
+		    font-size: 1.4rem;
+		    font-weight: bold;
+	    }
+    }
+
+	ion-list {
+		margin: 0px;
+
+		ion-item {
+			border-bottom: 1px solid #eee;
+		}
+
+		.item-inner {
+			border: none;
+			padding-left: 10px;
+		}
+
+		h2 {
+			word-break: break-all;
+		    white-space: normal;
+		}
+
+	    .circle {
+	        width: 10px;
+	        height: 10px;
+	        background-color: #c2b560;
+	        background-size: cover;
+	        display: block;
+	        border-radius: 100px;
+	        -webkit-border-radius: 100px;
+	        -moz-border-radius: 100px;
+	    }
+
+	    ion-avatar{
+	        min-height: 15px;
+	        min-width: 15px;
+	    }
+
+	    ion-avatar[item-left]{
+	        margin:0px;
+	    }
+
+		p {
+			color: black;
+		}
+
+		ion-note {
+			text-align: center;
+		}
+	}
+
+	.quote-time {
+		font-size: 1.2rem;
+		color: grey;
+		margin-bottom: 3px;
+	}
+
+	.quote-price {
+		font-size: 2rem;
+		color: black;
+	}
 
 }

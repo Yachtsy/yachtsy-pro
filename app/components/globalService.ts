@@ -28,5 +28,5 @@ export var getPastTimeString = function (duration) {
     else if (ss > 0)
       	return ss + 's';
     else
-      	return 'now';
+      	return '1s';
 }

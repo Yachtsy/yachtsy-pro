@@ -3,8 +3,39 @@
     <ion-title>HIRES</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding class="hires">
 
+  <div *ngIf="hires && hires.length == 0" class="noquote-wrapper">
+    <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
+    <p>Projects you've been hired for will be located here</p>
+  </div>
+
+  <ion-list tappable *ngIf="hires && hires.length > 0">
+
+    <div tappable *ngFor="let item of hires">
+      <ion-item *ngIf="!item.cleared" (click)="click(item)">
+        <ion-avatar item-left>
+          <div [hidden]="item.read" class="circle"></div>
+        </ion-avatar>
+
+        <h2> <b>{{item.quote.supplierNickName}}</b></h2>
+        <h3>{{item.categoryName}}</h3>
+        <br>
+        <p *ngIf="!item.cancelled">Hired: {{item.hiring.suppliers[user.uid].hiredDate | date: 'dd/MM/yy HH:mm' }}</p>
+        <p *ngIf="item.cancelled">This request was cancelled on {{item.cancelled | date: 'dd/MM/yy HH:mm'}}</p>
+
+        <ion-note item-right>
+          <div class="quote-time">{{item.pasttime}}</div>
+          <div class="quote-price">${{item.quote.price}}</div>
+          <button *ngIf="item.cancelled" (click)="clearRequest($event, item)">CLEAR</button>
+        </ion-note>
+      </ion-item>
+    </div>
+
+  </ion-list>
+
+<!--
   <div *ngFor="let item of hires">
     <ion-card *ngIf="!item.cleared" tappable (click)="click(item)">
 
@@ -22,4 +53,5 @@
 
     </ion-card>
   </div>
+-->
 </ion-content>

@@ -1,7 +1,8 @@
 import {Component, NgZone, ViewChild, ElementRef} from '@angular/core';
-import {NavParams, Content, NavController, ViewController} from 'ionic-angular';
+import {NavParams, Content, NavController, ViewController, LoadingController} from 'ionic-angular';
 import {ChatBubble} from '../../components/chat-bubble/chat-bubble';
 import {Keyboard, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
+import {FirebaseService} from '../../components/firebaseService';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import GlobalService = require('../../components/globalService');
@@ -22,8 +23,12 @@ export class QuoteDetailPage {
     public nav: NavController,
     private viewCtrl: ViewController,
     private ngZone: NgZone,
+    public fbserv: FirebaseService,
+    private loadingCtrl: LoadingController,
     public navParams: NavParams) {
+    
     this.requestId = navParams.get('requestId');
+    this.isHired = navParams.get('isHired');
     console.log('navigated to quote details', this.requestId);
   }
 
@@ -38,6 +43,7 @@ export class QuoteDetailPage {
   contentsBottom = 0;
   footerBottom = 0;
   curTab = 0;
+  isHired = false;
   
   ngOnInit() {
 
@@ -53,7 +59,7 @@ export class QuoteDetailPage {
         console.log('quote details for request', this.request);
         this.requestBody = JSON.parse(this.request.body);
 
-        if (typeof this.requestBody[0].ans[0].lat !== 'undefined') {
+        if (typeof this.requestBody[0].ans[0] !== 'undefined' && typeof this.requestBody[0].ans[0].lat !== 'undefined') {
           this.placeInfo = {
             lat:    this.requestBody[0].ans[0].lat,
             lng:    this.requestBody[0].ans[0].lng,
@@ -220,7 +226,7 @@ export class QuoteDetailPage {
   message
   sendMessage($event) {
 
-    if (!this.message) {
+    if (!this.message || !this.isHired) {
         return;
     }
     console.log('about to send message: ' + this.message);
@@ -246,6 +252,19 @@ export class QuoteDetailPage {
 
   attachMessage($event) {
 
+  }
+
+  mark() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+
+    this.fbserv.markComplete(this.requestId)
+      .then(function () {
+        loading.dismiss();
+      });    
   }
 
 }
