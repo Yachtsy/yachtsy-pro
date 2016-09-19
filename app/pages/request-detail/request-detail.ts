@@ -80,7 +80,6 @@ export class RequestDetailPage {
             place:  'Washington'
           };
         }
-        this.createMap();
 
         console.log("the request body is", this.requestBody);
 
@@ -95,6 +94,11 @@ export class RequestDetailPage {
 
     });
 
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter - createMap');
+    this.createMap();
   }
 
   createMap() {

@@ -90,6 +90,8 @@ export class QuoteDetailPage {
     });
 
     console.log('init positions')
+    let scrollContent = (<HTMLInputElement>document.querySelector('.quote-detail scroll-content'));
+    scrollContent.style.marginBottom = 88 + 'px';
     this.contentsBottom = 88;
     this.footerBottom = 0;
 
@@ -205,6 +207,7 @@ export class QuoteDetailPage {
   }
 
   clickToggle(idx) {
+    console.log('click toggle tab: ' + idx);
     this.curTab = idx;
     if (idx === 0) {
       let scrollContent = (<HTMLInputElement>document.querySelector('.quote-detail scroll-content'));

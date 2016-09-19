@@ -1,4 +1,4 @@
-import {NavController, ModalController, Modal} from 'ionic-angular';
+import {NavController, LoadingController, ModalController, Modal} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {RequestDetailPage} from '../request-detail/request-detail'
 import {FirebaseService} from '../../components/firebaseService';
@@ -17,6 +17,7 @@ export class RequestsPage {
     public nav: NavController,
     private ngZone: NgZone,
     public modalCtrl: ModalController,
+    public loadingCtrl: LoadingController,
     public fbserv: FirebaseService ) {
     console.log('tabs requests page');
   }
@@ -25,11 +26,11 @@ export class RequestsPage {
     console.log('ngOnDestroy - requests');
   }
 
-  ionViewLoaded(){
+  // ionViewLoaded(){
     
-  }
+  // }
 
-  ngOnInit() {
+  ionViewLoaded() {
     console.log('ngOnInit - requests');
 
     var user = firebase.auth().currentUser;
@@ -41,6 +42,11 @@ export class RequestsPage {
       this.requests = [];
 
       if (snapshot.exists()) {
+        // let loading = this.loadingCtrl.create({
+        //   content: 'Loading...'
+        // });
+        // loading.present();
+
         var requestData = snapshot.val();
         var curTime = new Date().getTime();
         //console.log(requestData);
@@ -54,6 +60,7 @@ export class RequestsPage {
             newRequests.push(currentRequest);
           }
         });
+
         this.ngZone.run(() => {
           for (var i = 0; i < newRequests.length; i++) {
             for (var j = i + 1; j < newRequests.length; j++) {
@@ -67,8 +74,8 @@ export class RequestsPage {
           }
 
           this.requests = newRequests;
+          // loading.dismiss();
         });
-
       }
 
     });

@@ -85,7 +85,7 @@ export class QuotesPage {
   }
 
   click(item) {
-
+    console.log('quote clicked');
     let modal = this.modalCtrl.create(QuoteDetailPage, { requestId: item.id });
     modal.present();
 
