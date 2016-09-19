@@ -157,35 +157,4 @@ export class RequestDetailPage {
     this.viewCtrl.dismiss();
   }
 
-  // private map: GoogleMap;
-  // createMap() {
-  //   GoogleMap.isAvailable().then(() => {
-
-  //     this.map = new GoogleMap('map_canvas');
-
-  //     // this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
-  //     //   () => this.onMapReady(),
-  //     //   () => alert("Error: onMapReady")
-  //     // );
-
-  //     // this.map.on(GoogleMapsEvent.MAP_READY).subscribe(
-  //     //   (data: any) => {
-  //     //     alert("GoogleMap.onMapReady(): ");
-  //     //   },
-  //     //   () => alert("Error: GoogleMapsEvent.MAP_READY")
-  //     // );
-
-  //     this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
-  //       console.log("GoogleMap.onMapReady(): " + JSON.stringify(data));
-
-  //       this.zone.run(() => {
-  //         let myPosition = new GoogleMapsLatLng(38.9072, -77.0369);
-  //         console.log("My position is", myPosition);
-  //         this.map.animateCamera({ target: myPosition, zoom: 10 });
-  //       });
-
-  //     });
-  //   });
-  // }
-
 }

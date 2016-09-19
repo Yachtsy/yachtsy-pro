@@ -5,9 +5,72 @@
 	scroll-content {
 		padding: 0px;
 	}
+    
+    .noquote-wrapper {
+	    position: absolute;
+	    top: 42%;
+	    width: 100%;
+	    text-align: center;
+	    padding: 0px 10%;
+
+	    ion-icon {
+		    font-size: 3.6rem;
+		    font-weight: bold;
+		    color: #005677;
+	    }
+
+	    p {
+		    font-style: italic;
+		    font-size: 1.4rem;
+		    font-weight: bold;
+	    }
+    }
+
+    .whatsnext-wrapper {
+    	width: 100%;
+	    height: 100%;
+	    background: white;
+
+	    .header {
+		    padding: 20px;
+		    text-align: center;
+		    font-size: 1.6rem;
+		    background: #eaeae5;
+	    }
+
+	    .desc-wrapper {
+
+	    	ion-item {
+			    padding: 0px 20px;
+			    align-items: flex-start;
+
+			    ion-icon {
+				    font-size: 3.6rem;
+				    color: #005677;
+			    }
+
+			    .item-inner {
+			    	border: none;
+		    	    margin-top: 10px;
+
+			    	h3 {
+						margin-bottom: 10px;
+			    	}
+
+			    	p {
+			    		color: black;
+			    	}
+			    }
+	    	}
+	    }
+    }
 
 	ion-list {
 		margin: 0px;
+
+		ion-item {
+			border-bottom: 1px solid #eee;
+		}
 
 		.item-inner {
 			border: none;

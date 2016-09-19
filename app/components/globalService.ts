@@ -3,6 +3,8 @@
 
 export var pushToken = '';
 
+export var isWhatsNext = false;
+
 export var getPastTimeString = function (duration) {
     var dur = (duration - duration % 1000) / 1000;
     var ss, mm, hh, dd, oo, yy;

@@ -4,6 +4,8 @@ import {QuotesPage} from '../quotes/quotes';
 import {TabsPage} from '../tabs/tabs';
 import {FirebaseService} from '../../components/firebaseService';
 import {Keyboard, InAppPurchase} from 'ionic-native';
+import GlobalService = require('../../components/globalService');
+
 
 @Component({
   templateUrl: 'build/pages/request-detail/quote-modal.html',
@@ -185,6 +187,7 @@ export class QuoteModal {
         console.log('result from sending quote:', data)
         this.ngZone.run(() => {
           this.back();
+          GlobalService.isWhatsNext = true;
           this.nav.setRoot(TabsPage, {
             tabIndex: 1,
             request: this.request

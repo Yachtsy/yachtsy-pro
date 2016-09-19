@@ -1,8 +1,5 @@
 .requests {
 
-    
-
-
     .circle {
         width: 10px;
         height: 10px;
@@ -12,11 +9,11 @@
         border-radius: 100px;
         -webkit-border-radius: 100px;
         -moz-border-radius: 100px;
-        }
+    }
 
     .item {
-       // padding-left: 0px;
-            border-bottom: 1px solid #c8c7cc;
+        // padding-left: 0px;
+        border-bottom: 1px solid #c8c7cc;
     }
 
     ion-list .item .item-inner {
@@ -32,19 +29,18 @@
         border: 0;
     }
 
-      ion-note {
-    font-size: 12px;
-    align-self: flex-start;
-    margin-top: 14px;
-  }
+    ion-note {
+        font-size: 12px;
+        align-self: flex-start;
+        margin-top: 14px;
+    }
 
-  ion-avatar{
-      min-height: 15px;
-      min-width: 15px;
-  }
+    ion-avatar{
+        min-height: 15px;
+        min-width: 15px;
+    }
 
     ion-avatar[item-left]{
-
-            margin:0px;
+        margin:0px;
     }
 }

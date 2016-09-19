@@ -1,4 +1,4 @@
-import {NavController, ModalController, Modal} from 'ionic-angular';
+import {NavController, NavParams, ModalController, Modal} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {QuoteDetailPage} from '../quote-detail/quote-detail';
 import {FirebaseService} from '../../components/firebaseService';
@@ -9,18 +9,20 @@ import GlobalService = require('../../components/globalService');
   templateUrl: 'build/pages/quotes/quotes.html',
   providers: [FirebaseService]
 })
+
 export class QuotesPage {
   constructor(
     public nav: NavController,
+    public navParams: NavParams,
     public modalCtrl: ModalController,
     private ngZone: NgZone,
     public fbserv: FirebaseService
   ) {
-
   }
 
   db
   requests
+  isWhatsNext = true
 
   clearRequest($event, request) {
     request.cleared = true;
@@ -33,6 +35,9 @@ export class QuotesPage {
   ngOnInit() {
 
     console.log('ngOnInit - quotes');
+
+    this.isWhatsNext = GlobalService.isWhatsNext;
+    GlobalService.isWhatsNext = false;
 
     var user = firebase.auth().currentUser;
 
@@ -88,6 +93,10 @@ export class QuotesPage {
     //   requestId: item.id
     // });
 
+  }
+
+  done() {
+    this.isWhatsNext = false;
   }
 
 }
