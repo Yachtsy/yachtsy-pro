@@ -82,13 +82,18 @@ export class RequestDetailPage {
           };
         }
 
+        if (this.request.expiryDate) {
+          var cur_date = new Date().getTime();
+          this.request.pastExpiry = GlobalService.getDurationString(this.request.expiryDate - cur_date);
+        }
+
         console.log("the request body is", this.requestBody);
 
         var user_db = firebase.database().ref('users/' + requestData.uid);
         user_db.on('value', (snapshot) => {
           if (snapshot.exists()) {
             var profile = snapshot.val();
-            this.userName = profile.name;
+            this.request.userName = profile.name;
           }
         });
       }

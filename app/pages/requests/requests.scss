@@ -27,6 +27,11 @@
     
     ion-list .item .item-inner {
         border: 0;
+
+        h2 {
+            white-space: normal;
+            word-break: break-all;
+        }
     }
 
     ion-note {

@@ -5,7 +5,7 @@
         <ion-buttons start>
             <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
         </ion-buttons>
-        <ion-title>QUOTE TO KATE</ion-title>
+        <ion-title>{{title}}</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -21,7 +21,7 @@
         <div class="price-button">Fixed Price</div>
     </div>
 
-    <ion-textarea [(ngModel)]="message" placeholder="Write a message to Kate...">
+    <ion-textarea [(ngModel)]="message" placeholder="{{messagePlaceholder}}">
     </ion-textarea>
 
 </ion-content>

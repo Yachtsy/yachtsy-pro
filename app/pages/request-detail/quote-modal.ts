@@ -19,6 +19,9 @@ export class QuoteModal {
   contentsBottom
   footerBottom
 
+  title = ""
+  messagePlaceholder = ""
+
   creditsRequiredForCategory
 
   constructor(private viewCtrl: ViewController,
@@ -34,6 +37,9 @@ export class QuoteModal {
     this.isEdit  = this.navParams.get('isEdit');
     this.price   = this.navParams.get('price');
     this.message = this.navParams.get('message');
+
+    this.title = "QUOTE TO " + this.request.userName;
+    this.messagePlaceholder = "Write a message to " + this.request.userName + "...";
 
     this.FBService.getCreditsRequiredForCategory()
       .then((snapshot) => {

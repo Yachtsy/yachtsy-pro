@@ -14,7 +14,7 @@
 
     <div class="profile-image"></div>
     <div class="profile-main-wrapper">
-      <div class="profile-name">{{userName}}</div>
+      <div class="profile-name">{{request.userName}}</div>
       <div class="profile-desc">{{request.categoryName}} - {{placeInfo.place}}</div>
 
       <div class="profile-details-wrapper">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="details-set">
-          <div class="details-value">23h 3m</div>
+          <div class="details-value">{{request.pastExpiry}}</div>
           <div class="details-desc">Until Request Expires</div>
         </div>
 
