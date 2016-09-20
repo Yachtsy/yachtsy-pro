@@ -1,6 +1,8 @@
 
 'use strict';
 
+export var mainTabRef;
+
 export var pushToken = '';
 
 export var isWhatsNext = false;

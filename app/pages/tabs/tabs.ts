@@ -1,10 +1,10 @@
 import {NavController, NavParams, Tabs} from 'ionic-angular';
 import {Component, ViewChild} from '@angular/core';
-
 import {RequestsPage} from '../requests/requests';
 import {QuotesPage} from '../quotes/quotes';
 import {HiresPage} from '../hires/hires';
 import {ProfilePage} from '../profile/profile';
+import GlobalService = require('../../components/globalService');
 
 
 @Component({
@@ -33,6 +33,11 @@ export class TabsPage {
     this.hiresPage = HiresPage;
     this.profilePage = ProfilePage;
     console.log('tabs contructor end');
+    
+  }
+
+  ngOnInit() {
+    GlobalService.mainTabRef = this.tabRef;
   }
 
   ionViewWillEnter() {

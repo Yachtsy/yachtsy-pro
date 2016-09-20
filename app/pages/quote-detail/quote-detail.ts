@@ -1,5 +1,6 @@
 import {Component, NgZone, ViewChild, ElementRef} from '@angular/core';
-import {NavParams, Content, NavController, ViewController, LoadingController} from 'ionic-angular';
+import {NavParams, Content, NavController, ViewController, LoadingController, ModalController} from 'ionic-angular';
+import {QuoteModal} from '../request-detail/quote-modal'
 import {ChatBubble} from '../../components/chat-bubble/chat-bubble';
 import {Keyboard, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
 import {FirebaseService} from '../../components/firebaseService';
@@ -25,6 +26,7 @@ export class QuoteDetailPage {
     private ngZone: NgZone,
     public fbserv: FirebaseService,
     private loadingCtrl: LoadingController,
+    public modalCtrl: ModalController,
     public navParams: NavParams) {
     
     this.requestId = navParams.get('requestId');
@@ -268,6 +270,16 @@ export class QuoteDetailPage {
       .then(function () {
         loading.dismiss();
       });    
+  }
+
+  edit() {
+    let modal = this.modalCtrl.create(QuoteModal, {
+      request:  this.request,
+      isEdit:   true,
+      price:    this.request.quote.price,
+      message:  this.request.quote.initialMessage
+    });
+    modal.present();    
   }
 
 }

@@ -2,6 +2,7 @@ import {NavController, LoadingController, ModalController, Modal} from 'ionic-an
 import {Component, NgZone} from '@angular/core';
 import {RequestDetailPage} from '../request-detail/request-detail'
 import {FirebaseService} from '../../components/firebaseService';
+import {TabsPage} from '../tabs/tabs';
 import GlobalService = require('../../components/globalService');
 
 
@@ -91,6 +92,16 @@ export class RequestsPage {
 
     let modal = this.modalCtrl.create(RequestDetailPage, { requestId: item.id });
     modal.present();
+    modal.onDidDismiss((data) => {
+      setTimeout(() => {
+        if (GlobalService.isWhatsNext === true) {
+          GlobalService.mainTabRef.select(1);
+          // this.nav.setRoot(TabsPage, {
+          //   tabIndex: 1
+          // }, { animate: true /*, direction: 'forward'*/ });
+        }
+      }, 100);
+    });
 
     // this.nav.push(RequestDetailPage, {
     //   requestId: item.id

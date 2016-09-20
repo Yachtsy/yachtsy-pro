@@ -15,7 +15,7 @@
     <div class="price-wrapper">
         <ion-item class="price-value">
             <ion-label>$</ion-label>
-            <ion-input [(ngModel)]="price" type="tel"></ion-input>
+            <ion-input id="price-input" [(ngModel)]="price" type="tel"></ion-input>
         </ion-item>
         <div class="price-desc">total price</div>
         <div class="price-button">Fixed Price</div>
@@ -28,6 +28,6 @@
 
 <ion-footer [ngStyle]="{bottom: footerBottom + 'px'}">
   <ion-toolbar no-border-bottom>
-    <button class="button" block (click)="beforeSendQuote()" [disabled]="request.quote">Send Quote</button>
+    <button class="button" block (click)="beforeSendQuote()">Send Quote</button>
   </ion-toolbar>
 </ion-footer>

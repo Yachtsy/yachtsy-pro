@@ -1,4 +1,4 @@
-import {Component, NgZone} from '@angular/core';
+import {Component, NgZone, ElementRef, ViewChild} from '@angular/core';
 import {AlertController, Modal, NavParams, NavController, ViewController, LoadingController} from 'ionic-angular';
 import {QuotesPage} from '../quotes/quotes';
 import {TabsPage} from '../tabs/tabs';
@@ -15,6 +15,7 @@ export class QuoteModal {
   price
   request
   message
+  isEdit = false
   contentsBottom
   footerBottom
 
@@ -30,6 +31,9 @@ export class QuoteModal {
 
     console.log('nav params for quote modal', this.navParams);
     this.request = this.navParams.get('request');
+    this.isEdit  = this.navParams.get('isEdit');
+    this.price   = this.navParams.get('price');
+    this.message = this.navParams.get('message');
 
     this.FBService.getCreditsRequiredForCategory()
       .then((snapshot) => {
@@ -51,6 +55,8 @@ export class QuoteModal {
         }
       });
 
+    let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+    scrollContent.style.marginBottom = 44 + 'px';
     this.contentsBottom = 44;
     this.footerBottom = 0;
 
@@ -58,10 +64,11 @@ export class QuoteModal {
 
       console.log('keyboard show')
       this.ngZone.run(() => {
-        let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
-        scrollContent.style.marginBottom = (e['keyboardHeight'] + 44) + 'px';
         this.contentsBottom = e['keyboardHeight'] + 44;
         this.footerBottom = e['keyboardHeight'];
+
+        let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+        scrollContent.style.marginBottom = (e['keyboardHeight'] + 44) + 'px';
       });
 
     });
@@ -71,14 +78,20 @@ export class QuoteModal {
         console.log('keyboard hide')
         this.ngZone.run(() => {
           console.log('initialising postions')
-          let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
-          scrollContent.style.marginBottom = 44 + 'px';
           this.contentsBottom = 44;
           this.footerBottom = 0;
+
+          let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+          scrollContent.style.marginBottom = 44 + 'px';
         });
 
     });
 
+  }
+
+  ionViewDidEnter() {
+    let inputContent = (<HTMLInputElement>document.querySelector('#price-input'));
+    (<HTMLInputElement>inputContent.children[0]).focus();
   }
 
   confirm = this.alertCtrl.create({
@@ -100,10 +113,7 @@ export class QuoteModal {
             content: 'Loading...',
             duration: 60 * 1000
           });
-
           loading.present();
-
-
 
           //credits
           let prod1 = "com.yachtsy.yachtsypro.1credit";
@@ -167,6 +177,11 @@ export class QuoteModal {
 
   sendQuote() {
     console.log('sending a quote for price: ', this.price);
+    let loading = this.loadingCtrl.create({
+      content: 'Sending...',
+      duration: 60 * 1000
+    });
+    loading.present();
 
     let user = firebase.auth().currentUser;
 
@@ -184,15 +199,20 @@ export class QuoteModal {
     this.FBService.sendQuote(this.request.id, this.price, this.message)
       .then((data) => {
 
-        console.log('result from sending quote:', data)
-        this.ngZone.run(() => {
-          this.back();
-          GlobalService.isWhatsNext = true;
-          this.nav.setRoot(TabsPage, {
-            tabIndex: 1,
-            request: this.request
-          }, { animate: true /*, direction: 'forward'*/ });
-        });
+        console.log('result from sending quote:', data);
+        loading.dismiss();
+
+        setTimeout(() => {
+          this.ngZone.run(() => {
+              if (this.isEdit !== true)
+                GlobalService.isWhatsNext = true;
+              this.back();
+              // this.nav.setRoot(TabsPage, {
+              //   tabIndex: 1,
+              //   request: this.request
+              // }, { animate: true /*, direction: 'forward'*/ });
+          });
+        }, 500);
       });
 
   }

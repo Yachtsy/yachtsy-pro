@@ -5,6 +5,7 @@ import {FirebaseService} from '../../components/firebaseService';
 import {GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import GlobalService = require('../../components/globalService');
 
 
 @Component({
@@ -118,6 +119,12 @@ export class RequestDetailPage {
   quote() {
     let modal = this.modalCtrl.create(QuoteModal, { request: this.request });
     modal.present();
+    modal.onDidDismiss((data) => {
+      setTimeout(() => {
+        if (GlobalService.isWhatsNext === true)
+          this.viewCtrl.dismiss();
+      }, 100);
+    });
   }
 
   pass() {
