@@ -74,10 +74,23 @@
 
 		.item-inner {
 			border: none;
-		}
 
-		p {
-			color: black;
+			h2 {
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			}
+
+			h3 {
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			}
+
+			.desc {
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			    font-size: 1.2rem;
+			    margin-top: 10px;
+			}
 		}
 
 		ion-note {

@@ -29,8 +29,22 @@
         border: 0;
 
         h2 {
-            white-space: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        h3 {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .desc {
+            color: black;
+            margin-top: 8px;
+            margin-bottom: 0px !important;
+            display: block;
             word-break: break-all;
+            @include multiLineEllipsis($lineHeight: 1.4em, $lineCount: 2, $bgColor: white);  
         }
     }
 

@@ -15,9 +15,9 @@
         <div [hidden]="item.read" class="circle"></div>
       </ion-avatar>
 
-      <h2><b>{{item.userName}}</b></h2>
-      <h3>{{item.categoryName}}</h3>
-      <p>Listen, I've had a pretty messed up day...</p>
+      <h2><b>{{item.from}}</b></h2>
+      <h3>{{item.categoryName}} - {{item.locationName}}</h3>
+      <p class="desc" style="-webkit-margin-before: 1em; -webkit-margin-after: 1em; -webkit-margin-start: 0px; -webkit-margin-end: 0px;">{{item.desc}}</p>
       
       <ion-note item-right>{{item.pasttime}}</ion-note>
     </ion-item>

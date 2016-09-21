@@ -19,11 +19,10 @@
           <div [hidden]="item.read" class="circle"></div>
         </ion-avatar>
 
-        <h2> <b>{{item.quote.supplierNickName}}</b></h2>
-        <h3>{{item.categoryName}}</h3>
-        <br>
-        <p *ngIf="!item.cancelled">Hired: {{item.hiring.suppliers[user.uid].hiredDate | date: 'dd/MM/yy HH:mm' }}</p>
-        <p *ngIf="item.cancelled">This request was cancelled on {{item.cancelled | date: 'dd/MM/yy HH:mm'}}</p>
+        <h2> <b>{{item.from}}</b></h2>
+        <h3>{{item.categoryName}} - {{item.locationName}}</h3>
+        <div class="desc" *ngIf="!item.cancelled">Hired: {{item.hiring.suppliers[user.uid].hiredDate | date: 'dd/MM/yy HH:mm' }}</div>
+        <div class="desc" *ngIf="item.cancelled">This request was cancelled on {{item.cancelled | date: 'dd/MM/yy HH:mm'}}</div>
 
         <ion-note item-right>
           <div class="quote-time">{{item.pasttime}}</div>

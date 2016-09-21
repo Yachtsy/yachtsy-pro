@@ -12,8 +12,8 @@
 
     <div class="profile-image"></div>
     <div class="profile-main-wrapper">
-      <div class="profile-name">{{userName}}</div>
-      <div class="profile-desc">{{request.categoryName}} - {{placeInfo.place}}</div>
+      <div class="profile-name">{{request.from}}</div>
+      <div class="profile-desc">{{request.categoryName}} - {{request.locationName}}</div>
 
       <div class="togglebutton-wrapper">
           <div tappable [ngClass]="(curTab == 0) ? 'toggle-button selected':'toggle-button'" (click)="clickToggle(0);">Quote</div>

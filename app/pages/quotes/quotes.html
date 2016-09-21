@@ -61,10 +61,9 @@
 
     <div tappable *ngFor="let item of requests" (click)="click(item)">
       <ion-item *ngIf="!item.cancelled">
-        <h2> <b>{{item.quote.supplierNickName}}</b></h2>
-        <h3>{{item.categoryName}}</h3>
-        <br>
-        <p>{{item.quote.initialMessage}}</p>
+        <h2> <b>{{item.from}}</b></h2>
+        <h3>{{item.categoryName}} - {{item.locationName}}</h3>
+        <div class="desc">{{item.quote.initialMessage}}</div>
 
         <ion-note item-right>
           <div class="quote-time">{{item.pasttime}}</div>

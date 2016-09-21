@@ -40,8 +40,8 @@ export class QuoteModal {
 
     console.log('THE REQUEST', this.request);
 
-    this.title = "QUOTE TO " + this.request.userName;
-    this.messagePlaceholder = "Write a message to " + this.request.userName + "...";
+    this.title = "QUOTE TO " + this.request.from;
+    this.messagePlaceholder = "Write a message to " + this.request.from + "...";
 
     this.FBService.getCreditsRequiredForCategory()
       .then((snapshot) => {

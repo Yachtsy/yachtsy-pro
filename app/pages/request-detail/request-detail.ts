@@ -90,14 +90,6 @@ export class RequestDetailPage {
           this.request.pastExpiry = '0s';
 
         console.log("the request body is", this.requestBody);
-
-        var user_db = firebase.database().ref('users/' + requestData.uid);
-        user_db.on('value', (snapshot) => {
-          if (snapshot.exists()) {
-            var profile = snapshot.val();
-            this.request.userName = profile.name;
-          }
-        });
       }
 
     });
@@ -137,6 +129,8 @@ export class RequestDetailPage {
 
   pass() {
     GlobalService.isWhatsNext = false;
+    GlobalService.isPassed = false;
+
     let confirm = this.alertCtrl.create({
       title: 'Pass Request',
       message: 'Do you want to pass on this request?',
@@ -162,6 +156,7 @@ export class RequestDetailPage {
             this.fbserv.passRequest(this.requestId, this.request.uid)
             .then(()=>{
               loading.dismiss().then(() => {
+                GlobalService.isPassed = true;
                 this.viewCtrl.dismiss();
               });
             });

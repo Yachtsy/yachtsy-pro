@@ -6,6 +6,7 @@ export var mainTabRef;
 export var pushToken = '';
 
 export var isWhatsNext = false;
+export var isPassed = false;
 
 export var getPastTimeString = function (duration) {
     var dur = (duration - duration % 1000) / 1000;

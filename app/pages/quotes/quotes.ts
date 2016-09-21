@@ -64,6 +64,18 @@ export class QuotesPage {
 
         });
 
+        var i, j;
+        for (i = 0; i < requests.length; i++) {
+          for (j = i + 1; j < requests.length; j++) {
+            if (requests[i].quote.timestamp < requests[j].quote.timestamp) {
+              var tmp = {};
+              Object.assign(tmp, requests[i]);
+              requests[i] = requests[j];
+              requests[j] = tmp;
+            }
+          }
+        }
+
         this.ngZone.run(() => {
           this.requests = requests;
           this.updateTime();
@@ -80,7 +92,7 @@ export class QuotesPage {
   updateTime() {
     var curTime = new Date().getTime();
     for (var i = 0; i < this.requests.length; i++) {
-      this.requests[i].pasttime = GlobalService.getPastTimeString(curTime - this.requests[i].date) + ' ago';
+      this.requests[i].pasttime = GlobalService.getPastTimeString(curTime - this.requests[i].quote.timestamp) + ' ago';
     }
   }
 

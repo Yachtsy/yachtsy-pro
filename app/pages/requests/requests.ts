@@ -1,4 +1,4 @@
-import {NavController, LoadingController, ModalController, Modal} from 'ionic-angular';
+import {NavController, LoadingController, ToastController, ModalController, Modal} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {RequestDetailPage} from '../request-detail/request-detail'
 import {FirebaseService} from '../../components/firebaseService';
@@ -19,6 +19,7 @@ export class RequestsPage {
     private ngZone: NgZone,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
     public fbserv: FirebaseService ) {
     console.log('tabs requests page');
   }
@@ -62,7 +63,7 @@ export class RequestsPage {
           }
         });
 
-        var i, j;
+        var i, j, k;
         for (i = 0; i < newRequests.length; i++) {
           for (j = i + 1; j < newRequests.length; j++) {
             if (newRequests[i].date < newRequests[j].date) {
@@ -74,25 +75,34 @@ export class RequestsPage {
           }
         }
 
+        for (i = 0; i < newRequests.length; i++) {
+          var body = JSON.parse(newRequests[i].body);
+          var desc = "";
+          for (j = 0; j < body.length; j++) {
+            if (body[j].ans && body[j].ans.length > 0) {
+              for (k = 0; k < body[j].ans.length; k++) {
+                if (typeof body[j].ans[k] !== 'object') {
+                  if (desc === '')
+                    desc = body[j].ans[k];
+                  else
+                    desc += (',' + body[j].ans[k]);
+                }
+              }
+            }
+          }
+          newRequests[i].desc = desc;
+        }
+
         this.ngZone.run(() => {
           this.requests = newRequests;
-          for (i = 0; i < this.requests.length; i++)
-            this.loadProfile(i);
-          // loading.dismiss();
         });
       }
 
     });
+
   }
 
-  loadProfile(idx) {
-    var user_db = firebase.database().ref('users/' + this.requests[idx].uid);
-    user_db.on('value', (snapshot) => {
-      if (snapshot.exists()) {
-        var profile = snapshot.val();
-        this.requests[idx].userName = profile.name;
-      }
-    });
+  ionViewDidEnter() {
   }
 
   click(item) {
@@ -104,6 +114,8 @@ export class RequestsPage {
     }
 
     GlobalService.isWhatsNext = false;
+    GlobalService.isPassed = false;
+
     let modal = this.modalCtrl.create(RequestDetailPage, { requestId: item.id });
     modal.present();
     modal.onDidDismiss((data) => {
@@ -113,6 +125,14 @@ export class RequestsPage {
           // this.nav.setRoot(TabsPage, {
           //   tabIndex: 1
           // }, { animate: true /*, direction: 'forward'*/ });
+        }
+        else if (GlobalService.isPassed) {
+          let toast = this.toastCtrl.create({
+            message:    "You've passed on that request",
+            duration:   3000,
+            position:   'bottom'
+          });
+          toast.present();          
         }
       }, 100);
     });

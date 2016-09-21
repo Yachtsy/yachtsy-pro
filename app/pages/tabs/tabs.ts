@@ -20,7 +20,7 @@ export class TabsPage {
   nav;
   navParams;
 
-  @ViewChild('myTabs') tabRef: Tabs;
+  @ViewChild('mainTabs') tabRef: Tabs;
 
   constructor(nav: NavController, navParams: NavParams) {
 
