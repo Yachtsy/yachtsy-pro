@@ -25,6 +25,7 @@
 			top: 40px;
 			left: 0px;
 			width: 100%;
+			height: 40px;
 		    z-index: 99999999;
 		}
 
@@ -40,6 +41,7 @@
 		    font-size: 1.4rem;
 		    text-align: center;
 		    color: #005677;
+		    z-index: 99999999;
 	    }
 
 	    .prev-button ion-icon {
@@ -56,6 +58,7 @@
 		    padding: 0px 10px;
 		    color: #005677;
 		    border: 2px solid #005677;
+		    z-index: 99999999;
    	    }
 
 		.map-wrapper {
@@ -69,6 +72,7 @@
 		.profile-wrapper {
 			position: relative;
 			width: 100%;
+			min-height: 215px;
 			text-align: center;
 			padding: 0px 10px;
 			background: #eaeae5;

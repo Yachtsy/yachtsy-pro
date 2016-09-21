@@ -11,7 +11,7 @@ import {NgZone} from '@angular/core';
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {FirebaseService} from './components/firebaseService'
 import {OfflinePage} from './pages/offline/offline'
-import {QuoteDetailPage} from './pages/quote-detail/quote-detail';
+import {RequestDetailPage} from './pages/request-detail/request-detail';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import GlobalService = require('./components/globalService');
@@ -204,7 +204,7 @@ export class MyApp {
           }
 
           let alert = this.alertCtrl.create({
-            title: 'Yachtsy',
+            title: 'Yachtsy Pro',
             message: '',
             buttons: [
               {
@@ -214,9 +214,9 @@ export class MyApp {
                 }
               },
               {
-                text: 'View Quote',
+                text: 'View Request',
                 handler: () => {
-                  let modal = this.modalCtrl.create(QuoteDetailPage, { requestId: requestId });
+                  let modal = this.modalCtrl.create(RequestDetailPage, { requestId: requestId });
                   modal.present();
                   // nav.push(Messages, { requestId: requestId });
                 }

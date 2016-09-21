@@ -86,6 +86,8 @@ export class RequestDetailPage {
           var cur_date = new Date().getTime();
           this.request.pastExpiry = GlobalService.getDurationString(this.request.expiryDate - cur_date);
         }
+        if (typeof this.request.pastExpiry === 'undefined' || this.request.pastExpiry === '')
+          this.request.pastExpiry = '0s';
 
         console.log("the request body is", this.requestBody);
 
@@ -122,6 +124,7 @@ export class RequestDetailPage {
   }
 
   quote() {
+    GlobalService.isWhatsNext = false;
     let modal = this.modalCtrl.create(QuoteModal, { request: this.request });
     modal.present();
     modal.onDidDismiss((data) => {
@@ -133,6 +136,7 @@ export class RequestDetailPage {
   }
 
   pass() {
+    GlobalService.isWhatsNext = false;
     let confirm = this.alertCtrl.create({
       title: 'Pass Request',
       message: 'Do you want to pass on this request?',
@@ -170,6 +174,7 @@ export class RequestDetailPage {
   }
 
   back() {
+    GlobalService.isWhatsNext = false;
     this.viewCtrl.dismiss();
   }
 

@@ -37,6 +37,7 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-firebase",
     "cordova-plugin-network-information",
+    "cordova-plugin-inapppurchase",
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [

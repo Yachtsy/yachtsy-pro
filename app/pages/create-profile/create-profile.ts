@@ -126,11 +126,11 @@ export class CreateProfilePage {
 
   getPicture(sourceType) {
     Camera.getPicture({
-      quality: 100,
+      quality: 50,
       destinationType: Camera.DestinationType.DATA_URL,
       sourceType: sourceType,
-      targetWidth: 256,
-      targetHeight: 256,
+      targetWidth: 200,
+      targetHeight: 200,
       correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string

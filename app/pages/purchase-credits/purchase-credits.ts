@@ -89,25 +89,30 @@ export class PurchaseCreditsPage {
         InAppPurchase.buy(productId)
 
             .then((data: any) => {
-                console.log(JSON.stringify(data));
-                console.log('consuming transactionId: ' + data.transactionId);
+                if (data) {
+                    console.log(JSON.stringify(data));
+                    console.log('consuming transactionId: ' + data.transactionId);
 
-                InAppPurchase.consume(data.type, data.receipt, data.signature)
-                    .then(() => {
-                        console.log('consume done!');
-                    });
+                    InAppPurchase.consume(data.type, data.receipt, data.signature)
+                        .then(() => {
+                            console.log('consume done!');
+                        });
 
-                this.fbserv.validateReceipt(data.receipt)
-                    .then(() => {
-                        console.log('receipt was validated');
-                        loader.dismiss();
-                    }).catch((error) => {
-                        loader.dismiss();
-                        console.error('error validating receipt');
-                        console.error(error);
-                    });
+                    this.fbserv.validateReceipt(data.receipt)
+                        .then(() => {
+                            console.log('receipt was validated');
+                            loader.dismiss();
+                        }).catch((error) => {
+                            loader.dismiss();
+                            console.error('error validating receipt');
+                            console.error(error);
+                        });
+                }
             })
-
+            .catch((error: any) => {
+                console.log(error);
+                loader.dismiss();
+            })
 
     }
 

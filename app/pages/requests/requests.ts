@@ -62,23 +62,36 @@ export class RequestsPage {
           }
         });
 
-        this.ngZone.run(() => {
-          for (var i = 0; i < newRequests.length; i++) {
-            for (var j = i + 1; j < newRequests.length; j++) {
-              if (newRequests[i].date < newRequests[j].date) {
-                var tmp = {};
-                Object.assign(tmp, newRequests[i]);
-                newRequests[i] = newRequests[j];
-                newRequests[j] = tmp;
-              }
+        var i, j;
+        for (i = 0; i < newRequests.length; i++) {
+          for (j = i + 1; j < newRequests.length; j++) {
+            if (newRequests[i].date < newRequests[j].date) {
+              var tmp = {};
+              Object.assign(tmp, newRequests[i]);
+              newRequests[i] = newRequests[j];
+              newRequests[j] = tmp;
             }
           }
+        }
 
+        this.ngZone.run(() => {
           this.requests = newRequests;
+          for (i = 0; i < this.requests.length; i++)
+            this.loadProfile(i);
           // loading.dismiss();
         });
       }
 
+    });
+  }
+
+  loadProfile(idx) {
+    var user_db = firebase.database().ref('users/' + this.requests[idx].uid);
+    user_db.on('value', (snapshot) => {
+      if (snapshot.exists()) {
+        var profile = snapshot.val();
+        this.requests[idx].userName = profile.name;
+      }
     });
   }
 
@@ -90,6 +103,7 @@ export class RequestsPage {
       this.fbserv.supplierMarkRequestRead(item.id);
     }
 
+    GlobalService.isWhatsNext = false;
     let modal = this.modalCtrl.create(RequestDetailPage, { requestId: item.id });
     modal.present();
     modal.onDidDismiss((data) => {

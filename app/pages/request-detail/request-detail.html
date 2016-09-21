@@ -4,12 +4,12 @@
   <ion-item *ngIf="request.quote"> You quoted on this request </ion-item>
 -->
   <div #map class="map-wrapper"></div>
-
+  
   <div class="header-wrapper">
     <button tappable class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
     <button tappable class="pass-button" (click)="pass()">Pass</button>
   </div>
-
+  
   <div class="profile-wrapper">
 
     <div class="profile-image"></div>
@@ -18,11 +18,12 @@
       <div class="profile-desc">{{request.categoryName}} - {{placeInfo.place}}</div>
 
       <div class="profile-details-wrapper">
+        <!--
         <div class="details-set">
           <div class="details-value">3/5</div>
           <div class="details-desc">Quotes Sent</div>
         </div>
-
+        -->
         <div class="details-set">
           <div class="details-value">{{request.pastExpiry}}</div>
           <div class="details-desc">Until Request Expires</div>
