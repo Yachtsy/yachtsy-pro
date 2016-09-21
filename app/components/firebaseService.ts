@@ -152,7 +152,7 @@ export class FirebaseService {
         return this.doOperation('clearRequest', { requestId: requestId })
     }
 
-    sendQuote(requestId, price, message) {
+    sendQuote(requestId, price, message, categoryId) {
 
         let user = firebase.auth().currentUser;
 
@@ -163,6 +163,7 @@ export class FirebaseService {
                 price: price,
                 initialMessage: message
             },
+            categoryId: categoryId,
             supplierNickName: user.email
         };
 

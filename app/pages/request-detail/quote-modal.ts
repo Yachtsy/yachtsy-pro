@@ -38,6 +38,8 @@ export class QuoteModal {
     this.price   = this.navParams.get('price');
     this.message = this.navParams.get('message');
 
+    console.log('THE REQUEST', this.request);
+
     this.title = "QUOTE TO " + this.request.userName;
     this.messagePlaceholder = "Write a message to " + this.request.userName + "...";
 
@@ -189,20 +191,9 @@ export class QuoteModal {
     });
     loading.present();
 
-    let user = firebase.auth().currentUser;
-
-    var op = {
-      requestId: this.request.id,
-      supplierId: user.uid,
-      quote: {
-        price: this.price,
-        initialMessage: this.message
-      },
-      supplierNickName: user.email
-    };
     console.log('sending the quote...');
 
-    this.FBService.sendQuote(this.request.id, this.price, this.message)
+    this.FBService.sendQuote(this.request.id, this.price, this.message, this.request.categoryId)
       .then((data) => {
 
         console.log('result from sending quote:', data);
