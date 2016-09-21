@@ -186,7 +186,7 @@ export class QuoteModal {
   sendQuote() {
     console.log('sending a quote for price: ', this.price);
     let loading = this.loadingCtrl.create({
-      content: 'Sending...',
+      content: 'Sending quote',
       duration: 60 * 1000
     });
     loading.present();
