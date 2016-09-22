@@ -8,6 +8,22 @@ export var pushToken = '';
 export var isWhatsNext = false;
 export var isPassed = false;
 
+export var tabBadgeInfo = {
+  requestUnreadCount:   '',
+  hireUnreadCount:      ''
+};
+
+export var matchedRequests = {
+  data: []
+};
+export var matchedQuotes = {
+  data: []
+};
+export var matchedHires = {
+  data: []
+};
+
+
 export var getPastTimeString = function (duration) {
     var dur = (duration - duration % 1000) / 1000;
     var ss, mm, hh, dd, oo, yy;

@@ -10,7 +10,7 @@
 
   <ion-list tappable>
 
-    <ion-item tappable *ngFor="let item of requests" (click)="click(item)">
+    <ion-item *ngFor="let item of requests.data" tappable (click)="click(item)">
       <ion-avatar item-left>
         <div [hidden]="item.read" class="circle"></div>
       </ion-avatar>

@@ -22,7 +22,7 @@ export class QuotesPage {
 
   db
   requests
-  isWhatsNext = true
+  isWhatsNext = false
 
   clearRequest($event, request) {
     request.cleared = true;
@@ -33,66 +33,15 @@ export class QuotesPage {
   }
 
   ngOnInit() {
-
-    console.log('ngOnInit - quotes');
-
-    this.isWhatsNext = GlobalService.isWhatsNext;
-    GlobalService.isWhatsNext = false;
-
-    var user = firebase.auth().currentUser;
-
-    this.db = firebase.database().ref('users/' + user.uid + '/matchedRequests');
-
-    this.db.on('value', (snapshot) => {
-
-      if (snapshot.exists()) {
-
-        var requestData = snapshot.val();
-        let requests = [];
-
-        console.log('quotes data ', requestData);
-
-        Object.keys(requestData).map((key) => {
-
-          let req = requestData[key];
-          let requestHiredByThisSupplier = req.hiring.isHired && req.hiring.suppliers[user.uid]
-
-          if (req.quote && !requestHiredByThisSupplier && !req.cleared) {
-            req['id'] = key;
-            requests.push(req);
-          }
-
-        });
-
-        var i, j;
-        for (i = 0; i < requests.length; i++) {
-          for (j = i + 1; j < requests.length; j++) {
-            if (requests[i].quote.timestamp < requests[j].quote.timestamp) {
-              var tmp = {};
-              Object.assign(tmp, requests[i]);
-              requests[i] = requests[j];
-              requests[j] = tmp;
-            }
-          }
-        }
-
-        this.ngZone.run(() => {
-          this.requests = requests;
-          this.updateTime();
-        });
-
-      }
-    });
+    this.requests = GlobalService.matchedQuotes;
   }
 
   ionViewWillEnter() {
-    this.updateTime();
-  }
+    this.isWhatsNext = GlobalService.isWhatsNext;
 
-  updateTime() {
     var curTime = new Date().getTime();
     for (var i = 0; i < this.requests.length; i++) {
-      this.requests[i].pasttime = GlobalService.getPastTimeString(curTime - this.requests[i].quote.timestamp) + ' ago';
+      this.requests.data[i].pasttime = GlobalService.getPastTimeString(curTime - this.requests.data[i].quote.timestamp) + ' ago';
     }
   }
 
@@ -109,6 +58,7 @@ export class QuotesPage {
 
   done() {
     this.isWhatsNext = false;
+    GlobalService.isWhatsNext = false;
   }
 
 }

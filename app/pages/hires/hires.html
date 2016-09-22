@@ -6,14 +6,14 @@
 
 <ion-content padding class="hires">
 
-  <div *ngIf="hires && hires.length == 0" class="noquote-wrapper">
+  <div *ngIf="requests.data && requests.data.length == 0" class="noquote-wrapper">
     <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
     <p>Projects you've been hired for will be located here</p>
   </div>
 
-  <ion-list tappable *ngIf="hires && hires.length > 0">
+  <ion-list tappable *ngIf="requests.data && requests.data.length > 0">
 
-    <div tappable *ngFor="let item of hires">
+    <div tappable *ngFor="let item of requests.data">
       <ion-item *ngIf="!item.cleared" (click)="click(item)">
         <ion-avatar item-left>
           <div [hidden]="item.read" class="circle"></div>
@@ -25,7 +25,6 @@
         <div class="desc" *ngIf="item.cancelled">This request was cancelled on {{item.cancelled | date: 'dd/MM/yy HH:mm'}}</div>
 
         <ion-note item-right>
-          <div class="quote-time">{{item.pasttime}}</div>
           <div class="quote-price">${{item.quote.price}}</div>
           <button *ngIf="item.cancelled" (click)="clearRequest($event, item)">CLEAR</button>
         </ion-note>

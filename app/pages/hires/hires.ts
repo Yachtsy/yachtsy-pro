@@ -2,6 +2,7 @@ import {NavController, ModalController, Modal} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {QuoteDetailPage} from '../quote-detail/quote-detail';
 import {FirebaseService} from '../../components/firebaseService';
+import GlobalService = require('../../components/globalService');
 
 
 @Component({
@@ -20,9 +21,8 @@ export class HiresPage {
   }
 
   db
-  hires
   user
-  request
+  requests
 
   clearRequest($event, request) {
     request.cleared = true;
@@ -34,38 +34,8 @@ export class HiresPage {
 
 
   ngOnInit() {
-    console.log('ngOnInit - requests');
-
     this.user = firebase.auth().currentUser;
-
-    firebase.database().ref('users/' + this.user.uid + '/matchedRequests')
-      .on('value', (snapshot) => {
-
-        let hires = [];
-
-        if (snapshot.exists()) {
-          var requestData = snapshot.val();
-          console.log('request data', requestData);
-
-          Object.keys(requestData).map((key) => {
-
-            requestData[key]['id'] = key;
-
-            var hiring = requestData[key].hiring;
-
-            if (hiring.isHired && !requestData[key].cleared && hiring.suppliers[this.user.uid]) {
-              hires.push(requestData[key]);
-            }
-
-          });
-        }
-        
-        this.ngZone.run(() => {
-          this.hires = hires;
-          console.log('hires are:', this.hires);
-        });
-
-      });
+    this.requests = GlobalService.matchedHires;
   }
 
   click(item) {

@@ -52,14 +52,14 @@
     </div>
   </div>
 
-  <div *ngIf="!isWhatsNext && requests && requests.length == 0" class="noquote-wrapper">
+  <div *ngIf="!isWhatsNext && requests.data && requests.data.length == 0" class="noquote-wrapper">
     <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
     <p>Quotes you've sent will be located here</p>
   </div>
 
-  <ion-list tappable *ngIf="!isWhatsNext && requests && requests.length > 0">
+  <ion-list tappable *ngIf="!isWhatsNext && requests.data && requests.data.length > 0">
 
-    <div tappable *ngFor="let item of requests" (click)="click(item)">
+    <div tappable *ngFor="let item of requests.data" (click)="click(item)">
       <ion-item *ngIf="!item.cancelled">
         <h2> <b>{{item.from}}</b></h2>
         <h3>{{item.categoryName}} - {{item.locationName}}</h3>

@@ -20,6 +20,8 @@ export class TabsPage {
   nav;
   navParams;
 
+  tabBadgeInfo: any;
+
   @ViewChild('mainTabs') tabRef: Tabs;
 
   constructor(nav: NavController, navParams: NavParams) {
@@ -37,6 +39,7 @@ export class TabsPage {
   }
 
   ngOnInit() {
+    this.tabBadgeInfo = GlobalService.tabBadgeInfo;
     GlobalService.mainTabRef = this.tabRef;
   }
 

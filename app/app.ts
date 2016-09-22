@@ -48,11 +48,11 @@ export class MyApp {
     var user = firebase.auth().currentUser;
     
     if (user) {
+      this.getMatchedRequests();
 
       console.log('checking user profile...');
       firebase.database().ref('users/' + user.uid)
         .once('value').then((snapshot) => {
-
 
           console.log('the user is ', user.uid);
 
@@ -116,6 +116,104 @@ export class MyApp {
 
   }
 
+  getMatchedRequests() {
+    var user = firebase.auth().currentUser;
+    firebase.database().ref('users/' + user.uid + '/matchedRequests').on('value', (snapshot) => {
+      if (snapshot.exists()) {
+
+        var i, j, k;
+        var requestData = snapshot.val();
+        let matchedRequests = [], matchedQuotes = [], matchedHires = [];
+        var curTime = new Date().getTime();
+
+        console.log('request ', requestData);
+
+        var requestUnreadCount = 0;
+        var hireUnreadCount = 0;
+
+        Object.keys(requestData).map((key) => {
+
+          let req = requestData[key];
+          req['id'] = key;
+
+          if (req.read !== true)
+            requestUnreadCount++;
+          // if (req.read !== true)
+          //   hireUnreadCount++;
+
+          var body = JSON.parse(req.body);
+          var desc = "";
+          for (j = 0; j < body.length; j++) {
+            if (body[j].ans && body[j].ans.length > 0) {
+              for (k = 0; k < body[j].ans.length; k++) {
+                if (typeof body[j].ans[k] !== 'object') {
+                  if (desc === '')
+                    desc = body[j].ans[k];
+                  else
+                    desc += (',' + body[j].ans[k]);
+                }
+              }
+            }
+          }
+          req.desc = desc;
+
+          if (!req.quote && !req.hired && !req.cancelled && !req.passed) {
+            req.pasttime = GlobalService.getPastTimeString(curTime - req.date) + ' ago';
+            matchedRequests.push(req);
+          }
+
+          if (req.quote && !(req.hiring.isHired && req.hiring.suppliers[user.uid]) && !req.cleared) {
+            req.pasttime = GlobalService.getPastTimeString(curTime - req.quote.timestamp) + ' ago';
+            matchedQuotes.push(req);
+          }
+
+          if (req.hiring.isHired && !req.cleared && req.hiring.suppliers[user.uid])
+            matchedHires.push(req);
+
+        });
+
+        for (i = 0; i < matchedRequests.length; i++) {
+          for (j = i + 1; j < matchedRequests.length; j++) {
+            if (matchedRequests[i].date < matchedRequests[j].date) {
+              var tmp = {};
+              Object.assign(tmp, matchedRequests[i]);
+              matchedRequests[i] = matchedRequests[j];
+              matchedRequests[j] = tmp;
+            }
+          }
+        }
+
+        for (i = 0; i < matchedQuotes.length; i++) {
+          for (j = i + 1; j < matchedQuotes.length; j++) {
+            if (matchedQuotes[i].quote.timestamp < matchedQuotes[j].quote.timestamp) {
+              var tmp = {};
+              Object.assign(tmp, matchedQuotes[i]);
+              matchedQuotes[i] = matchedQuotes[j];
+              matchedQuotes[j] = tmp;
+            }
+          }
+        }
+
+        GlobalService.matchedRequests.data  = matchedRequests;
+        GlobalService.matchedQuotes.data    = matchedQuotes;
+        GlobalService.matchedHires.data     = matchedHires;
+
+        if (requestUnreadCount === 0)
+          GlobalService.tabBadgeInfo.requestUnreadCount = '';
+        else
+          GlobalService.tabBadgeInfo.requestUnreadCount = requestUnreadCount + '';
+        if (hireUnreadCount === 0)
+          GlobalService.tabBadgeInfo.hireUnreadCount = '';
+        else
+          GlobalService.tabBadgeInfo.hireUnreadCount = hireUnreadCount + '';
+
+        console.log('request finished.');
+      }
+      else
+        GlobalService.matchedRequests.data = [];
+
+    });
+  }
 
   pushTokenCallCount = 0;
   getPushToken() {

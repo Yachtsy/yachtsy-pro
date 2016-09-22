@@ -1,6 +1,6 @@
 <ion-tabs #mainTabs id="mainTabs">
-  <ion-tab [root]="requestsPage" tabTitle="Requests" tabIcon="mail"></ion-tab>
+  <ion-tab [root]="requestsPage" tabTitle="Requests" tabIcon="mail" tabBadge="{{tabBadgeInfo.requestUnreadCount}}"></ion-tab>
   <ion-tab [root]="quotesPage" tabTitle="Quotes" tabIcon="logo-usd"></ion-tab>
-  <ion-tab [root]="hiresPage" tabTitle="Hires" tabIcon="checkmark-circle"></ion-tab>
+  <ion-tab [root]="hiresPage" tabTitle="Hires" tabIcon="checkmark-circle" tabBadge="{{tabBadgeInfo.hireUnreadCount}}"></ion-tab>
   <ion-tab [root]="profilePage" tabTitle="You" tabIcon="contact"></ion-tab>
 </ion-tabs>
