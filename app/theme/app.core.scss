@@ -10,11 +10,13 @@
 
 @import "../pages/login/login";
 
-@import "../components/chat-bubble/chat-bubble";
+@import "../pages/forgot/forgot";
 
 @import "../pages/signup-or-login/signup-or-login";
 
 @import "../pages/signup/signup";
+
+@import "../pages/get-started/get-started";
 
 @import "../pages/create-profile/create-profile";
 
@@ -38,6 +40,8 @@
 
 @import "../pages/tabs/tabs";
 
+@import "../components/chat-bubble/chat-bubble";
+
 
 ion-page {
   font-family: Avenir;
@@ -46,18 +50,22 @@ ion-page {
 input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   font-family: Adelle;
   font-style: italic;
+  font-size: 1.4rem;
 }
 input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
   font-family: Adelle;
   font-style: italic;
+  font-size: 1.4rem;
 }
 input::-moz-placeholder { /* Mozilla Firefox 19+ */
   font-family: Adelle;
   font-style: italic;
+  font-size: 1.4rem;
 }
 input:-ms-input-placeholder { /* Internet Explorer 10-11 */
   font-family: Adelle;
   font-style: italic;
+  font-size: 1.4rem;
 }
 
 /* set color for placeholder text of textarea element */
@@ -81,6 +89,19 @@ textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
 h2 {
   margin-top: 0px !important;  
 }
+
+.logo {
+  width: 30%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+ion-navbar {
+  .button-inner {
+    font-size: 1.4rem;
+  }
+}
+
 
 .toast-message {
   background: #67c1c6;

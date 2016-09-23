@@ -78,3 +78,19 @@ export var getDurationString = function (duration) {
     else
         return '1s';
 }
+
+export var doAlert = function(message, alertCtrl) {
+  let alert = alertCtrl.create({
+    title: 'Yachtsy Pro',
+    message: message,
+    buttons: [
+      {
+        text: 'OK',
+        role: 'cancel',
+        handler: () => {
+        }
+      }
+    ]
+  });
+  alert.present();
+}

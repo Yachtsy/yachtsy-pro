@@ -1,22 +1,168 @@
-.signup {
+.signup-page {
 
-    .item .item-inner {
-        border: 0;
+    ion-navbar {
+        ion-title {
+            padding-left: 50px;
+            padding-right: 50px;
+
+            .toolbar-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        .toolbar-background {
+            background-color: #fff;
+        }
     }
 
-    .toolbar-background {
-        display: none;
-        background-color: #fff;
+    scroll-content {
+        padding: 0px;
     }
 
+    .header-wrapper {
+        display: table;
+        width: 100%;
+        height: 150px;
+        padding: 0px 10%;
+        background-color: #005677;
+        text-align: center;
 
+        .header-text {
+            display: table-cell;
+            vertical-align: middle;
+            font-size: 1.8rem;
+            font-family: Adelle;
+            font-style: italic;
+            color: white;
+        }
+    }
 
+    ion-content {
+
+        ion-list {
+            margin-bottom: 0px;
+
+            button {
+                border-top: 0px;
+                border-bottom: 1px solid #eee !important;
+
+                ion-icon {
+                    color: #005677;
+                }
+            }
+        }
+
+        .location-wrapper {
+            padding: 0px 5%;
+            margin-top: 15px;
+
+            ion-label {
+                color: black;
+                font-size: 1.4rem;
+                margin: 12px 0px 4px 0px;
+            }
+
+            .item {
+                padding: 0px;
+
+                .item-inner {
+                    border: 0;
+                    padding: 0px;
+                }
+
+                ion-select {
+                    padding: 10px;
+                    border-radius: 4px;
+                    border: 1px solid #ddd;
+                    font-size: 1.4rem;
+                }
+            }
+
+            .location-item {
+                background-color: #f2f2f2;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+
+                ion-label {
+                    margin: 0px;
+                }
+            }
+
+            .loc_input {
+                min-height: 4.4rem;
+                width: 100%;
+                padding: 0px 10px;
+                background: none;
+                border: none;
+            }
+
+            ion-icon {
+                color: #005677;
+            }
+
+            #map_canvas {
+                width: 100%;
+                height: 200px;
+                margin: 20px 0px;
+            }
+
+            .select-icon .select-icon-inner {
+                color: #005677;
+            }
+        }
+
+        .contact-wrapper {
+            padding: 0px 5%;
+
+            ion-label {
+                margin: 15px 0px 10px 0px;
+            }
+
+            .item {
+                padding: 0px;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-shadow: none;
+                background-color: #f2f2f2;
+
+                .item-inner {
+                    border: 0;
+                    padding: 0px;
+
+                    ion-input {
+                        padding: 0px 10px;
+                        background: none;
+                    }
+
+                    input {
+                        margin: 0px;
+                        height: 25px;
+                        line-height: 25px;
+                    }
+                }
+            }
+        }
+    }
+
+    ion-footer {
+        .toolbar-background {
+            background-color: #005677;
+        }
+
+        button {
+            color: #bfb364;
+
+            ion-icon {
+                font-weight: bold;
+            }
+        }
+    }
 }
 
-    .pac-container:after{
-        content:none !important;
-    }
-
+.pac-container:after{
+    content:none !important;
+}
 
 .pac-container:after{
     content:none !important;
@@ -26,25 +172,6 @@
 .pac-container {
     left: 16px;
 }
-
-.loc_input {
-    min-height: 4.4rem;
-    background-color: whitesmoke;
-    width: 90%;
-    border:0px;
-    border-radius: 0px;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-#map_canvas {
-    height: 200px;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    // background-color : transparent;
-}
-
 
 ion-app._gmaps_cdv_ .nav-decor {
     background-color: rgba(0,0,0,0);

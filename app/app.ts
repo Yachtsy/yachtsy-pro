@@ -79,6 +79,7 @@ export class MyApp {
                 (snapshot) => {
                   if (snapshot.exists()) {
                     this.nav.setRoot(CreateProfilePage, {
+                      isWelcome: true,
                       pages: snapshot.val().pages,
                       formPageIndex: 0,
                       answers: {}
@@ -220,7 +221,7 @@ export class MyApp {
     let self = this;
     FirebasePlugin.getInstanceId(function (token) {
       // save this server-side and use it to push notifications to this device
-      console.log('THE PUSH TOKEN IS', token);
+      console.log('THE PUSH TOKEN IS: ', token);
       GlobalService.pushToken = token;
     }, function (error) {
       console.log((self.pushTokenCallCount + 1) + 'th trying error: ' + error);

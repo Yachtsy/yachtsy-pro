@@ -1,18 +1,28 @@
-.signup-or-login {
+.signup-or-login-page {
 
-    background-color: rgb(6, 92, 138);
+    background-image: url('../../img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    ion-content {
+        background: none;
+        color: white;
+        line-height: 3rem;
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
 
     .toolbar-background {
-    background-color: rgb(6, 92, 138);
-    border: none;
+        background: none;
+        border: none;
     }
 
-    .item.item-trns {
-        border-color: rgba(0, 0, 0, 0);
-        background-color: rgba(0, 0, 0, 0);
-        color: white; 
+    ion-toolbar {
+        padding: 0px 10px;
+
+        button {
+            margin: 0px;
+        }
     }
-
-
 }
-

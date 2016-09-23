@@ -1,25 +1,26 @@
+<div class="opacity-back"></div>
+
 <ion-header>
   <ion-navbar>
     <ion-title></ion-title>
-
-    <ion-buttons end>
-      <button light (click)="goToSignup()">Sign Up</button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content align="center">
 
   <img class="logo" src="img/logo.png">
-  <div>Find new customers.</div>
-  <div>Earn more money.</div>
+
+  <ion-label>Enter your email</ion-label>
+  <ion-item>
+    <ion-input [(ngModel)]="username" type="email"></ion-input>
+  </ion-item>
 
 </ion-content>
 
 <ion-footer>
 
   <ion-toolbar>
-    <button class="button" block (click)="goToLogin()">Login</button>
+    <button class="button" block (click)="send()">Send</button>
   </ion-toolbar>
 
 </ion-footer>

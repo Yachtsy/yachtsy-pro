@@ -1,10 +1,9 @@
 import {NavController, NavParams, AlertController, LoadingController, Platform} from 'ionic-angular';
-import {Injectable} from '@angular/core';
+import {Injectable, ViewChild, ElementRef} from '@angular/core';
 import {ControlGroup, FormBuilder} from '@angular/common';
 import {Http} from '@angular/http';
 import {CreateProfilePage} from '../create-profile/create-profile'
 import {Component} from '@angular/core';
-import {ElementRef, ViewChild} from '@angular/core';
 import {GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
 
 
@@ -14,9 +13,12 @@ import {GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} f
 
 export class SignupPage {
 
+  @ViewChild('map') mapElement: ElementRef;
+
   categoryGroups
   categoryGroupKeys
   answers = {}
+  map: any;
 
   hideSignupIntro: boolean = false;
   hideCategoryGroup: boolean = true;
@@ -26,12 +28,6 @@ export class SignupPage {
   fromValue: string;
   googleApiKey = "AIzaSyB2-pd_C9vShNuBpWzTBHzTtY6cinsYWM0";
 
-
-  //userData
-  firstName
-  lastName
-  email
-  telephone
   userInfoForm
 
   @ViewChild('myAutocomplete') myAutocomplete: any;
@@ -52,20 +48,23 @@ export class SignupPage {
       { requiresAnswer: true, label: "Which kind of services do you provide?", name: 'CategoryGroup' },
       { requiresAnswer: true, label: "Select which categories you can provide.", name: 'CategoryList' },
       { requiresAnswer: true, label: "Do any provide any of the following related services?", name: 'RelatedServices' },
-      { requiresAnswer: true, label: "Where can you provide the servies?", name: 'LocationPreferences' },
+      { requiresAnswer: true, label: "Where can you provide the services?", name: 'LocationPreferences' },
       { requiresAnswer: true, label: "How far are you willing to travel?", name: 'TravelPreferences' },
       { requiresAnswer: true, label: "Please enter your contact information", name: 'ContactInfo' },
       { requiresAnswer: false, label: "Signup Complete!" }
     ];
 
     this.userInfoForm = formBuilder.group({
-      'firstName': 'Alex',
-      'lastName': 'Mady',
-      'email': 'alexmady@gmail.com',
-      'telephone': '0123456789'
+      'firstName':  '',
+      'lastName':   '',
+      'email':      '',
+      'password':   '',
+      'telephone':  ''
     });
 
-
+    this.lat = 38.9072;
+    this.lng = -77.0369;
+    this.placeName = 'Washington';
   }
 
   clearFrom() {
@@ -73,37 +72,30 @@ export class SignupPage {
     this.fromValue = '';
   }
 
-  //private map: GoogleMap;
+  createMap() {
+    if (this.map)
+      return;
 
-  // createMap() {
-  //   this.platform.ready().then(() => {
-  //     try {
-  //       this.map = new GoogleMap('map_canvas' /*, {'backgroundColor': 'red'}*/);
+    console.log("position = " + this.lat + " : " + this.lng);
+    let latLng = new google.maps.LatLng(this.lat, this.lng);
+ 
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
+    }
 
-  //       return GoogleMap.isAvailable().then(() => {
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);    
+  }
 
-  //         return this.map.one(GoogleMapsEvent.MAP_READY).then((data: any) => {
-
-
-
-  //           this.map.getMyLocation().then((location) => {
-  //             console.log("latitude:" + location.latLng.lat, "longitude:" + location.latLng.lng);
-  //             let myPosition = new GoogleMapsLatLng(location.latLng.lat, location.latLng.lng);
-  //             //console.log("My position is", myPosition);
-  //             this.map.animateCamera({ target: myPosition, zoom: 10, duration: 1000 });
-  //             this.map.setClickable(false);
-  //             //loading.dismiss();
-  //           });
-  //           //alert("GoogleMap.onMapReady(): " + JSON.stringify(data));
-
-  //         });
-  //       });
-  //     } catch (error) {
-  //       //loading.dismiss();
-  //     }
-  //   });
-  // }
-
+  updateMapPosition() {
+    if (!this.map)
+      this.createMap();
+    else {
+      this.map.setCenter(new google.maps.LatLng(this.lat, this.lng));
+    }
+  }
 
   doAlert(title, subtitle) {
     let alert = this.alertCtrl.create({
@@ -160,8 +152,10 @@ export class SignupPage {
 
     var email = formData.email;
     console.log('users email for signup is:', email);
+    var password = formData.password;
+    console.log('users password for signup is:', password);
 
-    firebase.auth().createUserWithEmailAndPassword(email, email)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
 
         // user is signed in on successful creation of account
@@ -181,6 +175,7 @@ export class SignupPage {
               lastName: formData.lastName,
               locationInfo: this.answers['LocationPreferences'],
               email: formData.email,
+              password: formData.password,
               telephone: formData.telephone,
             };
 
@@ -202,6 +197,7 @@ export class SignupPage {
                     (snapshot) => {
                       if (snapshot.exists()) {
                         this.nav.setRoot(CreateProfilePage, {
+                          isWelcome: true,
                           pages: snapshot.val().pages,
                           formPageIndex: 0,
                           answers: {}
@@ -278,6 +274,8 @@ export class SignupPage {
         //componentRestrictions: { country: 'uk' }
       };
 
+      this.createMap();
+
       //var inputEl = this.myAutocomplete._native._elementRef.nativeElement;
       //console.log('autocomplete element is', inputEl);
       console.log('autocomplete element is', this.myAutocomplete.nativeElement);
@@ -304,6 +302,8 @@ export class SignupPage {
 
           console.log(geometry.location.lat());
 
+          this.updateMapPosition();
+
           // try {
 
           //   let myPosition = new GoogleMapsLatLng(this.lat, this.lng);
@@ -324,6 +324,7 @@ export class SignupPage {
   }
 
   user
+  answersLength
 
   ngOnInit() {
 
@@ -352,6 +353,8 @@ export class SignupPage {
     if (answers) {
       this.answers = answers;
     }
+
+    this.answersLength = 0;
 
     this.categoryGroups = this.navParams.get('categoryGroups');
     this.relatedServices = this.navParams.get('relatedServices');
@@ -389,8 +392,9 @@ export class SignupPage {
 
   currentQuestion
 
-
-
+  back() {
+    this.nav.pop();
+  }
 
   doNext(skip) {
 
@@ -428,19 +432,12 @@ export class SignupPage {
     // }
   }
 
-  // <ion-option value="10">Up to 10 miles</ion-option>
-  //           <ion-option value="20"></ion-option>
-  //           <ion-option value="30">Up to 30 miles</ion-option>
-  //           <ion-option value="50">Up to 50 miles</ion-option>
-  //           <ion-option value="75">Up to 75 miles</ion-option>
-  //           <ion-option value="100">100 miles or more</ion-option>
-
   distancePrefs = [
-    "Up to 20 miles",
-    "Up to 30 miles",
-    "Up to 50 miles",
-    "Up to 75 miles",
-    "100 miles or more"
+    { value: 20,  text: "Up to 20 miles" },
+    { value: 30,  text: "Up to 30 miles" },
+    { value: 50,  text: "Up to 50 miles" },
+    { value: 75,  text: "Up to 75 miles" },
+    { value: 100, text: "100 miles or more" }
   ];
 
   next(item) {
@@ -467,6 +464,7 @@ export class SignupPage {
           }
 
           console.log('answers set:', this.answers);
+          this.answersLength = Object.keys(this.answers[this.currentQuestion]).length;
         } else {
 
           if (this.stepIndex === 2) {
@@ -530,16 +528,15 @@ export class SignupPage {
         var locationPreferences = {
           lat: this.lat,
           lng: this.lng,
-          //          distance: this.travelPref,
+          distance: this.travelPref,
           placeName: this.placeName
-
         };
+
         this.answers[this.currentQuestion] = locationPreferences;
         console.log(this.answers);
-        this.doNext(0);
+        this.doNext(1);
 
       } else {
-
         console.log(item);
         console.log('answers');
         this.answers[this.currentQuestion] = item;

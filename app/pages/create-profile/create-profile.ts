@@ -15,6 +15,7 @@ export class CreateProfilePage {
   public formPageIndex = -1
   public currentPage
   public answers = {};
+  public isWelcome = false;
 
   public changedFormFields = {};
 
@@ -27,6 +28,7 @@ export class CreateProfilePage {
     public actionSheetCtrl: ActionSheetController,
     private ngZone: NgZone) {
 
+    this.isWelcome = this.navParams.get("isWelcome");
     this.pages = this.navParams.get("pages");
     this.formPageIndex = this.navParams.get("formPageIndex");
     this.answers = this.navParams.get("answers");
@@ -57,6 +59,18 @@ export class CreateProfilePage {
   }
 
   public submitAttempt = false;
+
+  back() {
+    this.nav.pop();
+  }
+
+  nextWelcome() {
+    this.nav.push(CreateProfilePage, {
+      formPageIndex: this.formPageIndex,
+      pages: this.pages,
+      answers: this.answers
+    });
+  }
 
   submitForm() {
 

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content align="center">
+
+  <img class="logo" src="img/logo.png">
+
+  <div class="contents-wrapper">
+<!--  
+    <select [(ngModel)]="selectedItem">
+      <option value='' disabled selected>Select your service</option>
+      <option *ngFor="let item of categoryGroupKeys">{{item}}</option>
+    </select>
+-->
+    <ion-item>
+      <ion-label>Select your service</ion-label>
+      <ion-select [(ngModel)]="selectedItem">
+        <ion-option *ngFor="let item of categoryGroupKeys">{{item}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <button class="button" block (click)="done()">Get Started</button>
+  </div>
+
+</ion-content>

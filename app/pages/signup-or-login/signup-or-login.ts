@@ -1,7 +1,7 @@
 import {NavController} from 'ionic-angular';
 import {Http} from '@angular/http';
 import {LoginPage} from '../login/login';
-import {SignupPage} from '../signup/signup';
+import {GetStartedPage} from '../get-started/get-started';
 import {Component} from '@angular/core';
 
 @Component({
@@ -23,11 +23,9 @@ export class SignupOrLoginPage {
 
       this.categoryGroups = snapshot.val();
 
-
     });
 
   }
-
 
   goToLogin() {
     this.nav.push(LoginPage);
@@ -35,17 +33,9 @@ export class SignupOrLoginPage {
 
   goToSignup() {
 
-    var user = firebase.auth().currentUser;
-
-    if (user) {
-      this.nav.push(SignupPage, {
-        stepIndex: 6
-      })
-    } else {
-      this.nav.push(SignupPage, {
-        categoryGroups: this.categoryGroups
-      });
-    }
+    this.nav.push(GetStartedPage, {
+      categoryGroups: this.categoryGroups
+    });
 
   }
 }

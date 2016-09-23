@@ -1,16 +1,14 @@
 import {NavController, LoadingController, AlertController} from 'ionic-angular';
 import {Component} from '@angular/core';
-import {ForgotPage} from '../forgot/forgot'
 import GlobalService = require('../../components/globalService');
 
 
 @Component({
-  templateUrl: 'build/pages/login/login.html',
+  templateUrl: 'build/pages/forgot/forgot.html',
 })
-export class LoginPage {
+export class ForgotPage {
 
   username: string
-  password: string
 
   constructor(
     public nav: NavController,
@@ -19,36 +17,29 @@ export class LoginPage {
 
   }
 
-  login() {
+  send() {
     if (!this.username || this.username === '') {
       GlobalService.doAlert('Please enter your email.', this.alertCtrl);
       return;
     }
-    if (!this.password || this.password === '') {
-      GlobalService.doAlert('Please enter your password.', this.alertCtrl);
-      return;
-    }
 
     let loading = this.loadingCtrl.create({
-      content: "Logging in...",
+      content: "Sending...",
       duration: 1000
     });
     loading.present();
 
     var self = this;
-    firebase.auth().signInWithEmailAndPassword(this.username, this.password)
+    firebase.auth().sendPasswordResetEmail(this.username)
     .then(function (data) {
-
+      GlobalService.doAlert('Your request have successfully sent, please check your email box.', self.alertCtrl);
+      self.nav.pop();
     })
     .catch(function (error) {
       console.error(error);
       GlobalService.doAlert(error['message'], self.alertCtrl);
     });
 
-  }
-
-  forgot() {
-    this.nav.push(ForgotPage);
   }
 
 }
