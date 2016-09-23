@@ -379,15 +379,7 @@ export class SignupPage {
       this.answers[this.currentQuestion] = {};
     }
 
-    // if (this.stepIndex === 6) {
-    //   firebase.auth().onAuthStateChanged(function (user) {
-    //     if (user) {
-    //       console.log('auth state changed', user);
-    //     } else {
-    //       console.log('USER LOGGED OUT');
-    //     }
-    //   });
-    // }
+   
   }
 
   currentQuestion
@@ -405,31 +397,12 @@ export class SignupPage {
       categoryGroups: this.categoryGroups,
       answers: this.answers,
       relatedServices: this.relatedServices
-    }).then(() => {
-      // console.log('****** step index used', stepIndex)
-      // if (stepIndex === 4) {
-      //   console.log('extra maps stuff going on &&&*&*&*&*&*&*&*&*&*&*&*');
-      //   var els = document.getElementsByClassName("signup-page show-page")
-      //   console.log('ELEMENTS:', els);
-      //   if (els) {
-      //     els[2].classList.add('hideme');
-      //   }
-      // }
     });
+
   }
 
   ionViewWillEnter() {
-    // console.log(' step index is ' + this.stepIndex)
-    // if (this.stepIndex === 2) {
-    //   console.log('remove the hide me if its there')
-    //   var els = document.getElementsByClassName("signup-page show-page")
-    //   console.log('ELEMENTS:', els);
-    //   if (els) {
-    //     if (els[2].classList.contains('hideme')) {
-    //       els[2].classList.remove('hideme');
-    //     }
-    //   }
-    // }
+   
   }
 
   distancePrefs = [
@@ -465,6 +438,11 @@ export class SignupPage {
 
           console.log('answers set:', this.answers);
           this.answersLength = Object.keys(this.answers[this.currentQuestion]).length;
+
+          if(this.stepIndex === 1){
+            this.doNext(0);
+          }
+
         } else {
 
           if (this.stepIndex === 2) {

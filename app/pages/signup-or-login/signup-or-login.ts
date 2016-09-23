@@ -2,6 +2,7 @@ import {NavController} from 'ionic-angular';
 import {Http} from '@angular/http';
 import {LoginPage} from '../login/login';
 import {GetStartedPage} from '../get-started/get-started';
+import {SignupPage} from '../signup/signup';
 import {Component} from '@angular/core';
 
 @Component({
@@ -33,8 +34,9 @@ export class SignupOrLoginPage {
 
   goToSignup() {
 
-    this.nav.push(GetStartedPage, {
-      categoryGroups: this.categoryGroups
+    this.nav.push(SignupPage, {
+      categoryGroups: this.categoryGroups,
+      stepIndex: 1
     });
 
   }
