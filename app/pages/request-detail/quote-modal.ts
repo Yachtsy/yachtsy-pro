@@ -184,6 +184,11 @@ export class QuoteModal {
 
 
   sendQuote() {
+    if (!this.message) {
+      GlobalService.doAlert('Please add quote message.', this.alertCtrl);
+      return;
+    }
+
     console.log('sending a quote for price: ', this.price);
     let loading = this.loadingCtrl.create({
       content: 'Sending quote',
