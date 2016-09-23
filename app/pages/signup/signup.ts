@@ -55,11 +55,11 @@ export class SignupPage {
     ];
 
     this.userInfoForm = formBuilder.group({
-      'firstName':  '',
-      'lastName':   '',
-      'email':      '',
-      'password':   '',
-      'telephone':  ''
+      'firstName': '',
+      'lastName': '',
+      'email': '',
+      'password': '',
+      'telephone': ''
     });
 
     this.lat = 38.9072;
@@ -78,7 +78,7 @@ export class SignupPage {
 
     console.log("position = " + this.lat + " : " + this.lng);
     let latLng = new google.maps.LatLng(this.lat, this.lng);
- 
+
     let mapOptions = {
       center: latLng,
       zoom: 15,
@@ -86,7 +86,7 @@ export class SignupPage {
       disableDefaultUI: true
     }
 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);    
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
 
   updateMapPosition() {
@@ -166,11 +166,21 @@ export class SignupPage {
 
             console.log('email verification has been sent');
 
+            var interestedCategories = {};
+
+            Object.keys(this.answers['CategoryList']).map((key => {
+              interestedCategories[key] = this.answers['CategoryList'][key];
+            }));
+
+            Object.keys(this.answers['RelatedServices']).map((key => {
+              interestedCategories[key] = this.answers['RelatedServices'][key];
+            }));
+
             // create the user's area
             var supplierInfo = {
               profileSetupStage: 0,
               categoryGroup: this.answers['CategoryGroup'],
-              interestedCategories: this.answers['CategoryList'],
+              interestedCategories: interestedCategories,
               firstName: formData.firstName,
               lastName: formData.lastName,
               locationInfo: this.answers['LocationPreferences'],
@@ -379,7 +389,7 @@ export class SignupPage {
       this.answers[this.currentQuestion] = {};
     }
 
-   
+
   }
 
   currentQuestion
@@ -402,14 +412,14 @@ export class SignupPage {
   }
 
   ionViewWillEnter() {
-   
+
   }
 
   distancePrefs = [
-    { value: 20,  text: "Up to 20 miles" },
-    { value: 30,  text: "Up to 30 miles" },
-    { value: 50,  text: "Up to 50 miles" },
-    { value: 75,  text: "Up to 75 miles" },
+    { value: 20, text: "Up to 20 miles" },
+    { value: 30, text: "Up to 30 miles" },
+    { value: 50, text: "Up to 50 miles" },
+    { value: 75, text: "Up to 75 miles" },
     { value: 100, text: "100 miles or more" }
   ];
 
@@ -439,7 +449,7 @@ export class SignupPage {
           console.log('answers set:', this.answers);
           this.answersLength = Object.keys(this.answers[this.currentQuestion]).length;
 
-          if(this.stepIndex === 1){
+          if (this.stepIndex === 1) {
             this.doNext(0);
           }
 
@@ -493,7 +503,7 @@ export class SignupPage {
                 this.doNext(0);
               }
             });
-          } else if (this.stepIndex === 3){
+          } else if (this.stepIndex === 3) {
             this.doNext(0);
           }
         }
