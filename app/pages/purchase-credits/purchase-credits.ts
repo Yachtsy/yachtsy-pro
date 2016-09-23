@@ -67,12 +67,15 @@ export class PurchaseCreditsPage {
                             });
                         }).then(()=> {
                             loader.dismiss();
+                        }).catch((error: any) => {
+                            console.log(error);
+                            loader.dismiss();
                         });
 
                 } else {
                     console.error('NO PRODUCTS FOUND');
+                    loader.dismiss();
                 }
-
             });
     }
 
