@@ -86,9 +86,7 @@ export var doAlert = function(message, alertCtrl) {
     buttons: [
       {
         text: 'OK',
-        role: 'cancel',
-        handler: () => {
-        }
+        role: 'cancel'
       }
     ]
   });

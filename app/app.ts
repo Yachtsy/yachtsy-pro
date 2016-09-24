@@ -91,13 +91,24 @@ export class MyApp {
 
           } else {
             console.log('NO USER PROFILE - logging user out');
-            //firebase.auth().signOut();
-            //this.nav.setRoot(SignupOrLoginPage);
+              firebase.database().ref('supplierProfileCreate').once('value',
+                (snapshot) => {
+                  if (snapshot.exists()) {
+                    this.nav.setRoot(CreateProfilePage, {
+                      isWelcome: true,
+                      pages: snapshot.val().pages,
+                      formPageIndex: 0,
+                      answers: {}
+                    }, { animate: true, direction: 'forward' });
+                  }
+                });
+            // firebase.auth().signOut();
+            // this.nav.setRoot(SignupOrLoginPage);
           }
         })
     } else {
       console.log('going to sign up or login page')
-      //this.nav.setRoot(SignupOrLoginPage);
+      // this.nav.setRoot(SignupOrLoginPage);
     }
   }
 

@@ -32,12 +32,16 @@ export class ForgotPage {
     var self = this;
     firebase.auth().sendPasswordResetEmail(this.username)
     .then(function (data) {
-      GlobalService.doAlert('Your request have successfully sent, please check your email box.', self.alertCtrl);
-      self.nav.pop();
+      loading.dismiss().then(() => {
+        GlobalService.doAlert('Your request have successfully sent, please check your email box.', self.alertCtrl);
+        self.nav.pop();
+      });
     })
     .catch(function (error) {
       console.error(error);
-      GlobalService.doAlert(error['message'], self.alertCtrl);
+      loading.dismiss().then(() => {
+        GlobalService.doAlert(error['message'], self.alertCtrl);
+      });
     });
 
   }

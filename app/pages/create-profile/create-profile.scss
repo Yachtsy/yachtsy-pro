@@ -119,6 +119,11 @@
                 width: 100%;
             }
 
+            .input-title {
+                padding-left: 16px;
+                margin: 15px 0px 5px 0px;
+            }
+
             .item {
                 border: 0px;
                 padding-right: 16px;
@@ -162,12 +167,6 @@
                 font-weight: bold;
             }
         }
-    }
-
-    textarea {
-        // max-width: 100%;
-        // width: 100%;
-        height: 10vh;
     }
 
     .hint {

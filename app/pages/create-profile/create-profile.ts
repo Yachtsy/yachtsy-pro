@@ -1,5 +1,6 @@
 import {NavController, ActionSheetController, NavParams} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
+import {SecurityContext, DomSanitizationService} from '@angular/platform-browser';
 import {Camera} from 'ionic-native';
 import {TabsPage} from '../tabs/tabs';
 //import {FormBuilder, Control, ControlGroup, Validators, FORM_DIRECTIVES} from '@angular/common';
@@ -25,6 +26,7 @@ export class CreateProfilePage {
     public nav: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
+    private sanitizer: DomSanitizationService,
     public actionSheetCtrl: ActionSheetController,
     private ngZone: NgZone) {
 
@@ -33,6 +35,15 @@ export class CreateProfilePage {
     this.formPageIndex = this.navParams.get("formPageIndex");
     this.answers = this.navParams.get("answers");
     this.currentPage = this.pages[this.formPageIndex];
+
+    if (this.currentPage.body && this.currentPage.body.items) {
+      var items = [];
+      for (var i = 0; i < this.currentPage.body.items.length; i++) {
+        if (this.currentPage.body.items[i])
+          items.push(this.currentPage.body.items[i]);
+      }
+      this.currentPage.body.items = items;
+    }
 
     if (this.currentPage.type === 'input' || this.currentPage.type === 'select') {
       if (!this.answers[this.currentPage.name]) {
@@ -140,11 +151,12 @@ export class CreateProfilePage {
 
   getPicture(sourceType) {
     Camera.getPicture({
-      quality: 50,
+      quality: 100,
       destinationType: Camera.DestinationType.DATA_URL,
+      encodingType: Camera.EncodingType.JPEG,
       sourceType: sourceType,
-      targetWidth: 200,
-      targetHeight: 200,
+      targetWidth: 256,
+      targetHeight: 256,
       correctOrientation: true
     }).then((imageData) => {
       // imageData is a base64 encoded string
@@ -152,11 +164,15 @@ export class CreateProfilePage {
       this.base64Image = "data:image/jpeg;base64," + imageData;
 
       this.answers[this.currentPage.name] = this.base64Image;
-      console.log(JSON.stringify(this.answers));
+      // console.log(JSON.stringify(this.answers));
 
     }, (err) => {
       console.log(err);
     });
+  }
+
+  getSafeURL() {
+    return this.sanitizer.bypassSecurityTrustUrl(this.base64Image);
   }
 
   save() {

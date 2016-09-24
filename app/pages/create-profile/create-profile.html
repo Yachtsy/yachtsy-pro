@@ -36,7 +36,7 @@
       </ion-item>
     </div>
 
-    <button class="button" block>Setup Profile</button>
+    <button class="button" block (click)="nextWelcome()">Setup Profile</button>
   </div>
 
   <div *ngIf="!isWelcome">
@@ -79,26 +79,30 @@
           <!--<p class="hint">Please enter a valid {{item.label}}.</p>-->
           <!--</ion-item>-->
 
-          <ion-item *ngFor="let item of currentPage.body.items" text-wrap>
+          <div *ngFor="let item of currentPage.body.items">
 
-            <ion-label [class.err]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)" floating>{{item.label}}</ion-label>
+            <div class="input-title" [class.err]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)" floating>{{item.label}}</div>
 
-            <!-- input text box -->
-            <!-- [(ngModel)]="answers[currentPage.name][item.label]" -->
-            <ion-input *ngIf="item.type === 'text'" formControlName="{{item.name}}" type="text" (change)="elementChanged(item.name)"
-              [class.invalid]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)">
-            </ion-input>
+            <ion-item tappable>
 
-            <!-- input text area -->
-            <!--[(ngModel)]="answers[currentPage.name][item.label]"-->
-            <ion-textarea *ngIf="item.type === 'textarea'" formControlName="{{item.name}}" type="text" (change)="elementChanged(item.name)"
-              [class.invalid]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)">
-            </ion-textarea>
+              <!-- input text box -->
+              <!-- [(ngModel)]="answers[currentPage.name][item.label]" -->
+              <ion-input *ngIf="item.type === 'text'" formControlName="{{item.name}}" type="text" (change)="elementChanged(item.name)"
+                [class.invalid]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)">
+              </ion-input>
 
-            <!--<ion-item>
-              <p *ngIf="item.smalltext">{{item.smalltext}}</p>
-            </ion-item>-->
-          </ion-item>
+              <!-- input text area -->
+              <!--[(ngModel)]="answers[currentPage.name][item.label]"-->
+              <ion-textarea rows="4" *ngIf="item.type === 'textarea'" formControlName="{{item.name}}" type="text" (change)="elementChanged(item.name)"
+                [class.invalid]="!profileForm.controls[item.name].valid && (changedFormFields[item.name] || submitAttempt)">
+              </ion-textarea>
+
+              <!--<ion-item>
+                <p *ngIf="item.smalltext">{{item.smalltext}}</p>
+              </ion-item>-->
+            </ion-item>
+
+          </div>
 
         </form>
       </div>
@@ -109,7 +113,7 @@
 
       <div class="photo-desc">Upload a photo of yourself or your company logo</div>
       <img src="img/default-photo.png" *ngIf="!base64Image" />
-      <img [src]="base64Image" *ngIf="base64Image" />
+      <img [src]="getSafeURL(base64Image)" *ngIf="base64Image" />
       <button class="button" block (click)="takePicture()">Upload</button>
 
     </div>
@@ -118,7 +122,7 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isWelcome">
 
   <ion-toolbar>
     <ion-buttons start>
@@ -126,10 +130,9 @@
     </ion-buttons>
 
     <ion-buttons end>
-      <button *ngIf="isWelcome" (click)="nextWelcome()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
-      <button *ngIf="!isWelcome && currentPage.type === 'input'" (click)="submitForm()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
-      <button *ngIf="!isWelcome && currentPage.type !== 'input' && !currentPage.lastPage" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
-      <button *ngIf="!isWelcome && currentPage.lastPage" (click)="save()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
+      <button *ngIf="currentPage.type === 'input'" (click)="submitForm()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
+      <button *ngIf="currentPage.type !== 'input' && !currentPage.lastPage" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
+      <button *ngIf="currentPage.lastPage" (click)="save()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>
 <!--

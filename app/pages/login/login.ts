@@ -30,19 +30,20 @@ export class LoginPage {
     }
 
     let loading = this.loadingCtrl.create({
-      content: "Logging in...",
-      duration: 1000
+      content: "Logging in..."
     });
     loading.present();
 
     var self = this;
     firebase.auth().signInWithEmailAndPassword(this.username, this.password)
     .then(function (data) {
-
+      loading.dismiss();
     })
     .catch(function (error) {
       console.error(error);
-      GlobalService.doAlert(error['message'], self.alertCtrl);
+      loading.dismiss().then(() => {
+        GlobalService.doAlert(error['message'], self.alertCtrl);
+      });
     });
 
   }
