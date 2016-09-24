@@ -132,7 +132,7 @@
     <ion-buttons end>
       <button *ngIf="currentPage.type === 'input'" (click)="submitForm()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
       <button *ngIf="currentPage.type !== 'input' && !currentPage.lastPage" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
-      <button *ngIf="currentPage.lastPage" (click)="save()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
+      <button *ngIf="currentPage.lastPage" (click)="save()">Save</button>
     </ion-buttons>
   </ion-toolbar>
 

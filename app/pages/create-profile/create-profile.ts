@@ -1,4 +1,4 @@
-import {NavController, ActionSheetController, NavParams} from 'ionic-angular';
+import {NavController, ActionSheetController, LoadingController, NavParams} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {SecurityContext, DomSanitizationService} from '@angular/platform-browser';
 import {Keyboard, Camera} from 'ionic-native';
@@ -28,6 +28,7 @@ export class CreateProfilePage {
     private formBuilder: FormBuilder,
     private sanitizer: DomSanitizationService,
     public actionSheetCtrl: ActionSheetController,
+    public loadingCtrl: LoadingController,
     private ngZone: NgZone) {
 
     this.isWelcome = this.navParams.get("isWelcome");
@@ -181,17 +182,23 @@ export class CreateProfilePage {
   }
 
   save() {
-
     console.log(' trying to save profile data: ', JSON.stringify(this.answers));
+
+    let loading = this.loadingCtrl.create({
+      content: 'Saving...'
+    });
+
+    loading.present();
 
     firebase.database().ref('users/' + firebase.auth().currentUser.uid + '/profile').set(this.answers)
       .then(() => {
         console.log('profile was successfully saved');
 
-        this.ngZone.run(() => {
-          this.nav.push(TabsPage);
-        });
-        
+        loading.dismiss().then(() => {
+          this.ngZone.run(() => {
+            this.nav.push(TabsPage);
+          });
+        });        
       })
   }
 
