@@ -2,7 +2,7 @@
 <ion-header>
 
     <ion-navbar no-border-bottom hideBackButton>
-        <ion-buttons start>
+        <ion-buttons start class="start">
             <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
         </ion-buttons>
         <ion-title>{{title}}</ion-title>
@@ -28,6 +28,6 @@
 
 <ion-footer [ngStyle]="{bottom: footerBottom + 'px'}">
   <ion-toolbar no-border-bottom>
-    <button class="button" block (click)="beforeSendQuote()">Send Quote</button>
+    <button class="button block-button" block (click)="beforeSendQuote()">Send Quote</button>
   </ion-toolbar>
 </ion-footer>

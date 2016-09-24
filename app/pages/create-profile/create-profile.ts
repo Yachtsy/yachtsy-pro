@@ -1,7 +1,7 @@
 import {NavController, ActionSheetController, NavParams} from 'ionic-angular';
 import {Component, NgZone} from '@angular/core';
 import {SecurityContext, DomSanitizationService} from '@angular/platform-browser';
-import {Camera} from 'ionic-native';
+import {Keyboard, Camera} from 'ionic-native';
 import {TabsPage} from '../tabs/tabs';
 //import {FormBuilder, Control, ControlGroup, Validators, FORM_DIRECTIVES} from '@angular/common';
 import { REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -63,6 +63,16 @@ export class CreateProfilePage {
       });
       this.profileForm = this.formBuilder.group(formFields);
     }
+  }
+
+  ionViewWillEnter() {
+    if (Keyboard)
+      Keyboard.hideKeyboardAccessoryBar(false);
+  }
+
+  ionViewWillLeave() {
+    if (Keyboard)
+      Keyboard.hideKeyboardAccessoryBar(true);
   }
 
   elementChanged(name) {
@@ -171,8 +181,8 @@ export class CreateProfilePage {
     });
   }
 
-  getSafeURL() {
-    return this.sanitizer.bypassSecurityTrustUrl(this.base64Image);
+  getSafeURL(url) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   save() {

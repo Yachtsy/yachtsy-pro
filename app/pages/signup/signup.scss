@@ -4,10 +4,6 @@
         ion-title {
             padding-left: 50px;
             padding-right: 50px;
-
-            .toolbar-title {
-                font-size: 1.4rem;
-            }
         }
 
         .toolbar-background {
@@ -66,8 +62,9 @@
                 padding: 0px;
 
                 .item-inner {
-                    border: 0;
+                    border: 0px !important;
                     padding: 0px;
+                    box-shadow: none !important;
                 }
 
                 ion-select {
@@ -127,8 +124,9 @@
                 background-color: #f2f2f2;
 
                 .item-inner {
-                    border: 0;
+                    border: 0px !important;
                     padding: 0px;
+                    box-shadow: none !important;
 
                     ion-input {
                         padding: 0px 10px;

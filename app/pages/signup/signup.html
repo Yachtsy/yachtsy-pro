@@ -17,125 +17,119 @@
     <div class="header-text">{{questions[stepIndex].label}}</div>
   </div>
 
-<!--   <div class="Aligner">
-    <div class="Aligner-item">
- -->
-      <div *ngIf="stepIndex === 1">
+  <div *ngIf="stepIndex === 1">
 
-        <ion-list no-lines>
-          <button ion-item *ngFor="let item of categoryGroupKeys" (click)="next(item)">
-                {{item}}
-        </button>
-        </ion-list>
+    <ion-list no-lines>
+      <button ion-item *ngFor="let item of categoryGroupKeys" (click)="next(item)">
+            {{item}}
+    </button>
+    </ion-list>
 
-      </div>
-
-      <div *ngIf="stepIndex === 2">
-
-        <ion-list no-lines>
-
-          <button ion-item detail-none *ngFor="let item of categoryGroups[answers[questions[1].name]].categories" (click)="next(item)">
-              <ion-icon *ngIf="answers[currentQuestion] && answers[currentQuestion][item.id]" name='radio-button-on' item-left></ion-icon>
-              <ion-icon *ngIf="!answers[currentQuestion] || !answers[currentQuestion][item.id]" name='radio-button-off' item-left></ion-icon>
-              {{item.name}}
-            </button>
-
-        </ion-list>
-
-      </div>
-
-      <div *ngIf="stepIndex === 3">
-
-        <ion-list no-lines>
-        
-          <button ion-item detail-none *ngFor="let item of relatedServices" (click)="next(item)">
-              <ion-icon *ngIf="answers[currentQuestion] && answers[currentQuestion][item.id]" name='radio-button-on' item-left></ion-icon>
-              <ion-icon *ngIf="!answers[currentQuestion] || !answers[currentQuestion][item.id]" name='radio-button-off' item-left></ion-icon>
-              {{item.name}}
-            </button>
-
-        </ion-list>
-
-      </div>
-
-      <div *ngIf="stepIndex === 4" class="location-wrapper">
-
-        <ion-label>Where are you based?</ion-label>
-        <ion-item class="location-item">
-          <input #myAutocomplete class="loc_input" name="location" type="text" placeholder="Enter location" [(ngModel)]="fromValue">
-          <ion-icon name="pin" item-right></ion-icon>
-        </ion-item>
-
-        <ion-item>
-          <ion-label stacked>How far are you willing to travel?</ion-label>
-          <ion-select [(ngModel)]="travelPref">
-            <ion-option *ngFor="let item of distancePrefs" [value]="item.value">{{item.text}}</ion-option>
-          </ion-select>
-        </ion-item>
-
-        <div #map id="map_canvas"></div>
-
-      </div>
-
-      <div *ngIf="stepIndex === 5">
-
-         <ion-list no-lines>
-          <button ion-item *ngFor="let item of distancePrefs" (click)="next(item)">
-                {{item}}
-        </button>
-        </ion-list>
-
-      </div>
-
-      <div *ngIf="stepIndex === 6" class="contact-wrapper">
-
-        <ion-label>Enter your information</ion-label>
-        <form [formGroup]="userInfoForm" name="infoForm" (ngSubmit)="onSubmit(userInfoForm.value)">
-          <ion-item>
-            <ion-input type="text" value="" placeholder="First Name" formControlName="firstName"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-input type="text" value="" placeholder="Last Name" formControlName="lastName"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-input type="email" value="" placeholder="Email Address" formControlName="email"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-input type="password" value="" placeholder="Password" formControlName="password"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-input type="tel" value="" placeholder="Phone number" formControlName="telephone"></ion-input>
-          </ion-item>
-        </form>
-
-      </div>
-
-      <div *ngIf="stepIndex === 7">
-
-        <p>Well done! Your profile has now been created. Please check you email and verify it using the link provided</p>
-        <p>Once you have verified your email click the button below to continue </p>
-        <p>user email: {{user.email}}</p>
-        <p> email verified: {{user.emailVerified}}</p>
-
-        <button block (click)="setupProfile()" [disabled]="!user.emailVerified">
-      Continue
-      </button>
-
-      </div>
-
-<!--     </div>
   </div>
- -->
+
+  <div *ngIf="stepIndex === 2">
+
+    <ion-list no-lines>
+
+      <button ion-item detail-none *ngFor="let item of categoryGroups[answers[questions[1].name]].categories" (click)="next(item)">
+          <ion-icon *ngIf="answers[currentQuestion] && answers[currentQuestion][item.id]" name='radio-button-on' item-left></ion-icon>
+          <ion-icon *ngIf="!answers[currentQuestion] || !answers[currentQuestion][item.id]" name='radio-button-off' item-left></ion-icon>
+          {{item.name}}
+        </button>
+
+    </ion-list>
+
+  </div>
+
+  <div *ngIf="stepIndex === 3">
+
+    <ion-list no-lines>
+    
+      <button ion-item detail-none *ngFor="let item of relatedServices" (click)="next(item)">
+          <ion-icon *ngIf="answers[currentQuestion] && answers[currentQuestion][item.id]" name='radio-button-on' item-left></ion-icon>
+          <ion-icon *ngIf="!answers[currentQuestion] || !answers[currentQuestion][item.id]" name='radio-button-off' item-left></ion-icon>
+          {{item.name}}
+        </button>
+
+    </ion-list>
+
+  </div>
+
+  <div *ngIf="stepIndex === 4" class="location-wrapper">
+
+    <ion-label>Where are you based?</ion-label>
+    <ion-item class="location-item">
+      <input #myAutocomplete class="loc_input" name="location" type="text" placeholder="Enter location" [(ngModel)]="fromValue">
+      <ion-icon name="pin" item-right></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>How far are you willing to travel?</ion-label>
+      <ion-select [(ngModel)]="travelPref">
+        <ion-option *ngFor="let item of distancePrefs" [value]="item.value">{{item.text}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <div #map id="map_canvas"></div>
+
+  </div>
+
+  <div *ngIf="stepIndex === 5">
+
+     <ion-list no-lines>
+      <button ion-item *ngFor="let item of distancePrefs" (click)="next(item)">
+            {{item}}
+    </button>
+    </ion-list>
+
+  </div>
+
+  <div *ngIf="stepIndex === 6" class="contact-wrapper">
+
+    <ion-label>Enter your information</ion-label>
+    <form [formGroup]="userInfoForm" name="infoForm" (ngSubmit)="onSubmit(userInfoForm.value)">
+      <ion-item>
+        <ion-input type="text" value="" placeholder="First Name" formControlName="firstName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" value="" placeholder="Last Name" formControlName="lastName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="email" value="" placeholder="Email Address" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="password" value="" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="tel" value="" placeholder="Phone number" formControlName="telephone"></ion-input>
+      </ion-item>
+    </form>
+
+  </div>
+
+  <div *ngIf="stepIndex === 7">
+
+    <p>Well done! Your profile has now been created. Please check you email and verify it using the link provided</p>
+    <p>Once you have verified your email click the button below to continue </p>
+    <p>user email: {{user.email}}</p>
+    <p> email verified: {{user.emailVerified}}</p>
+
+    <button block (click)="setupProfile()" [disabled]="!user.emailVerified">
+  Continue
+  </button>
+
+  </div>
+
 </ion-content>
 
 <ion-footer>
 
   <ion-toolbar>
-    <ion-buttons start>
+    <ion-buttons start class="start">
       <button (click)="back()"><ion-icon name="ios-arrow-dropleft"></ion-icon></button>
     </ion-buttons>
 
@@ -147,19 +141,5 @@
       <button *ngIf="stepIndex === 7" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>
-
-<!--
-  <ion-toolbar *ngIf="stepIndex === 2 || stepIndex === 3 || stepIndex === 4 || stepIndex === 5" no-border-top transparent>
-    <button royal full (click)="next()">Next</button>
-  </ion-toolbar>
-
-  <ion-toolbar *ngIf="stepIndex === 6" no-border-top transparent>
-    <button royal full (click)="onSubmit(userInfoForm.value)">Submit Request</button>
-  </ion-toolbar>
-
-  <ion-toolbar *ngIf="stepIndex === 0" no-border-top transparent>
-    <button royal full (click)="next()">GET STARTED</button>
-  </ion-toolbar>
--->
 
 </ion-footer>

@@ -4,7 +4,7 @@ import {ControlGroup, FormBuilder} from '@angular/common';
 import {Http} from '@angular/http';
 import {CreateProfilePage} from '../create-profile/create-profile'
 import {Component} from '@angular/core';
-import {GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
+import {Keyboard, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
 
 
 @Component({
@@ -65,6 +65,16 @@ export class SignupPage {
     this.lat = 38.9072;
     this.lng = -77.0369;
     this.placeName = 'Washington';
+  }
+
+  ionViewWillEnter() {
+    if (Keyboard)
+      Keyboard.hideKeyboardAccessoryBar(false);
+  }
+
+  ionViewWillLeave() {
+    if (Keyboard)
+      Keyboard.hideKeyboardAccessoryBar(true);
   }
 
   clearFrom() {
@@ -168,13 +178,17 @@ export class SignupPage {
 
             var interestedCategories = {};
 
-            Object.keys(this.answers['CategoryList']).map((key => {
-              interestedCategories[key] = this.answers['CategoryList'][key];
-            }));
+            if (this.answers['CategoryList']) {
+              Object.keys(this.answers['CategoryList']).map((key => {
+                interestedCategories[key] = this.answers['CategoryList'][key];
+              }));
+            }
 
-            Object.keys(this.answers['RelatedServices']).map((key => {
-              interestedCategories[key] = this.answers['RelatedServices'][key];
-            }));
+            if (this.answers['RelatedServices']) {
+              Object.keys(this.answers['RelatedServices']).map((key => {
+                interestedCategories[key] = this.answers['RelatedServices'][key];
+              }));
+            }
 
             // create the user's area
             var supplierInfo = {
@@ -189,13 +203,11 @@ export class SignupPage {
               telephone: formData.telephone,
             };
 
-
             var op = {
               userId: user.uid,
               operationType: 'createSupplier',
               payload: supplierInfo,
               clientOpId: Math.floor(Math.random() * 100000000) + ''
-
             };
 
             firebase.database().ref('queue/tasks').push(op)
@@ -234,10 +246,10 @@ export class SignupPage {
               alert.present();
             });
 
-
           });
 
       }).catch((error: any) => {
+
         loading.dismiss().then(() => {
           console.error(error);
 
@@ -408,10 +420,6 @@ export class SignupPage {
       answers: this.answers,
       relatedServices: this.relatedServices
     });
-
-  }
-
-  ionViewWillEnter() {
 
   }
 

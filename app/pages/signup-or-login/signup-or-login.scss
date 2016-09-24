@@ -5,6 +5,10 @@
     background-size: cover;
     background-position: center center;
 
+    ion-header::after, ion-footer::before {
+        background: none;    
+    }
+
     ion-content {
         background: none;
         color: white;

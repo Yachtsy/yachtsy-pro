@@ -3,6 +3,7 @@ import {Component, NgZone} from '@angular/core';
 import {RequestDetailPage} from '../request-detail/request-detail'
 import {FirebaseService} from '../../components/firebaseService';
 import {TabsPage} from '../tabs/tabs';
+import {Keyboard} from 'ionic-native';
 import GlobalService = require('../../components/globalService');
 
 
@@ -34,6 +35,9 @@ export class RequestsPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter - requests');
+
+    if (Keyboard)
+      Keyboard.hideKeyboardAccessoryBar(false);
 
     var curTime = new Date().getTime();
     for (var i = 0; i < this.requests.data.length; i++)

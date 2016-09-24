@@ -1,6 +1,8 @@
 
 'use strict';
 
+export var windowHeight = 0;
+
 export var mainTabRef;
 
 export var pushToken = '';

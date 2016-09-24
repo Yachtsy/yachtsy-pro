@@ -4,6 +4,8 @@ import {PreferencesPage} from '../preferences/preferences'
 import {PurchaseCreditsPage} from '../purchase-credits/purchase-credits'
 import {FirebaseService} from '../../components/firebaseService';
 import {RatingComponentUpdateable} from '../../components/ratingsComponent';
+import {SecurityContext, DomSanitizationService} from '@angular/platform-browser';
+
 
 @Component({
   templateUrl: 'build/pages/profile/profile.html',
@@ -20,10 +22,11 @@ export class ProfilePage {
   totalNumberOfReviews = 0
   score = 0
 
-  constructor(public nav: NavController, public FBService: FirebaseService, private ngZone: NgZone) {
-
-
-
+  constructor(
+    public nav: NavController,
+    private sanitizer: DomSanitizationService,
+    public FBService: FirebaseService,
+    private ngZone: NgZone) {
 
   }
 
@@ -75,6 +78,10 @@ export class ProfilePage {
     }, function (error) {
       console.error(error);
     });
+  }
+
+  getSafeURL(url) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   categories = [];

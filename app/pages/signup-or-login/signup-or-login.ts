@@ -11,7 +11,6 @@ import {Component} from '@angular/core';
 export class SignupOrLoginPage {
 
   constructor(public nav: NavController, public http: Http) {
-
   }
 
   categoryGroups;

@@ -36,7 +36,7 @@
       </ion-item>
     </div>
 
-    <button class="button" block (click)="nextWelcome()">Setup Profile</button>
+    <button class="button block-button" block (click)="nextWelcome()">Setup Profile</button>
   </div>
 
   <div *ngIf="!isWelcome">
@@ -114,7 +114,7 @@
       <div class="photo-desc">Upload a photo of yourself or your company logo</div>
       <img src="img/default-photo.png" *ngIf="!base64Image" />
       <img [src]="getSafeURL(base64Image)" *ngIf="base64Image" />
-      <button class="button" block (click)="takePicture()">Upload</button>
+      <button class="button block-button" block (click)="takePicture()">Upload</button>
 
     </div>
 
@@ -125,7 +125,7 @@
 <ion-footer *ngIf="!isWelcome">
 
   <ion-toolbar>
-    <ion-buttons start>
+    <ion-buttons start class="start">
       <button (click)="back()"><ion-icon name="ios-arrow-dropleft"></ion-icon></button>
     </ion-buttons>
 
@@ -135,9 +135,5 @@
       <button *ngIf="currentPage.lastPage" (click)="save()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>
-<!--
-  <button *ngIf="currentPage.type === 'input'" block (click)="submitForm()" >Next</button>
-  <button *ngIf="currentPage.type !== 'input' && !currentPage.lastPage" block (click)="next()">Next</button>
-  <button *ngIf="currentPage.lastPage" block (click)="save()">Save</button>
--->
+
 </ion-footer>

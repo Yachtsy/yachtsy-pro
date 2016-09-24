@@ -17,6 +17,11 @@ export class ForgotPage {
 
   }
 
+  ngOnInit() {
+    let back_element = (<HTMLInputElement>document.querySelector('.forgot-page'));
+    back_element.style.height = GlobalService.windowHeight + 'px';
+  }
+
   send() {
     if (!this.username || this.username === '') {
       GlobalService.doAlert('Please enter your email.', this.alertCtrl);

@@ -4,10 +4,6 @@
         ion-title {
             padding-left: 50px;
             padding-right: 50px;
-
-            .toolbar-title {
-                font-size: 1.4rem;
-            }
         }
 
         .toolbar-background {
@@ -127,6 +123,7 @@
             .item {
                 border: 0px;
                 padding-right: 16px;
+                box-shadow: none !important;
 
                 .item-inner {
                     padding: 0px;

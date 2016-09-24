@@ -1,6 +1,7 @@
 import {NavController, LoadingController, AlertController} from 'ionic-angular';
 import {Component} from '@angular/core';
 import {ForgotPage} from '../forgot/forgot'
+import {Keyboard} from 'ionic-native';
 import GlobalService = require('../../components/globalService');
 
 
@@ -17,6 +18,11 @@ export class LoginPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController) {
 
+  }
+
+  ngOnInit() {
+    let back_element = (<HTMLInputElement>document.querySelector('.login-page'));
+    back_element.style.height = GlobalService.windowHeight + 'px';    
   }
 
   login() {
@@ -49,6 +55,9 @@ export class LoginPage {
   }
 
   forgot() {
+    if (Keyboard)
+      Keyboard.close();
+    
     this.nav.push(ForgotPage);
   }
 

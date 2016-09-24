@@ -91,17 +91,17 @@ export class MyApp {
 
           } else {
             console.log('NO USER PROFILE - logging user out');
-              firebase.database().ref('supplierProfileCreate').once('value',
-                (snapshot) => {
-                  if (snapshot.exists()) {
-                    this.nav.setRoot(CreateProfilePage, {
-                      isWelcome: true,
-                      pages: snapshot.val().pages,
-                      formPageIndex: 0,
-                      answers: {}
-                    }, { animate: true, direction: 'forward' });
-                  }
-                });
+              // firebase.database().ref('supplierProfileCreate').once('value',
+              //   (snapshot) => {
+              //     if (snapshot.exists()) {
+              //       this.nav.setRoot(CreateProfilePage, {
+              //         isWelcome: true,
+              //         pages: snapshot.val().pages,
+              //         formPageIndex: 0,
+              //         answers: {}
+              //       }, { animate: true, direction: 'forward' });
+              //     }
+              //   });
             // firebase.auth().signOut();
             // this.nav.setRoot(SignupOrLoginPage);
           }
@@ -252,6 +252,8 @@ export class MyApp {
       StatusBar.styleDefault();
       Keyboard.hideKeyboardAccessoryBar(true);
       Keyboard.disableScroll(true);
+
+      GlobalService.windowHeight = window.innerHeight;
 
       var offline = Observable.fromEvent(document, "offline");
       var online = Observable.fromEvent(document, "online");

@@ -11,6 +11,10 @@
         }
     }
 
+    ion-header::after, ion-footer::before {
+        background: none;    
+    }
+
     .opacity-back {
         position: absolute;
         left: 0px;

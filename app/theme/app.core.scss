@@ -102,8 +102,21 @@ ion-navbar {
   }
 
   .toolbar-title {
+    text-align: center;
     font-size: 1.4rem;
   }
+}
+
+ion-buttons.start {
+  order: 3;
+}
+
+.block-button {
+  height: 44px !important;
+}
+
+ion-toolbar {
+  min-height: 44px !important;
 }
 
 .toast-message {
