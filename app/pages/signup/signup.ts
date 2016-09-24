@@ -118,7 +118,7 @@ export class SignupPage {
 
     if (this.user && this.user.emailVerified) {
 
-      firebase.database().ref('supplierProfileCreate').once('value',
+      firebase.database().ref('supplierProfileCreateNew').once('value',
         (snapshot) => {
           if (snapshot.exists()) {
             console.log('got supplierProfileCreate', snapshot.val())
@@ -212,7 +212,7 @@ export class SignupPage {
                 console.log('created supplier', data);
 
                 loading.dismiss().then(() => {
-                  firebase.database().ref('supplierProfileCreate').once('value',
+                  firebase.database().ref('supplierProfileCreateNew').once('value',
                     (snapshot) => {
                       if (snapshot.exists()) {
                         this.nav.setRoot(CreateProfilePage, {

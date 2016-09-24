@@ -75,8 +75,10 @@ export class MyApp {
 
               console.log('directing user to profile creation');
 
-              firebase.database().ref('supplierProfileCreate').once('value',
+              firebase.database().ref().child('supplierProfileCreateNew').once('value',
                 (snapshot) => {
+
+                  console.log('got profile create snapshot')
                   if (snapshot.exists()) {
                     this.nav.setRoot(CreateProfilePage, {
                       isWelcome: true,

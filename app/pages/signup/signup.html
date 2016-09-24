@@ -1,13 +1,13 @@
 <ion-header>
 
-  <ion-navbar transparent no-border-bottom hideBackButton>
+  <!--<ion-navbar transparent no-border-bottom hideBackButton>
     <ion-title>WELCOME TO YACHTSY</ion-title>
-    <!--
+    
     <ion-buttons start>
       <button (click)="done()">Done</button>
     </ion-buttons>
-    -->
-  </ion-navbar>
+    
+  </ion-navbar>-->
 
 </ion-header>
 
@@ -86,7 +86,6 @@
 
   <div *ngIf="stepIndex === 6" class="contact-wrapper">
 
-    <ion-label>Enter your information</ion-label>
     <form [formGroup]="userInfoForm" name="infoForm" (ngSubmit)="onSubmit(userInfoForm.value)">
       <ion-item>
         <ion-input type="text" value="" placeholder="First Name" formControlName="firstName"></ion-input>
@@ -104,9 +103,9 @@
         <ion-input type="password" value="" placeholder="Password" formControlName="password"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <!--<ion-item>
         <ion-input type="tel" value="" placeholder="Phone number" formControlName="telephone"></ion-input>
-      </ion-item>
+      </ion-item>-->
     </form>
 
   </div>
@@ -137,7 +136,7 @@
       <button *ngIf="stepIndex === 2" [disabled]="answersLength == 0" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
       <button *ngIf="stepIndex === 3" [disabled]="answersLength == 0" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
       <button *ngIf="stepIndex === 4" [disabled]="!fromValue || !travelPref" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
-      <button *ngIf="stepIndex === 6" [disabled]="!userInfoForm.value.firstName || !userInfoForm.value.lastName || !userInfoForm.value.email || !userInfoForm.value.password || !userInfoForm.value.telephone" (click)="onSubmit(userInfoForm.value)"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
+      <button *ngIf="stepIndex === 6" [disabled]="!userInfoForm.value.firstName || !userInfoForm.value.lastName || !userInfoForm.value.email || !userInfoForm.value.password" (click)="onSubmit(userInfoForm.value)"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
       <button *ngIf="stepIndex === 7" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
     </ion-buttons>
   </ion-toolbar>

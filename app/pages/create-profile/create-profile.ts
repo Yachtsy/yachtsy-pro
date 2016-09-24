@@ -37,6 +37,8 @@ export class CreateProfilePage {
     this.answers = this.navParams.get("answers");
     this.currentPage = this.pages[this.formPageIndex];
 
+    console.log('create user constructor')
+
     if (this.currentPage.body && this.currentPage.body.items) {
       var items = [];
       for (var i = 0; i < this.currentPage.body.items.length; i++) {
