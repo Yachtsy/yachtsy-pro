@@ -23,6 +23,7 @@ export class QuotesPage {
   db
   requests
   isWhatsNext = false
+  whatsNextName = ''
 
   clearRequest($event, request) {
     request.cleared = true;
@@ -38,6 +39,7 @@ export class QuotesPage {
 
   ionViewWillEnter() {
     this.isWhatsNext = GlobalService.isWhatsNext;
+    this.whatsNextName = GlobalService.whatsNextName;
 
     var curTime = new Date().getTime();
     for (var i = 0; i < this.requests.length; i++) {
@@ -59,6 +61,7 @@ export class QuotesPage {
   done() {
     this.isWhatsNext = false;
     GlobalService.isWhatsNext = false;
+    GlobalService.whatsNextName = '';
   }
 
 }

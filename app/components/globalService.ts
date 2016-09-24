@@ -8,6 +8,8 @@ export var mainTabRef;
 export var pushToken = '';
 
 export var isWhatsNext = false;
+export var whatsNextName = '';
+
 export var isPassed = false;
 
 export var tabBadgeInfo = {

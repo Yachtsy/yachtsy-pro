@@ -208,6 +208,7 @@ export class QuoteModal {
           this.ngZone.run(() => {
               if (this.isEdit !== true)
                 GlobalService.isWhatsNext = true;
+                GlobalService.whatsNextName = this.request.from;
               this.back();
               // this.nav.setRoot(TabsPage, {
               //   tabIndex: 1,
