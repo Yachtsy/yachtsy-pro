@@ -40,34 +40,29 @@ export class ProfilePage {
     ref.on('value', (snapshot) => {
       this.ngZone.run(() => {
         this.profile = snapshot.val();
-                
+
         this.name = this.profile.firstName + ' ' + this.profile.lastName;
         this.credits = this.profile.credits.balance;
 
         if (typeof this.profile.profile.photo !== 'undefined')
           this.profileImage = this.profile.profile.photo;
 
-        this.profileImage = this.profileImage.replace(/\r?\n|\r/g, '');
-
-        // console.log(this.profileImage);
-
         this.profileImage = this.getSafeURL(this.profileImage);
-
         this.calcReviews(this.profile.reviews);
 
       });
     })
   }
 
-  calcReviews(reviews){
+  calcReviews(reviews) {
 
     console.log('revies are:', reviews);
-    if(reviews){
+    if (reviews) {
       this.totalNumberOfReviews = Object.keys(reviews).length;
 
       let total = 0;
 
-      Object.keys(reviews).map((reviewId)=>{
+      Object.keys(reviews).map((reviewId) => {
         var review = reviews[reviewId];
         var rating = review.rating;
         total += rating;
@@ -101,7 +96,7 @@ export class ProfilePage {
 
   }
 
-  goToPurchaseCredits(){
+  goToPurchaseCredits() {
     this.nav.push(PurchaseCreditsPage)
   }
 
