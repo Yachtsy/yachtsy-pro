@@ -44,7 +44,7 @@ export class GetStartedPage {
       })
     } else {
       this.nav.push(SignupPage, {
-        stepIndex: 2,
+        stepIndex: 1,
         categoryGroups: this.categoryGroups,
         answers: {
           'CategoryGroup': this.selectedItem

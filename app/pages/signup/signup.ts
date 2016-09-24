@@ -55,11 +55,11 @@ export class SignupPage {
     ];
 
     this.userInfoForm = formBuilder.group({
-      'firstName':  '',
-      'lastName':   '',
-      'email':      '',
-      'password':   '',
-      'telephone':  ''
+      'firstName': '',
+      'lastName': '',
+      'email': '',
+      'password': '',
+      'telephone': ''
     });
 
     this.lat = 38.9072;
@@ -78,7 +78,7 @@ export class SignupPage {
 
     console.log("position = " + this.lat + " : " + this.lng);
     let latLng = new google.maps.LatLng(this.lat, this.lng);
- 
+
     let mapOptions = {
       center: latLng,
       zoom: 15,
@@ -86,7 +86,7 @@ export class SignupPage {
       disableDefaultUI: true
     }
 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);    
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
   }
 
   updateMapPosition() {
@@ -166,11 +166,21 @@ export class SignupPage {
 
             console.log('email verification has been sent');
 
+            var interestedCategories = {};
+
+            Object.keys(this.answers['CategoryList']).map((key => {
+              interestedCategories[key] = this.answers['CategoryList'][key];
+            }));
+
+            Object.keys(this.answers['RelatedServices']).map((key => {
+              interestedCategories[key] = this.answers['RelatedServices'][key];
+            }));
+
             // create the user's area
             var supplierInfo = {
               profileSetupStage: 0,
               categoryGroup: this.answers['CategoryGroup'],
-              interestedCategories: this.answers['CategoryList'],
+              interestedCategories: interestedCategories,
               firstName: formData.firstName,
               lastName: formData.lastName,
               locationInfo: this.answers['LocationPreferences'],
@@ -379,15 +389,7 @@ export class SignupPage {
       this.answers[this.currentQuestion] = {};
     }
 
-    // if (this.stepIndex === 6) {
-    //   firebase.auth().onAuthStateChanged(function (user) {
-    //     if (user) {
-    //       console.log('auth state changed', user);
-    //     } else {
-    //       console.log('USER LOGGED OUT');
-    //     }
-    //   });
-    // }
+
   }
 
   currentQuestion
@@ -405,38 +407,19 @@ export class SignupPage {
       categoryGroups: this.categoryGroups,
       answers: this.answers,
       relatedServices: this.relatedServices
-    }).then(() => {
-      // console.log('****** step index used', stepIndex)
-      // if (stepIndex === 4) {
-      //   console.log('extra maps stuff going on &&&*&*&*&*&*&*&*&*&*&*&*');
-      //   var els = document.getElementsByClassName("signup-page show-page")
-      //   console.log('ELEMENTS:', els);
-      //   if (els) {
-      //     els[2].classList.add('hideme');
-      //   }
-      // }
     });
+
   }
 
   ionViewWillEnter() {
-    // console.log(' step index is ' + this.stepIndex)
-    // if (this.stepIndex === 2) {
-    //   console.log('remove the hide me if its there')
-    //   var els = document.getElementsByClassName("signup-page show-page")
-    //   console.log('ELEMENTS:', els);
-    //   if (els) {
-    //     if (els[2].classList.contains('hideme')) {
-    //       els[2].classList.remove('hideme');
-    //     }
-    //   }
-    // }
+
   }
 
   distancePrefs = [
-    { value: 20,  text: "Up to 20 miles" },
-    { value: 30,  text: "Up to 30 miles" },
-    { value: 50,  text: "Up to 50 miles" },
-    { value: 75,  text: "Up to 75 miles" },
+    { value: 20, text: "Up to 20 miles" },
+    { value: 30, text: "Up to 30 miles" },
+    { value: 50, text: "Up to 50 miles" },
+    { value: 75, text: "Up to 75 miles" },
     { value: 100, text: "100 miles or more" }
   ];
 
@@ -465,6 +448,11 @@ export class SignupPage {
 
           console.log('answers set:', this.answers);
           this.answersLength = Object.keys(this.answers[this.currentQuestion]).length;
+
+          if (this.stepIndex === 1) {
+            this.doNext(0);
+          }
+
         } else {
 
           if (this.stepIndex === 2) {
@@ -515,7 +503,7 @@ export class SignupPage {
                 this.doNext(0);
               }
             });
-          } else if (this.stepIndex === 3){
+          } else if (this.stepIndex === 3) {
             this.doNext(0);
           }
         }

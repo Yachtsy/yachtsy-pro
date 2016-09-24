@@ -8,19 +8,19 @@
 
 <ion-content align="center">
 
-  <img class="logo" src="img/logo.png">
+  <!--<img class="logo" src="img/logo.png">-->
 
   <ion-label>Enter your email</ion-label>
   <ion-item>
     <ion-input [(ngModel)]="username" type="email"></ion-input>
   </ion-item>
-
+  <button class="button" block (click)="send()">Send</button>
 </ion-content>
 
 <ion-footer>
 
   <ion-toolbar>
-    <button class="button" block (click)="send()">Send</button>
+
   </ion-toolbar>
 
 </ion-footer>

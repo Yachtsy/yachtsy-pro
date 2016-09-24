@@ -6,28 +6,30 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content align="center">
+<ion-content align="top">
 
-  <img class="logo" src="img/logo.png">
+  <!--<img class="logo" src="img/logo.png">-->
 
-  <ion-label stacked>Enter your email</ion-label>
+  <ion-label stacked>Email</ion-label>
   <ion-item>
     <ion-input [(ngModel)]="username" type="email"></ion-input>
   </ion-item>
 
-  <ion-label stacked>Enter your password</ion-label>
+  <ion-label stacked>Password</ion-label>
   <ion-item>
     <ion-input [(ngModel)]="password" type="password"></ion-input>
   </ion-item>
 
-  <div class="forgot-button" tappable (click)="forgot()">Forgot your password?</div>
+   <button class="button" block (click)="login()">Login</button>
+   
+   <div class="forgot-button" tappable (click)="forgot()">Forgot your password?</div>
 
 </ion-content>
 
 <ion-footer>
 
   <ion-toolbar>
-    <button class="button" block (click)="login()">Login</button>
+ 
   </ion-toolbar>
 
 </ion-footer>
