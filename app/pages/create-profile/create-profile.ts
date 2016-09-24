@@ -70,11 +70,6 @@ export class CreateProfilePage {
       Keyboard.hideKeyboardAccessoryBar(false);
   }
 
-  ionViewWillLeave() {
-    if (Keyboard)
-      Keyboard.hideKeyboardAccessoryBar(true);
-  }
-
   elementChanged(name) {
     this.changedFormFields[name] = true;
   }

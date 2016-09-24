@@ -37,7 +37,7 @@ export class RequestsPage {
     console.log('ionViewWillEnter - requests');
 
     if (Keyboard)
-      Keyboard.hideKeyboardAccessoryBar(false);
+      Keyboard.hideKeyboardAccessoryBar(true);
 
     var curTime = new Date().getTime();
     for (var i = 0; i < this.requests.data.length; i++)

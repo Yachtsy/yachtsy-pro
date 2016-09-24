@@ -16,9 +16,9 @@ export class ProfilePage {
   user
   profile
   name
-  image = { url: "img/default-avatar.jpg" }
   credits
   email
+  profileImage
   totalNumberOfReviews = 0
   score = 0
 
@@ -35,6 +35,8 @@ export class ProfilePage {
     this.email = this.user.email;
     var ref = firebase.database().ref().child('users').child(this.user.uid);
 
+    this.profileImage = 'img/default-photo.png';
+
     ref.on('value', (snapshot) => {
       this.ngZone.run(() => {
         this.profile = snapshot.val();
@@ -43,7 +45,7 @@ export class ProfilePage {
         this.credits = this.profile.credits.balance;
 
         if (typeof this.profile.profile.photo !== 'undefined')
-          this.image.url = this.profile.profile.photo;
+          this.profileImage = this.profile.profile.photo;
 
         this.calcReviews(this.profile.reviews);
 
@@ -67,7 +69,6 @@ export class ProfilePage {
 
       this.score = total / this.totalNumberOfReviews
       console.log('the score is', this.score);
-
     }
 
   }
@@ -81,7 +82,7 @@ export class ProfilePage {
   }
 
   getSafeURL(url) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+    return this.sanitizer.bypassSecurityTrustStyle('url(' + url + ')');
   }
 
   categories = [];

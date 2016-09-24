@@ -68,13 +68,10 @@ export class SignupPage {
   }
 
   ionViewWillEnter() {
-    if (Keyboard)
+    if (Keyboard) {
+      console.log('keyboard accessory bar is enabled');
       Keyboard.hideKeyboardAccessoryBar(false);
-  }
-
-  ionViewWillLeave() {
-    if (Keyboard)
-      Keyboard.hideKeyboardAccessoryBar(true);
+    }
   }
 
   clearFrom() {
