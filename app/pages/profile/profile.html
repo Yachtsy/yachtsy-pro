@@ -7,7 +7,7 @@
 
 
   <div class="profile-wrapper">
-    <div class="profile-image" [style.background-image]="getSafeURL(profileImage)"></div>
+    <div class="profile-image" [style.background-image]="profileImage"></div>
     <div class="profile-name">{{name}}</div>
     <div *ngIf="totalNumberOfReviews === 1" class="profile-name">{{totalNumberOfReviews}} review</div>
     <div *ngIf="totalNumberOfReviews > 1" class="profile-name">{{totalNumberOfReviews}} reviews</div>
