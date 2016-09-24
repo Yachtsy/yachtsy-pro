@@ -172,9 +172,11 @@ export class SignupPage {
               interestedCategories[key] = this.answers['CategoryList'][key];
             }));
 
-            Object.keys(this.answers['RelatedServices']).map((key => {
-              interestedCategories[key] = this.answers['RelatedServices'][key];
-            }));
+            if (this.answers['RelatedServices']) {
+              Object.keys(this.answers['RelatedServices']).map((key => {
+                interestedCategories[key] = this.answers['RelatedServices'][key];
+              }));
+            }
 
             // create the user's area
             var supplierInfo = {
