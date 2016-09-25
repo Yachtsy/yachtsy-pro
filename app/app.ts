@@ -93,6 +93,8 @@ export class MyApp {
 
           } else {
             console.log('NO USER PROFILE - logging user out');
+            this.nav.setRoot(SignupOrLoginPage);
+
             // firebase.database().ref('supplierProfileCreate').once('value',
             //   (snapshot) => {
             //     if (snapshot.exists()) {
@@ -104,8 +106,8 @@ export class MyApp {
             //       }, { animate: true, direction: 'forward' });
             //     }
             //   });
-            firebase.auth().signOut();
-            this.nav.setRoot(SignupOrLoginPage);
+            // firebase.auth().signOut();
+            // this.nav.setRoot(SignupOrLoginPage);
           }
         })
     } else {
