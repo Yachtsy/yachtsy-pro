@@ -5,8 +5,8 @@ import {PurchaseCreditsPage} from '../purchase-credits/purchase-credits'
 import {FirebaseService} from '../../components/firebaseService';
 import {RatingComponentUpdateable} from '../../components/ratingsComponent';
 import {SecurityContext, DomSanitizationService} from '@angular/platform-browser';
-import {DebugPage} from '../debug/debug'
-
+import {DebugPage} from '../debug/debug';
+import {TravelPreferencesPage} from '../travel-preferences/travel-preferences';
 
 @Component({
   templateUrl: 'build/pages/profile/profile.html',
@@ -103,11 +103,11 @@ export class ProfilePage {
   }
 
   goToDebug() {
-    this.nav.push(DebugPage, {profile: this.profile})
+    this.nav.push(DebugPage, {profile: this.profile});
   }
 
   goToTravelPreferences() {
-
+    this.nav.push(TravelPreferencesPage, {profile: this.profile});
   }
 
   delete() {
