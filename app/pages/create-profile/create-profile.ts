@@ -64,7 +64,7 @@ export class CreateProfilePage {
 
       var formFields = {};
       this.currentPage.body.items.map((item) => {
-        formFields[item.name] = ['test1234', Validators.compose([Validators.required, Validators.minLength(5)])]
+        formFields[item.name] = ['', Validators.compose([Validators.required, Validators.minLength(5)])]
         this.changedFormFields[item.name] = false;
       });
       this.profileForm = this.formBuilder.group(formFields);
