@@ -34,8 +34,8 @@ export class QuoteModal {
 
     console.log('nav params for quote modal', this.navParams);
     this.request = this.navParams.get('request');
-    this.isEdit  = this.navParams.get('isEdit');
-    this.price   = this.navParams.get('price');
+    this.isEdit = this.navParams.get('isEdit');
+    this.price = this.navParams.get('price');
     this.message = this.navParams.get('message');
 
     console.log('THE REQUEST', this.request);
@@ -83,15 +83,15 @@ export class QuoteModal {
 
     window.addEventListener('native.keyboardhide', (e) => {
 
-        console.log('keyboard hide')
-        this.ngZone.run(() => {
-          console.log('initialising postions')
-          this.contentsBottom = 44;
-          this.footerBottom = 0;
+      console.log('keyboard hide')
+      this.ngZone.run(() => {
+        console.log('initialising postions')
+        this.contentsBottom = 44;
+        this.footerBottom = 0;
 
-          let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
-          scrollContent.style.marginBottom = 44 + 'px';
-        });
+        let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+        scrollContent.style.marginBottom = 44 + 'px';
+      });
 
     });
 
@@ -154,19 +154,19 @@ export class QuoteModal {
                       this.FBService.getCreditBalance()
                         .subscribe((credits) => {
 
-                          loading.dismiss();
+                          loading.dismiss().then(() => {
+                            console.log('New credit balance is: ' + credits);
 
-                          console.log('New credit balance is: ' + credits);
+                            if (credits < this.creditsRequiredForCategory) {
 
-                          if (credits < this.creditsRequiredForCategory) {
+                              console.log('credit balance is too low to send quote.')
 
-                            console.log('credit balance is too low to send quote.')
+                            } else {
 
-                          } else {
-
-                            console.log('now got enough credits - will send quote');
-                            this.sendQuote();
-                          }
+                              console.log('now got enough credits - will send quote');
+                              this.sendQuote();
+                            }
+                          });
 
                         });
 
@@ -202,18 +202,21 @@ export class QuoteModal {
       .then((data) => {
 
         console.log('result from sending quote:', data);
-        loading.dismiss();
+
+        setTimeout(() => {
+          loading.dismiss();
+        }, 200);
 
         setTimeout(() => {
           this.ngZone.run(() => {
-              if (this.isEdit !== true)
-                GlobalService.isWhatsNext = true;
-                GlobalService.whatsNextName = this.request.from;
-              this.back();
-              // this.nav.setRoot(TabsPage, {
-              //   tabIndex: 1,
-              //   request: this.request
-              // }, { animate: true /*, direction: 'forward'*/ });
+            if (this.isEdit !== true)
+              GlobalService.isWhatsNext = true;
+            GlobalService.whatsNextName = this.request.from;
+            this.back();
+            // this.nav.setRoot(TabsPage, {
+            //   tabIndex: 1,
+            //   request: this.request
+            // }, { animate: true /*, direction: 'forward'*/ });
           });
         }, 500);
       });
