@@ -46,7 +46,7 @@ export class MyApp {
 
     console.log('checking user...');
     var user = firebase.auth().currentUser;
-    
+
     if (user) {
       this.getMatchedRequests();
 
@@ -93,19 +93,19 @@ export class MyApp {
 
           } else {
             console.log('NO USER PROFILE - logging user out');
-              // firebase.database().ref('supplierProfileCreate').once('value',
-              //   (snapshot) => {
-              //     if (snapshot.exists()) {
-              //       this.nav.setRoot(CreateProfilePage, {
-              //         isWelcome: true,
-              //         pages: snapshot.val().pages,
-              //         formPageIndex: 0,
-              //         answers: {}
-              //       }, { animate: true, direction: 'forward' });
-              //     }
-              //   });
-            // firebase.auth().signOut();
-            // this.nav.setRoot(SignupOrLoginPage);
+            // firebase.database().ref('supplierProfileCreate').once('value',
+            //   (snapshot) => {
+            //     if (snapshot.exists()) {
+            //       this.nav.setRoot(CreateProfilePage, {
+            //         isWelcome: true,
+            //         pages: snapshot.val().pages,
+            //         formPageIndex: 0,
+            //         answers: {}
+            //       }, { animate: true, direction: 'forward' });
+            //     }
+            //   });
+            firebase.auth().signOut();
+            this.nav.setRoot(SignupOrLoginPage);
           }
         })
     } else {
@@ -115,7 +115,7 @@ export class MyApp {
   }
 
 
-  listenForAuthChanges(){
+  listenForAuthChanges() {
 
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
@@ -208,9 +208,9 @@ export class MyApp {
           }
         }
 
-        GlobalService.matchedRequests.data  = matchedRequests;
-        GlobalService.matchedQuotes.data    = matchedQuotes;
-        GlobalService.matchedHires.data     = matchedHires;
+        GlobalService.matchedRequests.data = matchedRequests;
+        GlobalService.matchedQuotes.data = matchedQuotes;
+        GlobalService.matchedHires.data = matchedHires;
 
         if (requestUnreadCount === 0)
           GlobalService.tabBadgeInfo.requestUnreadCount = '';
@@ -355,7 +355,7 @@ export class MyApp {
 var config = {
   prodMode: false,
   backButtonText: '',
-  statusbarPadding: true, 
+  statusbarPadding: true,
 };
 
 ionicBootstrap(MyApp, [disableDeprecatedForms(), provideForms(), FirebaseService], config);
