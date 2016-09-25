@@ -5,6 +5,7 @@ import {PurchaseCreditsPage} from '../purchase-credits/purchase-credits'
 import {FirebaseService} from '../../components/firebaseService';
 import {RatingComponentUpdateable} from '../../components/ratingsComponent';
 import {SecurityContext, DomSanitizationService} from '@angular/platform-browser';
+import {DebugPage} from '../debug/debug'
 
 
 @Component({
@@ -39,8 +40,8 @@ export class ProfilePage {
 
     ref.on('value', (snapshot) => {
       this.ngZone.run(() => {
-        this.profile = snapshot.val();
 
+        this.profile = snapshot.val();
         this.name = this.profile.firstName + ' ' + this.profile.lastName;
         this.credits = this.profile.credits.balance;
 
@@ -99,6 +100,10 @@ export class ProfilePage {
 
   goToPurchaseCredits() {
     this.nav.push(PurchaseCreditsPage)
+  }
+
+  goToDebug() {
+    this.nav.push(DebugPage, {profile: this.profile})
   }
 
   goToTravelPreferences() {
