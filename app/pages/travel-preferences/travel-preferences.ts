@@ -9,7 +9,19 @@ import {InAppPurchase} from 'ionic-native'
 export class TravelPreferencesPage {
 
     profile
-    userId 
+    userId
+
+    travelPref
+    place
+
+    distancePrefs = [
+        { value: 20, text: "Up to 20 miles" },
+        { value: 50, text: "Up to 50 miles" },
+        { value: 75, text: "Up to 75 miles" },
+        { value: 100, text: "Up to 100 miles" },
+        { value: 999999999, text: "More than 100 miles" }
+    ];
+
     constructor(
         public nav: NavController,
         public navParams: NavParams,
@@ -23,8 +35,15 @@ export class TravelPreferencesPage {
 
     ngOnInit() {
 
-        
+        this.profile = this.navParams.get('profile');
+        console.log('PROFILE -> ', this.profile);
+        this.travelPref = this.profile.locationInfo.distance;
+        this.place = this.profile.locationInfo.placeName;
 
     }
-    
+
+    save() {
+        console.log('new travel pref =', this.travelPref);
+    }
+
 }
