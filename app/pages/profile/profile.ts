@@ -44,12 +44,13 @@ export class ProfilePage {
         this.name = this.profile.firstName + ' ' + this.profile.lastName;
         this.credits = this.profile.credits.balance;
 
-        if (typeof this.profile.profile.photo !== 'undefined')
-          this.profileImage = this.profile.profile.photo;
+        if (typeof this.profile.profile.photo === 'string' && this.profile.profile.photo.length > 0) {
+          var profileImage = this.profile.profile.photo;
+          profileImage = profileImage.replace(/\r?\n|\r/g, '');
+          this.profileImage = this.getSafeURL(profileImage);
+        }
 
-        this.profileImage = this.getSafeURL(this.profileImage);
         this.calcReviews(this.profile.reviews);
-
       });
     })
   }
@@ -100,8 +101,11 @@ export class ProfilePage {
     this.nav.push(PurchaseCreditsPage)
   }
 
-  delete() {
+  goToTravelPreferences() {
 
+  }
+
+  delete() {
 
     // var user = firebase.auth().currentUser;
     // var userId = user.uid;
@@ -130,7 +134,6 @@ export class ProfilePage {
 
 
     // });
-
 
   }
 

@@ -116,8 +116,7 @@
     <div *ngIf="currentPage.type === 'photo'" class="photo-wrapper">
 
       <div class="photo-desc">Upload a photo of yourself or your company logo</div>
-      <img src="img/default-photo.png" *ngIf="!base64Image" />
-      <img [src]="getSafeURL(base64Image)" *ngIf="base64Image" />
+      <div class="profile-image" [style.background-image]="profileImage"></div>
       <button class="button block-button" block (click)="takePicture()">Upload</button>
 
     </div>

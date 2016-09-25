@@ -3,8 +3,8 @@
     <ion-title>YOU</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding class="profile">
 
+<ion-content padding class="profile">
 
   <div class="profile-wrapper">
     <div class="profile-image" [style.background-image]="profileImage"></div>
@@ -12,8 +12,7 @@
     <div *ngIf="totalNumberOfReviews === 1" class="profile-name">{{totalNumberOfReviews}} review</div>
     <div *ngIf="totalNumberOfReviews > 1" class="profile-name">{{totalNumberOfReviews}} reviews</div>
     <rating score="{{score}}" max="5"></rating>
-
-      <ion-badge item-right>{{credits}} credits</ion-badge>
+    <ion-badge item-right>{{credits}} credits</ion-badge>
   </div>
 
   <ion-list text-wrap>
@@ -31,7 +30,6 @@
     <button ion-item block (click)="goToPurchaseCredits()">Purchase Credits</button>
 
     <button ion-item block (click)="goToTravelPreferences()">Travel Preferences</button>
-
 
     <!--<ion-item *ngFor="let item of categories">
     {{item}}

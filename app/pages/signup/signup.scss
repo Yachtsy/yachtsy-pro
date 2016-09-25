@@ -108,6 +108,16 @@
             }
         }
 
+        .result-title-text {
+            height: 20px;
+            line-height: 20px;
+            background: #aaaaaa;
+            color: white;
+            padding-left: 24px;
+            font-size: 1.2rem;
+            text-align: left;
+        }
+
         .contact-wrapper {
             padding: 0px 5%;
             margin-top: 10px;
@@ -169,7 +179,9 @@
 }
 
 .pac-container {
-    left: 16px;
+    left: 5% !important;
+    width: 90% !important;
+    margin-top: 20px;
 }
 
 ion-app._gmaps_cdv_ .nav-decor {

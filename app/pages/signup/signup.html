@@ -62,6 +62,7 @@
       <input #myAutocomplete class="loc_input" name="location" type="text" placeholder="Enter location" [(ngModel)]="fromValue">
       <ion-icon name="pin" item-right></ion-icon>
     </ion-item>
+    <div [hidden]="isResultHidden" class="result-title-text">RESULTS</div>
 
     <ion-item>
       <ion-label stacked>How far are you willing to travel?</ion-label>

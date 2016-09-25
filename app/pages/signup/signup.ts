@@ -1,5 +1,5 @@
 import {NavController, NavParams, AlertController, LoadingController, Platform} from 'ionic-angular';
-import {Injectable, ViewChild, ElementRef} from '@angular/core';
+import {Injectable, ViewChild, ElementRef, NgZone} from '@angular/core';
 import {ControlGroup, FormBuilder} from '@angular/common';
 import {Http} from '@angular/http';
 import {CreateProfilePage} from '../create-profile/create-profile'
@@ -29,6 +29,8 @@ export class SignupPage {
   googleApiKey = "AIzaSyB2-pd_C9vShNuBpWzTBHzTtY6cinsYWM0";
 
   userInfoForm
+  isResultHidden
+  locationTimer
 
   @ViewChild('myAutocomplete') myAutocomplete: any;
 
@@ -36,6 +38,7 @@ export class SignupPage {
     public navParams: NavParams,
     public http: Http,
     public formBuilder: FormBuilder,
+    private ngZone: NgZone,
     private platform: Platform,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController) {
@@ -72,6 +75,43 @@ export class SignupPage {
       console.log('keyboard accessory bar is enabled');
       Keyboard.hideKeyboardAccessoryBar(false);
     }
+
+    if (this.stepIndex === 4) {
+      this.isResultHidden = true;
+
+      this.locationTimer = setInterval(() => {
+          var i = 0;
+          var popup_list = document.getElementsByClassName('pac-container');
+
+          var isResultHidden = true;
+          if (!popup_list)
+              isResultHidden = true;
+          else {
+              for (i = 0; i < popup_list.length; i++) {
+                  var popup: any;
+                  popup = popup_list[i];
+                  if (popup && popup.style.display !== 'none') {
+                      isResultHidden = false;
+                      break;
+                  }
+              }
+              if (i >= popup_list.length)
+                  isResultHidden = true;
+          }
+
+          if (isResultHidden !== this.isResultHidden) {
+            console.log('Result Hidden: ' + isResultHidden);
+            this.ngZone.run(() => {
+              this.isResultHidden = isResultHidden;
+            });
+          }
+      }, 100);
+    }
+  }
+
+  ionViewWillLeave() {
+    if (this.stepIndex === 4 &&  this.locationTimer)
+        clearInterval(this.locationTimer);    
   }
 
   clearFrom() {
