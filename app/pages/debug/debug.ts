@@ -30,6 +30,8 @@ export class DebugPage {
 
         this.userId = firebase.auth().currentUser.uid;
 
+        
+
     }
 
 
