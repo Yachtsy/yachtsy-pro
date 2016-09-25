@@ -3,23 +3,29 @@
         <ion-title>TRAVEL PREFERENCES</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content padding class="debug">
+<ion-content padding>
 
-    <ion-label>Where are you based?</ion-label>
+    <div class="location-wrapper">
+
+    <ion-label style="margin-left: 16px">Where are you based?</ion-label>
     <ion-item class="location-item">
-        <input #myAutocomplete class="loc_input" name="location" type="text" placeholder="Enter location" [(ngModel)]="place">
-        <ion-icon name="pin" item-right></ion-icon>
+      <input #myAutocomplete class="loc_input" name="location" type="text" placeholder="Enter location" [(ngModel)]="place">
+      <ion-icon name="pin" item-right></ion-icon>
     </ion-item>
+    <!--<div [hidden]="isResultHidden" class="result-title-text">RESULTS</div>-->
 
     <ion-item>
-        <ion-label stacked>How far are you willing to travel?</ion-label>
-        <ion-select [(ngModel)]="travelPref">
-            <ion-option *ngFor="let item of distancePrefs" [value]="item.value">{{item.text}}</ion-option>
-        </ion-select>
+      <ion-label stacked>How far are you willing to travel?</ion-label>
+      <ion-select [(ngModel)]="travelPref">
+        <ion-option *ngFor="let item of distancePrefs" [value]="item.value">{{item.text}}</ion-option>
+      </ion-select>
     </ion-item>
+
+
+  </div>
 
 </ion-content>
 
 <ion-footer>
-    <button full (click)="save()">Save</button>
+    <!--<button full (click)="save()">Save</button>-->
 </ion-footer>

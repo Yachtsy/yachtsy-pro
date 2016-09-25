@@ -101,14 +101,11 @@ export class MessagesPage {
   }
 
 
-
-
   message
   sendMessage() {
 
     var user = firebase.auth().currentUser;
     var messagePath = 'messages/' + this.requestId + '/' + this.userId + '/' + user.uid;
-
 
     var timestamp = {};
     timestamp['.sv'] = 'timestamp';
@@ -124,7 +121,5 @@ export class MessagesPage {
       this.content.scrollToBottom(300);
     });
 
-
   }
-
 }
