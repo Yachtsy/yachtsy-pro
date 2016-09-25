@@ -465,7 +465,7 @@ export class SignupPage {
     { value: 50, text: "Up to 50 miles" },
     { value: 75, text: "Up to 75 miles" },
     { value: 100, text: "Up to 100 miles" },
-    { value: Number.POSITIVE_INFINITY, text: "More than 100 miles" }
+    { value: 999999999, text: "More than 100 miles" }
   ];
 
   next(item) {
