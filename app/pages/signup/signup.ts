@@ -462,10 +462,10 @@ export class SignupPage {
 
   distancePrefs = [
     { value: 20, text: "Up to 20 miles" },
-    { value: 30, text: "Up to 30 miles" },
     { value: 50, text: "Up to 50 miles" },
     { value: 75, text: "Up to 75 miles" },
-    { value: 100, text: "100 miles or more" }
+    { value: 100, text: "Up to 100 miles" },
+    { value: Number.POSITIVE_INFINITY, text: "More than 100 miles" }
   ];
 
   next(item) {
