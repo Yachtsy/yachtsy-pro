@@ -275,7 +275,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      Keyboard.hideKeyboardAccessoryBar(true);
+      //Keyboard.hideKeyboardAccessoryBar(true);
       Keyboard.disableScroll(true);
 
       GlobalService.windowHeight = window.innerHeight;
