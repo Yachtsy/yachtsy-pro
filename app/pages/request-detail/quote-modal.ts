@@ -1,5 +1,5 @@
 import {Component, NgZone, ElementRef, ViewChild} from '@angular/core';
-import {AlertController, Modal, NavParams, NavController, ViewController, LoadingController} from 'ionic-angular';
+import {AlertController, Modal, NavParams, NavController, ViewController, LoadingController, Platform} from 'ionic-angular';
 import {QuotesPage} from '../quotes/quotes';
 import {TabsPage} from '../tabs/tabs';
 import {FirebaseService} from '../../components/firebaseService';
@@ -27,6 +27,7 @@ export class QuoteModal {
   constructor(private viewCtrl: ViewController,
     public navParams: NavParams,
     public nav: NavController,
+    public platform: Platform,
     public FBService: FirebaseService,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
@@ -68,33 +69,34 @@ export class QuoteModal {
     this.contentsBottom = 44;
     this.footerBottom = 0;
 
-    window.addEventListener('native.keyboardshow', (e) => {
+    if (this.platform.is('ios')) {
+      window.addEventListener('native.keyboardshow', (e) => {
 
-      console.log('keyboard show')
-      this.ngZone.run(() => {
-        this.contentsBottom = e['keyboardHeight'] + 44;
-        this.footerBottom = e['keyboardHeight'];
+        console.log('keyboard show')
+        this.ngZone.run(() => {
+          this.contentsBottom = e['keyboardHeight'] + 44;
+          this.footerBottom = e['keyboardHeight'];
 
-        let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
-        scrollContent.style.marginBottom = (e['keyboardHeight'] + 44) + 'px';
+          let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+          scrollContent.style.marginBottom = (e['keyboardHeight'] + 44) + 'px';
+        });
+
       });
 
-    });
+      window.addEventListener('native.keyboardhide', (e) => {
 
-    window.addEventListener('native.keyboardhide', (e) => {
+        console.log('keyboard hide')
+        this.ngZone.run(() => {
+          console.log('initialising postions')
+          this.contentsBottom = 44;
+          this.footerBottom = 0;
 
-      console.log('keyboard hide')
-      this.ngZone.run(() => {
-        console.log('initialising postions')
-        this.contentsBottom = 44;
-        this.footerBottom = 0;
+          let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
+          scrollContent.style.marginBottom = 44 + 'px';
+        });
 
-        let scrollContent = (<HTMLInputElement>document.querySelector('.quote-modal-content scroll-content'));
-        scrollContent.style.marginBottom = 44 + 'px';
       });
-
-    });
-
+    }
   }
 
   ionViewDidEnter() {

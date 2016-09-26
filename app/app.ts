@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, provide, PLATFORM_PIPES} from '@angular/core';
 import {ionicBootstrap, Platform, Loading, ModalController, AlertController} from 'ionic-angular';
 import {MenuController, Nav} from 'ionic-angular';
 import {StatusBar, Keyboard, Network} from 'ionic-native';
@@ -12,6 +12,7 @@ import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {FirebaseService} from './components/firebaseService'
 import {OfflinePage} from './pages/offline/offline'
 import {RequestDetailPage} from './pages/request-detail/request-detail';
+import {SafeURL} from './components/pipe';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import GlobalService = require('./components/globalService');
@@ -20,6 +21,7 @@ declare var FirebasePlugin;
 
 @Component({
   templateUrl: 'build/app.html',
+  pipes: [SafeURL]
 })
 export class MyApp {
 
@@ -35,6 +37,7 @@ export class MyApp {
     private platform: Platform,
     private menu: MenuController,
     public modalCtrl: ModalController,
+    public FBService: FirebaseService,
     private alertCtrl: AlertController,
     private ngZone: NgZone
   ) {
@@ -46,8 +49,9 @@ export class MyApp {
 
     console.log('checking user...');
     var user = firebase.auth().currentUser;
-
+    
     if (user) {
+      this.getUserProfile();
       this.getMatchedRequests();
 
       console.log('checking user profile...');
@@ -93,19 +97,17 @@ export class MyApp {
 
           } else {
             console.log('NO USER PROFILE - logging user out');
-            this.nav.setRoot(SignupOrLoginPage);
-
-            // firebase.database().ref('supplierProfileCreate').once('value',
-            //   (snapshot) => {
-            //     if (snapshot.exists()) {
-            //       this.nav.setRoot(CreateProfilePage, {
-            //         isWelcome: true,
-            //         pages: snapshot.val().pages,
-            //         formPageIndex: 0,
-            //         answers: {}
-            //       }, { animate: true, direction: 'forward' });
-            //     }
-            //   });
+              // firebase.database().ref('supplierProfileCreate').once('value',
+              //   (snapshot) => {
+              //     if (snapshot.exists()) {
+              //       this.nav.setRoot(CreateProfilePage, {
+              //         isWelcome: true,
+              //         pages: snapshot.val().pages,
+              //         formPageIndex: 0,
+              //         answers: {}
+              //       }, { animate: true, direction: 'forward' });
+              //     }
+              //   });
             // firebase.auth().signOut();
             // this.nav.setRoot(SignupOrLoginPage);
           }
@@ -117,7 +119,7 @@ export class MyApp {
   }
 
 
-  listenForAuthChanges() {
+  listenForAuthChanges(){
 
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
@@ -130,6 +132,16 @@ export class MyApp {
       }
     });
 
+  }
+
+  getUserProfile() {
+    this.FBService.getUserProfile()
+      .subscribe((data) => {
+        // console.log('Profile: ' + JSON.stringify(data));
+        this.ngZone.run(() => {
+          GlobalService.userProfile = data;
+        });
+      });
   }
 
   getMatchedRequests() {
@@ -210,9 +222,9 @@ export class MyApp {
           }
         }
 
-        GlobalService.matchedRequests.data = matchedRequests;
-        GlobalService.matchedQuotes.data = matchedQuotes;
-        GlobalService.matchedHires.data = matchedHires;
+        GlobalService.matchedRequests.data  = matchedRequests;
+        GlobalService.matchedQuotes.data    = matchedQuotes;
+        GlobalService.matchedHires.data     = matchedHires;
 
         if (requestUnreadCount === 0)
           GlobalService.tabBadgeInfo.requestUnreadCount = '';
@@ -357,7 +369,12 @@ export class MyApp {
 var config = {
   prodMode: false,
   backButtonText: '',
-  statusbarPadding: true,
+  statusbarPadding: true, 
 };
 
-ionicBootstrap(MyApp, [disableDeprecatedForms(), provideForms(), FirebaseService], config);
+ionicBootstrap(MyApp, [
+  disableDeprecatedForms(),
+  provideForms(),
+  FirebaseService,
+  provide(PLATFORM_PIPES, { useValue: [SafeURL], multi: true })
+], config);

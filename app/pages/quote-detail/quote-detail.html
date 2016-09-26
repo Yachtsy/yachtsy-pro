@@ -10,7 +10,7 @@
 
   <div class="profile-wrapper">
 
-    <div class="profile-image"></div>
+    <div class="profile-image" [style.background-image]="'url(' + profileImage.url + ')' | safe_url"></div>
     <div class="profile-main-wrapper">
       <div class="profile-name">{{request.from}}</div>
       <div class="profile-desc">{{request.categoryName}} - {{request.locationName}}</div>
@@ -61,10 +61,10 @@
     <ion-toolbar class="message-bar">
         <ion-input class="message-input chatbox" #chat_input *ngIf="request" [(ngModel)]="message" [disabled]="!isHired" placeholder="Write a message..."></ion-input>
         <div class="button-wrapper">
-            <button class="left-button" royal *ngIf="request" (click)="attachMessage($event)">
+            <button class="left-button block-button" royal *ngIf="request" (click)="attachMessage($event)">
                 Attach
             </button>
-            <button class="right-button" royal *ngIf="request" (click)="sendMessage($event)">
+            <button class="right-button block-button" royal *ngIf="request" (click)="sendMessage($event)">
                 Send
             </button>
         </div>

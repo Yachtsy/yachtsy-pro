@@ -315,9 +315,9 @@ export class SignupPage {
   ngAfterViewInit() {
 
     if (this.stepIndex === 4) {
-
       console.log('step index is 4 - do the map autocomplete places hting');
 
+      this.isResultHidden = true;
 
       // setTimeout(() => {
       //   this.createMap();

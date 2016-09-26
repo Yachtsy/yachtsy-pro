@@ -1,5 +1,5 @@
 import {Component, NgZone, ViewChild, ElementRef} from '@angular/core';
-import {NavParams, Content, NavController, ViewController, LoadingController, ModalController} from 'ionic-angular';
+import {NavParams, Content, NavController, ViewController, LoadingController, ModalController, Platform} from 'ionic-angular';
 import {QuoteModal} from '../request-detail/quote-modal'
 import {ChatBubble} from '../../components/chat-bubble/chat-bubble';
 import {Keyboard, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
@@ -24,6 +24,7 @@ export class QuoteDetailPage {
     public nav: NavController,
     private viewCtrl: ViewController,
     private ngZone: NgZone,
+    public platform: Platform,
     public fbserv: FirebaseService,
     private loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
@@ -46,10 +47,16 @@ export class QuoteDetailPage {
   footerBottom = 0;
   curTab = 0;
   isHired = false;
+  profileImage = {};
   
   ngOnInit() {
 
     console.log('ngOnInit - requests');
+
+    this.profileImage = {
+        url: "img/default-photo.png"
+    };
+
     var user = firebase.auth().currentUser;
 
     this.db = firebase.database().ref('users/' + user.uid + '/matchedRequests/' + this.requestId);
@@ -97,35 +104,36 @@ export class QuoteDetailPage {
     this.contentsBottom = 88;
     this.footerBottom = 0;
 
-    window.addEventListener('native.keyboardshow', (e) => {
+    if (this.platform.is('ios')) {
+      window.addEventListener('native.keyboardshow', (e) => {
 
-        console.log('keyboard show')
-        this.ngZone.run(() => {
-            let scrollContent = (<HTMLInputElement>document.querySelector('.quote-detail scroll-content'));
-            scrollContent.style.marginBottom = (e['keyboardHeight'] + 88) + 'px';
-            this.contentsBottom = e['keyboardHeight'] + 88;
-            this.footerBottom = e['keyboardHeight'];
+          console.log('keyboard show')
+          this.ngZone.run(() => {
+              let scrollContent = (<HTMLInputElement>document.querySelector('.quote-detail scroll-content'));
+              scrollContent.style.marginBottom = (e['keyboardHeight'] + 88) + 'px';
+              this.contentsBottom = e['keyboardHeight'] + 88;
+              this.footerBottom = e['keyboardHeight'];
 
-            setTimeout(() => {
-                if (this.content)
-                    this.content.scrollToBottom(300);
-            }, 100);
-        });
+              setTimeout(() => {
+                  if (this.content)
+                      this.content.scrollToBottom(300);
+              }, 100);
+          });
 
-    });
+      });
 
-    window.addEventListener('native.keyboardhide', (e) => {
+      window.addEventListener('native.keyboardhide', (e) => {
 
-        console.log('keyboard hide')
-        this.ngZone.run(() => {
-            console.log('initialising postions')
-            let scrollContent = (<HTMLInputElement>document.querySelector('.quote-detail scroll-content'));
-            scrollContent.style.marginBottom = 88 + 'px';
-            this.contentsBottom = 88;
-            this.footerBottom = 0;
-        });
-    });
-    
+          console.log('keyboard hide')
+          this.ngZone.run(() => {
+              console.log('initialising postions')
+              let scrollContent = (<HTMLInputElement>document.querySelector('.quote-detail scroll-content'));
+              scrollContent.style.marginBottom = 88 + 'px';
+              this.contentsBottom = 88;
+              this.footerBottom = 0;
+          });
+      });
+    }
   }
 
   loadProfile() {
@@ -155,9 +163,19 @@ export class QuoteDetailPage {
             this.messages = Object.keys(msgData)
               .map((key) => {
 
-                msgData[key].position = 'right';
                 if (user.uid === msgData[key].uid) {
                   msgData[key].position = 'left';
+                  msgData[key].img = this.profileImage;
+                  if (GlobalService.userProfile && GlobalService.userProfile.profile.photo)
+                    msgData[key].img = {
+                      url: GlobalService.userProfile.profile.photo
+                    };
+                }
+                else {
+                  msgData[key].position = 'right';
+                  msgData[key].img = {
+                      url: 'img/default-photo.png'
+                  };
                 }
 
                 return msgData[key];
@@ -224,7 +242,7 @@ export class QuoteDetailPage {
       this.footerBottom = 0;
     }
 
-    if (typeof Keyboard !== 'undefined')
+    if (Keyboard)
       Keyboard.close();
   }
 

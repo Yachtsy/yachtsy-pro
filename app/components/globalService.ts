@@ -12,6 +12,8 @@ export var whatsNextName = '';
 
 export var isPassed = false;
 
+export var userProfile = null;
+
 export var tabBadgeInfo = {
   requestUnreadCount:   '',
   hireUnreadCount:      ''

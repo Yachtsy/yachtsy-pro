@@ -113,6 +113,11 @@ ion-buttons.start {
   order: 3;
 }
 
+button {
+  box-shadow: none !important;
+  text-transform: none;
+}
+
 .block-button {
   height: 44px !important;
 }

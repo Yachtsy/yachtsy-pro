@@ -57,6 +57,25 @@ export class FirebaseService {
         return firebase.auth().signOut()
     }
 
+    getUserProfile() {
+
+        var user = firebase.auth().currentUser;
+        // check the credits 
+        let ref = firebase.database().ref().child('users').child(user.uid);
+
+        return new Observable(observer => {
+            ref.on('value',
+                (snapshot) => {
+                    observer.next(snapshot.val())
+                },
+                (error) => {
+                    console.log("ERROR:", error)
+                    observer.error(error)
+                });
+        });
+
+    }
+
     getProducts(){
         return firebase.database().ref().child('products').child('pro').once('value');
     }
