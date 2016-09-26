@@ -333,35 +333,36 @@ export class MyApp {
         this.getPushToken();
 
         FirebasePlugin.onNotificationOpen((notification) => {
-          console.log(notification);
-          var requestId = '';
-          var supplierId = '';
-          if (notification.aps) {
-            requestId = notification.aps.requestId;
+          if (GlobalService.userProfile && GlobalService.userProfile.profile) {
+            console.log(notification);
+            var requestId = '';
+            var supplierId = '';
+            if (notification.aps) {
+              requestId = notification.aps.requestId;
+            }
+
+            let alert = this.alertCtrl.create({
+              title: 'Yachtsy Pro',
+              message: '',
+              buttons: [
+                {
+                  text: 'Ignore',
+                  role: 'cancel',
+                  handler: () => {
+                  }
+                },
+                {
+                  text: 'View Request',
+                  handler: () => {
+                    let modal = this.modalCtrl.create(RequestDetailPage, { requestId: requestId });
+                    modal.present();
+                    // nav.push(Messages, { requestId: requestId });
+                  }
+                }
+              ]
+            });
+            alert.present();
           }
-
-          let alert = this.alertCtrl.create({
-            title: 'Yachtsy Pro',
-            message: '',
-            buttons: [
-              {
-                text: 'Ignore',
-                role: 'cancel',
-                handler: () => {
-                }
-              },
-              {
-                text: 'View Request',
-                handler: () => {
-                  let modal = this.modalCtrl.create(RequestDetailPage, { requestId: requestId });
-                  modal.present();
-                  // nav.push(Messages, { requestId: requestId });
-                }
-              }
-            ]
-          });
-          alert.present();
-
         }, function (error) {
           console.log(error);
         });
