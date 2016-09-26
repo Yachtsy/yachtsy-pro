@@ -249,7 +249,16 @@ export class MyApp {
     FirebasePlugin.getInstanceId(function (token) {
       // save this server-side and use it to push notifications to this device
       console.log('THE PUSH TOKEN IS: ', token);
-      GlobalService.pushToken = token;
+      if (token && token !== '') {
+        GlobalService.pushToken = token;
+      }
+      else {
+        setTimeout(() => {
+          self.pushTokenCallCount++;
+          if (self.pushTokenCallCount < 30)
+            self.getPushToken();
+        }, 2000);
+      }
     }, function (error) {
       console.log((self.pushTokenCallCount + 1) + 'th trying error: ' + error);
       setTimeout(() => {

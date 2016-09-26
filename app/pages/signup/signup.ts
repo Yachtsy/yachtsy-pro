@@ -4,6 +4,7 @@ import {ControlGroup, FormBuilder} from '@angular/common';
 import {Http} from '@angular/http';
 import {CreateProfilePage} from '../create-profile/create-profile'
 import {Component} from '@angular/core';
+import GlobalService = require('../../components/globalService');
 import {Keyboard, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
 
 
@@ -29,7 +30,7 @@ export class SignupPage {
   googleApiKey = "AIzaSyB2-pd_C9vShNuBpWzTBHzTtY6cinsYWM0";
 
   userInfoForm
-  isResultHidden
+  isResultHidden = true;
   locationTimer
 
   @ViewChild('myAutocomplete') myAutocomplete: any;
@@ -201,6 +202,8 @@ export class SignupPage {
     console.log('users email for signup is:', email);
     var password = formData.password;
     console.log('users password for signup is:', password);
+    
+    console.log('push token for signup is:', GlobalService.pushToken);
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
@@ -238,6 +241,7 @@ export class SignupPage {
               email: formData.email,
               password: formData.password,
               telephone: formData.telephone,
+              pushToken: GlobalService.pushToken
             };
 
             var op = {
