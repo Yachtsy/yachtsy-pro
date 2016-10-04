@@ -20,9 +20,16 @@
   <div *ngIf="stepIndex === 1">
 
     <ion-list no-lines>
+      <button ion-item detail-none *ngFor="let item of categoryGroupKeys" (click)="next(item)">
+          <ion-icon *ngIf="answers[currentQuestion] && answers[currentQuestion][item.id]" name='radio-button-on' item-left></ion-icon>
+          <ion-icon *ngIf="!answers[currentQuestion] || !answers[currentQuestion][item.id]" name='radio-button-off' item-left></ion-icon>
+          {{item.name}}
+      </button>
+      <!--
       <button ion-item *ngFor="let item of categoryGroupKeys" (click)="next(item)">
             {{item}}
-    </button>
+      </button>
+      -->
     </ion-list>
 
   </div>
@@ -31,7 +38,7 @@
 
     <ion-list no-lines>
 
-      <button ion-item detail-none *ngFor="let item of categoryGroups[answers[questions[1].name]].categories" (click)="next(item)">
+      <button ion-item detail-none *ngFor="let item of categorySelectedGroups" (click)="next(item)">
           <ion-icon *ngIf="answers[currentQuestion] && answers[currentQuestion][item.id]" name='radio-button-on' item-left></ion-icon>
           <ion-icon *ngIf="!answers[currentQuestion] || !answers[currentQuestion][item.id]" name='radio-button-off' item-left></ion-icon>
           {{item.name}}
@@ -134,8 +141,7 @@
     </ion-buttons>
 
     <ion-buttons end>
-      <button *ngIf="stepIndex === 2" [disabled]="answersLength == 0" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
-      <button *ngIf="stepIndex === 3" [disabled]="answersLength == 0" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
+      <button *ngIf="stepIndex >= 1 && stepIndex <= 3" [disabled]="answersLength == 0" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
       <button *ngIf="stepIndex === 4" [disabled]="!fromValue || !travelPref" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
       <button *ngIf="stepIndex === 6" [disabled]="!userInfoForm.value.firstName || !userInfoForm.value.lastName || !userInfoForm.value.email || !userInfoForm.value.password" (click)="onSubmit(userInfoForm.value)"><ion-icon name="ios-arrow-dropright"></ion-icon></button>
       <button *ngIf="stepIndex === 7" (click)="next()"><ion-icon name="ios-arrow-dropright"></ion-icon></button>

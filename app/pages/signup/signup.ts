@@ -17,6 +17,7 @@ export class SignupPage {
   @ViewChild('map') mapElement: ElementRef;
 
   categoryGroups
+  categorySelectedGroups
   categoryGroupKeys
   answers = {}
   map: any;
@@ -425,23 +426,34 @@ export class SignupPage {
       this.relatedServices = [];
     }
 
-    //console.log('category gorups are ', this.categoryGroups);
-    if (this.categoryGroups) {
-      this.categoryGroupKeys = Object.keys(this.categoryGroups).filter((groupKey) => {
-        return this.categoryGroups[groupKey].enabled;
-      });
+    if (this.stepIndex === 2) {
+      this.categorySelectedGroups = [];
+      for (var id in this.answers[this.questions[1].name]) {
+        var list = this.categoryGroups[this.answers[this.questions[1].name][id]].categories;
+        this.categorySelectedGroups = this.categorySelectedGroups.concat(list);
+      }
     }
 
+    if (this.categoryGroups) {
+      var groupKeys = [];
+      groupKeys = Object.keys(this.categoryGroups).filter((groupKey) => {
+        return this.categoryGroups[groupKey].enabled;
+      });
 
-    //console.log('category groups:');
-    //console.log(this.categoryGroups);
+      this.categoryGroupKeys = [];
+      for (var i = 0; i < groupKeys.length; i++) {
+        this.categoryGroupKeys.push({
+          id:     i,
+          name:   groupKeys[i]
+        });
+      }
+    }
 
     if (this.questions[this.stepIndex].requiresAnswer) {
       this.currentQuestion = this.questions[this.stepIndex].name;
       //console.log('setting current questsion', this.currentQuestion, this.stepIndex);
       this.answers[this.currentQuestion] = {};
     }
-
 
   }
 
@@ -480,7 +492,7 @@ export class SignupPage {
       this.doNext(0);
     } else {
 
-      if (this.stepIndex === 2 || this.stepIndex === 3) {
+      if (this.stepIndex <= 3) {
 
         // if we are selecting/deselecting something
 
@@ -492,19 +504,25 @@ export class SignupPage {
           if (this.answers[this.currentQuestion][item.id]) {
             delete this.answers[this.currentQuestion][item.id];
           } else {
-            this.answers[this.currentQuestion][item.id] = true;
+            if (this.stepIndex === 1)
+              this.answers[this.currentQuestion][item.id] = item.name;
+            else
+              this.answers[this.currentQuestion][item.id] = true;
           }
 
           console.log('answers set:', this.answers);
           this.answersLength = Object.keys(this.answers[this.currentQuestion]).length;
 
-          if (this.stepIndex === 1) {
-            this.doNext(0);
-          }
+          // if (this.stepIndex === 1) {
+          //   this.doNext(0);
+          // }
 
         } else {
 
-          if (this.stepIndex === 2) {
+          if (this.stepIndex === 1) {
+            this.doNext(0);
+          }
+          else if (this.stepIndex === 2) {
 
             // check if there are any relatedCategories for the selected categories
 
@@ -531,9 +549,16 @@ export class SignupPage {
                     let relatedCategoryId = relatedCategories[i];
                     let relatedCategory = categoriesData[relatedCategoryId];
 
+                    // check if new service is already existing on list.
                     if (relatedCategory) {
-                      relatedCategory.id = relatedCategoryId;
-                      this.relatedServices.push(relatedCategory);
+                      for (var j = 0; j < this.relatedServices.length; j++) {
+                        if (this.relatedServices[j].id === relatedCategoryId)
+                          break;
+                      }
+                      if (j >= this.relatedServices.length) {
+                        relatedCategory.id = relatedCategoryId;
+                        this.relatedServices.push(relatedCategory);
+                      }
                     }
                   }
                 }
