@@ -56,7 +56,7 @@ export class CreateProfilePage {
       }
     }
 
-    this.profileImage = this.getSafeURL('img/default-photo.png');
+    this.profileImage = 'img/default-photo.png';
   }
 
   ngOnInit() {
@@ -173,19 +173,14 @@ export class CreateProfilePage {
       // imageData is a base64 encoded string
       console.log('image taken');
       this.base64Image = "data:image/jpeg;base64," + imageData;
-      this.base64Image = this.base64Image.replace(/\r?\n|\r/g, '');
-      this.profileImage = this.getSafeURL(this.base64Image);
+      this.profileImage = this.base64Image.replace(/\r?\n|\r/g, '');
 
-      this.answers[this.currentPage.name] = this.base64Image;
+      this.answers[this.currentPage.name] = this.profileImage;
       // console.log(JSON.stringify(this.answers));
 
     }, (err) => {
       console.log(err);
     });
-  }
-
-  getSafeURL(url) {
-    return this.sanitizer.bypassSecurityTrustStyle('url(' + url + ')');
   }
 
   save() {
