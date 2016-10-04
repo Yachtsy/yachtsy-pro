@@ -166,8 +166,6 @@ export class MyApp {
 
           if (req.read !== true)
             requestUnreadCount++;
-          // if (req.read !== true)
-          //   hireUnreadCount++;
 
           var body = JSON.parse(req.body);
           var desc = "";
@@ -195,8 +193,11 @@ export class MyApp {
             matchedQuotes.push(req);
           }
 
-          if (req.hiring.isHired && !req.cleared && req.hiring.suppliers[user.uid])
+          if (req.hiring.isHired && !req.cleared && req.hiring.suppliers[user.uid]) {
+            if (req.hiring.suppliers[user.uid].read !== true)
+              hireUnreadCount++;
             matchedHires.push(req);
+          }
 
         });
 
@@ -218,6 +219,17 @@ export class MyApp {
               Object.assign(tmp, matchedQuotes[i]);
               matchedQuotes[i] = matchedQuotes[j];
               matchedQuotes[j] = tmp;
+            }
+          }
+        }
+
+        for (i = 0; i < matchedHires.length; i++) {
+          for (j = i + 1; j < matchedHires.length; j++) {
+            if (matchedHires[i].hiring.suppliers[user.uid].hiredDate < matchedHires[j].hiring.suppliers[user.uid].hiredDate) {
+              var tmp = {};
+              Object.assign(tmp, matchedHires[i]);
+              matchedHires[i] = matchedHires[j];
+              matchedHires[j] = tmp;
             }
           }
         }

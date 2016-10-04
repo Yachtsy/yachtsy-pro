@@ -16,7 +16,7 @@
     <div tappable *ngFor="let item of requests.data">
       <ion-item *ngIf="!item.cleared" (click)="click(item)">
         <ion-avatar item-left>
-          <div [hidden]="item.read" class="circle"></div>
+          <div [hidden]="item.hiring.suppliers[user.uid].read" class="circle"></div>
         </ion-avatar>
 
         <h2> <b>{{item.from}}</b></h2>

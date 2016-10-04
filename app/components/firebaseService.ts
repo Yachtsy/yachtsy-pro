@@ -49,6 +49,21 @@ export class FirebaseService {
 
     }
 
+    supplierMarkHireRead(requestId) {
+
+        var user = firebase.auth().currentUser;
+        let ref = firebase.database().ref('users/' + user.uid + '/matchedRequests/' + requestId + '/hiring/suppliers/' + user.uid);
+        ref.update({ read: true }, (error) => {
+
+            if (!error) {
+                console.log('updated hire read status');
+            } else {
+                console.log('error updating hire read status');
+            }
+
+        });
+    }
+
     currentUser() {
         return firebase.auth().currentUser
     }

@@ -41,6 +41,8 @@ export class HiresPage {
   click(item) {
     console.log('hire clicked', item);
 
+    this.fbserv.supplierMarkHireRead(item.id);
+
     let modal = this.modalCtrl.create(QuoteDetailPage, { requestId: item.id, isHired: true });
     modal.present();
 
