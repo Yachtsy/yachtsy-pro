@@ -240,7 +240,7 @@ export class SignupPage {
               lastName: formData.lastName,
               locationInfo: this.answers['LocationPreferences'],
               email: formData.email,
-              password: formData.password,
+              // password: formData.password,
               telephone: formData.telephone,
               pushToken: GlobalService.pushToken
             };
