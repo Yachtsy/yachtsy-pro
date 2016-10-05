@@ -1,12 +1,14 @@
 
+<div class="header-wrapper">
+  <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
+  <button *ngIf="!request.hiring.completion" class="pass-button" (click)="mark()">MARK REQUEST</button>
+  <button *ngIf="request.hiring.completion && request.hiring.completion.requested == true && !request.hiring.completion.isComplete" class="pass-button">PENDING REQUEST</button>
+  <button *ngIf="request.hiring.completion && request.hiring.completion.requested == true && request.hiring.completion.isComplete == true" class="pass-button">COMPLETE</button>
+</div>
+
 <ion-content padding class="quote-detail">
 
   <div #map class="map-wrapper"></div>
-
-  <div class="header-wrapper">
-    <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
-    <button *ngIf="isHired" class="more-button" (click)="mark()"><ion-icon name="checkmark"></ion-icon></button>
-  </div>
 
   <div class="profile-wrapper">
 

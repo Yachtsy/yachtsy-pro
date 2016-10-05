@@ -12,6 +12,47 @@
 	    border: none;
 	}
 
+	.header-wrapper {
+		position: absolute;
+		top: 40px;
+		left: 0px;
+		width: 100%;
+		height: 40px;
+	    z-index: 99999999;
+	}
+
+	.prev-button {
+		position: absolute;
+		top: 0px;
+		left: 10px;
+	    background: white;
+	    border-radius: 30px;
+	    width: 30px;
+	    height: 30px;
+	    border: 2px solid #005677;
+	    font-size: 1.4rem;
+	    text-align: center;
+	    color: #005677;
+	    z-index: 99999999;
+    }
+
+    .prev-button ion-icon {
+    	padding: 0px;
+    }
+
+    .pass-button {
+		position: absolute;
+		top: 0px;
+		right: 10px;
+		height: 30px;
+	    background: white;
+	    border-radius: 6px;
+	    padding: 0px 10px;
+	    color: #005677;
+	    border: 2px solid #005677;
+	    z-index: 99999999;
+	    }
+
 	.request-detail {
 		
 		padding: 0px;
@@ -19,47 +60,6 @@
 		scroll-content {
 			padding: 0px;
 		}
-
-		.header-wrapper {
-			position: absolute;
-			top: 40px;
-			left: 0px;
-			width: 100%;
-			height: 40px;
-		    z-index: 99999999;
-		}
-
-		.prev-button {
-			position: absolute;
-			top: 0px;
-			left: 10px;
-		    background: white;
-		    border-radius: 30px;
-		    width: 30px;
-		    height: 30px;
-		    border: 2px solid #005677;
-		    font-size: 1.4rem;
-		    text-align: center;
-		    color: #005677;
-		    z-index: 99999999;
-	    }
-
-	    .prev-button ion-icon {
-	    	padding: 0px;
-	    }
-
-	    .pass-button {
-			position: absolute;
-			top: 0px;
-			right: 10px;
-			height: 30px;
-		    background: white;
-		    border-radius: 6px;
-		    padding: 0px 10px;
-		    color: #005677;
-		    border: 2px solid #005677;
-		    z-index: 99999999;
-   	    }
 
 		.map-wrapper {
 			position: relative;

@@ -1,5 +1,5 @@
 import {Component, NgZone, ViewChild, ElementRef} from '@angular/core';
-import {NavParams, Content, NavController, ViewController, LoadingController, ModalController, Platform} from 'ionic-angular';
+import {NavParams, Content, NavController, ViewController, AlertController, LoadingController, ModalController, Platform} from 'ionic-angular';
 import {QuoteModal} from '../request-detail/quote-modal'
 import {ChatBubble} from '../../components/chat-bubble/chat-bubble';
 import {Keyboard, GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions} from 'ionic-native';
@@ -23,6 +23,7 @@ export class QuoteDetailPage {
   constructor(
     public nav: NavController,
     private viewCtrl: ViewController,
+    public alertCtrl: AlertController,
     private ngZone: NgZone,
     public platform: Platform,
     public fbserv: FirebaseService,
@@ -48,6 +49,8 @@ export class QuoteDetailPage {
   curTab = 0;
   isHired = false;
   profileImage = {};
+
+  rightButtonName = "MARK REQUEST";
   
   ngOnInit() {
 
@@ -278,16 +281,36 @@ export class QuoteDetailPage {
   }
 
   mark() {
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+    let confirm = this.alertCtrl.create({
+      title: 'Mark Request',
+      message: 'Are you sure you want to make this request as complete?',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            console.log('No clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log('Yes clicked');
+
+            let loading = this.loadingCtrl.create({
+              content: 'Please wait...'
+            });
+
+            loading.present();
+
+            this.fbserv.markComplete(this.requestId)
+              .then(function () {
+                loading.dismiss();
+              });
+          }
+        }
+      ]
     });
-
-    loading.present();
-
-    this.fbserv.markComplete(this.requestId)
-      .then(function () {
-        loading.dismiss();
-      });    
+    confirm.present();
   }
 
   edit() {
