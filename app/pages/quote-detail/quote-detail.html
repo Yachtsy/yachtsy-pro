@@ -2,7 +2,7 @@
 <div class="header-wrapper">
   <button class="prev-button" (click)="back()"><ion-icon name="arrow-back"></ion-icon></button>
   <button *ngIf="isHired && !request.hiring.completion" class="pass-button" (click)="mark()">MARK COMPLETE</button>
-  <button disabled="true" *ngIf="isHired && request.hiring.completion && request.hiring.completion.requested == true && !request.hiring.completion.isComplete" class="pass-button">PENDING REQUEST</button>
+  <button disabled="true" *ngIf="isHired && request.hiring.completion && request.hiring.completion.requested == true && !request.hiring.completion.isComplete" class="pass-button">PENDING COMPLETION</button>
   <button disabled="true" *ngIf="isHired && request.hiring.completion && request.hiring.completion.requested == true && request.hiring.completion.isComplete == true" class="pass-button">COMPLETE</button>
 </div>
 

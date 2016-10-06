@@ -10,7 +10,7 @@
 -->
   <div #map class="map-wrapper"></div>
   
-  <div class="profile-wrapper">
+  <div class="profile-wrapper" *ngIf="request">
 
     <div class="profile-image"></div>
     <div class="profile-main-wrapper">
@@ -51,6 +51,6 @@
 
 <ion-footer>
   <ion-toolbar no-border-bottom>
-    <button class="button block-button" block (click)="quote()" [disabled]="request.quote">Send a Quote</button>
+    <button class="button block-button" block (click)="quote()" [disabled]="request && request.quote">Send a Quote</button>
   </ion-toolbar>
 </ion-footer>

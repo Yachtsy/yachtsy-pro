@@ -44,6 +44,8 @@ export class RequestDetailPage {
   ngOnInit() {
 
     console.log('ngOnInit - request details');
+    if (!this.requestId)
+      return;
 
     var user = firebase.auth().currentUser;
 
